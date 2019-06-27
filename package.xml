@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>doogie_description</name>
+    <version>0.1.6</version>
+    <description>The doogie_description package</description>
+
+    <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
+    <author email="caioaamaral@gmail.com">Caio Amaral</author>
+
+    <license>BSD</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <exec_depend>robot_state_publisher</exec_depend>
+    <exec_depend>xacro</exec_depend>
+</package>
