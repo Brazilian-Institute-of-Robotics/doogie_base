@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
 
     <!-- Parameters -->
     <xacro:property name="mass" value="2.5"/>
     <xacro:property name="namespace" value="doogie"/>
 
-
+    <!-- Includes -->
+    <!-- xacro:include filename="$(find doogie_description)/urdf/common_properties.xacro"/ -->
     <!-- macro: base -->
     <xacro:macro name="doogie_base" params="namespace">
-        <link name="${namespace}/link_name">
+        <link name="${namespace}/base_link">
 
             <inertial>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -20,7 +21,8 @@
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <box size="0.5 0.3 0.1"/>
-                </geometry> 
+                </geometry>
+                <material name="red"/>
             </visual>
 
             <collision>

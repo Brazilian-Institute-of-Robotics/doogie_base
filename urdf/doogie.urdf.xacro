@@ -1,13 +1,31 @@
 <?xml version="1.0"?>
-<robot name="doogie" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="doogie" xmlns:xacro="http://ros.org/wiki/xacro">
     
     <!-- Parameters -->
     <xacro:arg name="namespace" default="doogie"/>
 
     <!-- Includes -->
+    <xacro:include filename="$(find doogie_description)/urdf/common_properties.xacro"/>
     <xacro:include filename="$(find doogie_description)/urdf/doogie_base.xacro"/>
+    <xacro:include filename="$(find doogie_description)/urdf/doogie_wheels.xacro"/>
 
-    <!-- Creates the doogie -->
+    <!-- Creates doogie base -->
     <xacro:doogie_base namespace="$(arg namespace)"/>
 
+    <!-- Creates wheels -->
+    <xacro:wheels namespace="$(arg namespace)" sufix="front_left">
+         <origin xyz="0 0.3 0" rpy="0 0 0" />
+    </xacro:wheels>
+
+    <xacro:wheels namespace="$(arg namespace)" sufix="front_right">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:wheels>
+
+    <xacro:wheels namespace="$(arg namespace)" sufix="rear_left">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:wheels>
+
+    <xacro:wheels namespace="$(arg namespace)" sufix="rear_right">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:wheels>
 </robot>
