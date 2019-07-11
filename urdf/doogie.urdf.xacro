@@ -13,19 +13,20 @@
     <xacro:doogie_base namespace="$(arg namespace)"/>
 
     <!-- Creates wheels -->
-    <xacro:wheels namespace="$(arg namespace)" sufix="front_left">
-         <origin xyz="0 0.3 0" rpy="0 0 0" />
+    <xacro:wheels namespace="$(arg namespace)" sufix="left">
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+        <origin
+          xyz="-0.011296 0.044721 0.00521"
+          rpy="1.6313 0 -1.5708" />
     </xacro:wheels>
 
-    <xacro:wheels namespace="$(arg namespace)" sufix="front_right">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+    <xacro:wheels namespace="$(arg namespace)" sufix="right">
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+        <origin
+          xyz="-0.011296 -0.044079 0.00521"
+          rpy="-1.6313 0 1.5708" />
     </xacro:wheels>
 
-    <xacro:wheels namespace="$(arg namespace)" sufix="rear_left">
-        <origin xyz="0 0 0" rpy="0 0 0" />
-    </xacro:wheels>
-
-    <xacro:wheels namespace="$(arg namespace)" sufix="rear_right">
-        <origin xyz="0 0 0" rpy="0 0 0" />
-    </xacro:wheels>
 </robot>
