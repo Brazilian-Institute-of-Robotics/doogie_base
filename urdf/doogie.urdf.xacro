@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot name="doogie" xmlns:xacro="http://ros.org/wiki/xacro">
+    
+    <!-- Parameters -->
+    <xacro:arg name="namespace" default="doogie"/>
+
+    <!-- Includes -->
+    <xacro:include filename="$(find doogie_description)/urdf/common_properties.xacro"/>
+    <xacro:include filename="$(find doogie_description)/urdf/doogie_base.xacro"/>
+    <xacro:include filename="$(find doogie_description)/urdf/doogie_wheels.xacro"/>
+
+    <!-- Creates doogie base -->
+    <xacro:doogie_base namespace="$(arg namespace)"/>
+
+    <!-- Creates wheels -->
+    <xacro:wheels namespace="$(arg namespace)" sufix="left">
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+        <origin
+          xyz="-0.011296 0.044721 0.00521"
+          rpy="1.6313 0 -1.5708" />
+    </xacro:wheels>
+
+    <xacro:wheels namespace="$(arg namespace)" sufix="right">
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+        <origin
+          xyz="-0.011296 -0.044079 0.00521"
+          rpy="-1.6313 0 1.5708" />
+    </xacro:wheels>
+
+</robot>

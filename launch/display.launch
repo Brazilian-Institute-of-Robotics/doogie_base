@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="rvizconfig" default="$(find doogie_description)/rviz/display.rviz" />
+
+    <include file="$(find doogie_description)/launch/description.launch" />
+
+    <param name="use_gui" value="true"/>
+
+    <group ns="doogie">
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+    </group>
+
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>
