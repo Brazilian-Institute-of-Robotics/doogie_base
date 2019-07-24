@@ -19,6 +19,8 @@
         <origin
           xyz="-0.011296 0.044721 0.00521"
           rpy="1.6313 0 -1.5708" />
+        <axis 
+          xyz="-1.0 0.0 0.0"/>
     </xacro:wheels>
 
     <xacro:wheels namespace="$(arg namespace)" sufix="right">
@@ -27,6 +29,8 @@
         <origin
           xyz="-0.011296 -0.044079 0.00521"
           rpy="-1.6313 0 1.5708" />
+        <axis
+          xyz="1.0 0.0 0.0"/>
     </xacro:wheels>
 
     <gazebo>

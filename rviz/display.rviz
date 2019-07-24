@@ -52,7 +52,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Alpha: 0.5
+    - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
@@ -62,6 +62,21 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        doogie/base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel/left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel/right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: doogie/robot_description
       TF Prefix: ""
@@ -79,7 +94,7 @@ Visualization Manager:
           Value: true
         wheel/right:
           Value: true
-      Marker Scale: 0.5
+      Marker Scale: 0.0599999987
       Name: TF
       Show Arrows: true
       Show Axes: true
@@ -117,7 +132,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.613322616
+      Distance: 0.32366991
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -132,10 +147,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.500397265
+      Pitch: 0.54039681
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.97177792
+      Yaw: 3.53359532
     Saved: ~
 Window Geometry:
   Displays:

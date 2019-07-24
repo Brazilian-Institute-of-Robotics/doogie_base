@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.0-0-g9aa0fdb  Build Version: 1.5.7004.21443
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="doogie_description">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0022635 0.00032106 0.00030753"
+        rpy="0 0 0" />
+      <mass
+        value="0.029195" />
+      <inertia
+        ixx="1.2452E-05"
+        ixy="3.9492E-12"
+        ixz="8.5399E-17"
+        iyy="1.635E-05"
+        iyz="7.6951E-15"
+        izz="2.8634E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/collada/base.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/collada/base.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0033664 1.419E-05 -1.7243E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.0029447" />
+      <inertia
+        ixx="4.567E-07"
+        ixy="4.239E-11"
+        ixz="-5.3853E-13"
+        iyy="2.3874E-07"
+        iyz="-1.5273E-12"
+        izz="2.3862E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 3.1416 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 3.1416 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.011296 0.044721 0.00521"
+      rpy="1.6313 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_wheel" />
+    <axis
+      xyz="-1 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+  <link
+    name="right_wheel">
+    <inertial>
+      <origin
+        xyz="0.0033664 1.419E-05 -1.7243E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.0029447" />
+      <inertia
+        ixx="4.567E-07"
+        ixy="4.239E-11"
+        ixz="-5.3853E-13"
+        iyy="2.3874E-07"
+        iyz="-1.5273E-12"
+        izz="2.3862E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/collada/wheel.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.011296 -0.044079 0.00521"
+      rpy="-1.6313 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_wheel" />
+    <axis
+      xyz="-1 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+</robot>
