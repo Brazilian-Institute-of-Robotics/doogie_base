@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.0-0-g9aa0fdb  Build Version: 1.5.7004.21443
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="doogie_description">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00968674071529441 -4.2987819602154E-18 -0.0125192407288749"
+        rpy="0 0 0" />
+      <mass
+        value="0.0329293734335584" />
+      <inertia
+        ixx="1.52668608193465E-05"
+        ixy="4.58917710661775E-12"
+        ixz="2.73567369382039E-23"
+        iyy="1.93599497928914E-05"
+        iyz="-2.31610571514848E-23"
+        izz="3.44511538963699E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/base_link_v2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.337254901960784 0.847058823529412 0.529411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/base_link_v2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0033666 -9.9865E-06 -1.0075E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0029432" />
+      <inertia
+        ixx="4.5609E-07"
+        ixy="-2.9741E-11"
+        ixz="-2.9949E-11"
+        iyy="2.3839E-07"
+        iyz="7.5302E-11"
+        izz="2.3834E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.00302000000000002 0.0463999875632956 -0.00444"
+      rpy="1.5707963267949 0 1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_wheel" />
+    <axis
+      xyz="1 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+  <link
+    name="right_wheel">
+    <inertial>
+      <origin
+        xyz="0.0033666 -9.9834E-06 -1.0078E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0029432" />
+      <inertia
+        ixx="4.5609E-07"
+        ixy="2.9676E-11"
+        ixz="3.0014E-11"
+        iyy="2.3834E-07"
+        iyz="7.4884E-11"
+        izz="2.3839E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.00302000000000008 -0.0463999875632956 -0.00444000000000003"
+      rpy="1.5707963267949 0 1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_wheel" />
+    <axis
+      xyz="1 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+
+  <link
+    name="ir_sensor_1_link">
+    <inertial>
+      <origin
+        xyz="-0.0031097 9.1697E-06 0.0024808"
+        rpy="0 0 0" />
+      <mass
+        value="0.00039017" />
+      <inertia
+        ixx="2.8202E-09"
+        ixy="8.0779E-28"
+        ixz="-4.2652E-25"
+        iyy="2.8299E-09"
+        iyz="1.1746E-11"
+        izz="1.2569E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="ir_sensor_1_link">        
+   <sensor type="ray" name="TeraRanger">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>50</update_rate>
+      <ray>
+         <scan>
+            <horizontal>
+               <samples>10</samples>
+               <resolution>1</resolution> 
+               <min_angle>-0.14835</min_angle>
+               <max_angle>0.14835</max_angle>
+            </horizontal>
+            <vertical>
+               <samples>10</samples>
+               <resolution>1</resolution> 
+               <min_angle>-0.14835</min_angle>
+               <max_angle>0.14835</max_angle> 
+            </vertical>
+         </scan>
+         <range>
+            <min>0.01</min>
+            <max>2</max>
+            <resolution>0.02</resolution>
+         </range>
+      </ray>
+      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+         <gaussianNoise>0.005</gaussianNoise>
+         <alwaysOn>true</alwaysOn>
+         <updateRate>50</updateRate>
+         <topicName>sensor/ir_1</topicName>
+         <frameName>ir_sensor_1_link</frameName>
+         <radiation>INFRARED</radiation>
+         <fov>0.2967</fov>
+      </plugin>
+   </sensor>  
+   </gazebo>
+
+  <joint
+    name="ir_sensor_1_joint"
+    type="fixed">
+    <origin
+      xyz="0.0364324038765062 0.0351454111038035 -0.01074"
+      rpy="1.5707963267949 0 0.17453" />
+    <parent
+      link="base_link" />
+    <child
+      link="ir_sensor_1_link" />
+    <axis
+      xyz="0 0 1" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+  <link
+    name="ir_sensor_2_link">
+    <inertial>
+      <origin
+        xyz="0.00099071 9.1697E-06 0.00439"
+        rpy="0 0 0" />
+      <mass
+        value="0.00039017" />
+      <inertia
+        ixx="2.8202E-09"
+        ixy="-4.4429E-27"
+        ixz="-5.1699E-25"
+        iyy="2.8299E-09"
+        iyz="1.1746E-11"
+        izz="1.2569E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_2_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ir_sensor_2_joint"
+    type="fixed">
+    <origin
+      xyz="0.052482 0.014629 -0.01074"
+      rpy="1.5707963267949 0 0.87266" />
+    <parent
+      link="base_link" />
+    <child
+      link="ir_sensor_2_link" />
+    <axis
+      xyz="0 0 1" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+  <link
+    name="ir_sensor_3_link">
+    <inertial>
+      <origin
+        xyz="0.00439 9.1697E-06 0.00099071"
+        rpy="0 0 0" />
+      <mass
+        value="0.00039017" />
+      <inertia
+        ixx="2.8202E-09"
+        ixy="-7.1894E-26"
+        ixz="8.2718E-25"
+        iyy="2.8299E-09"
+        iyz="1.1746E-11"
+        izz="1.2569E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_3_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_3_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ir_sensor_3_joint"
+    type="fixed">
+    <origin
+      xyz="0.0524823992514108 -0.0146287488616027 -0.01074"
+      rpy="1.5707963267949 0 -0.87266" />
+    <parent
+      link="base_link" />
+    <child
+      link="ir_sensor_3_link" />
+    <axis
+      xyz="0 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+  <link
+    name="ir_sensor_4_link">
+    <inertial>
+      <origin
+        xyz="0.0031097 9.1697E-06 0.0024808"
+        rpy="0 0 0" />
+      <mass
+        value="0.00039017" />
+      <inertia
+        ixx="2.8202E-09"
+        ixy="2.8273E-27"
+        ixz="-4.6529E-25"
+        iyy="2.8299E-09"
+        iyz="1.1746E-11"
+        izz="1.2569E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_4_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doogie_description/meshes/stl/ir_sensor_4_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ir_sensor_4_joint"
+    type="fixed">
+    <origin
+      xyz="0.036432 -0.035145 -0.01074"
+      rpy="1.5708 0 -0.17453" />
+    <parent
+      link="base_link" />
+    <child
+      link="ir_sensor_4_link" />
+    <axis
+      xyz="0 0 0" />
+    <safety_controller
+      k_velocity="0" />
+  </joint>
+</robot>
