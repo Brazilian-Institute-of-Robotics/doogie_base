@@ -12,6 +12,7 @@ def talker():
     test = "test"
     mh = MatrixHandle()
     mh.initMatrix(3, 3, "Linha", "Coluna", -1)
+    mh.setMatrixElement(mh.mat, 2, 2, 52)
     while not rospy.is_shutdown():        
         #rospy.loginfo(matrix)
         rospy.loginfo("%d", mh.getMatrixElement(mh.mat, 2, 2))
