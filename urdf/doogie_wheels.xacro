@@ -43,6 +43,7 @@
         <child link="wheel/${sufix}"/>
         <xacro:insert_block name="joint_pose"/>
         <xacro:insert_block name="axis"/>
+        <dynamics friction="0.3"/>
     </joint>
 
     <transmission name="wheel/${sufix}_trans" type="SimpleTransmission">
