@@ -13,29 +13,29 @@
     <xacro:doogie_base namespace="$(arg namespace)"/>
 
     <!-- Creates wheels -->
-    <xacro:wheels namespace="$(arg namespace)" sufix="left">
+    <xacro:wheels namespace="$(arg namespace)" wheel="left">
         <mesh
-          filename="package://doogie_description/meshes/collada/wheel.dae" />
+            filename="package://doogie_description/meshes/collada/wheel.dae" />
         <origin
-          xyz="-0.011296 0.044721 0.00521"
-          rpy="1.6313 0 -1.5708" />
+            xyz="-0.011296 0.044721 0.00521"
+            rpy="1.6313 0 -1.5708" />
         <axis 
-          xyz="-1.0 0.0 0.0"/>
+            xyz="-1.0 0.0 0.0"/>
     </xacro:wheels>
 
-    <xacro:wheels namespace="$(arg namespace)" sufix="right">
+    <xacro:wheels namespace="$(arg namespace)" wheel="right">
         <mesh
-          filename="package://doogie_description/meshes/collada/wheel.dae" />
+            filename="package://doogie_description/meshes/collada/wheel.dae" />
         <origin
-          xyz="-0.011296 -0.044079 0.00521"
-          rpy="-1.6313 0 1.5708" />
+            xyz="-0.011296 -0.044079 0.00521"
+            rpy="-1.6313 0 1.5708" />
         <axis
-          xyz="1.0 0.0 0.0"/>
+            xyz="1.0 0.0 0.0"/>
     </xacro:wheels>
 
     <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>$(arg namespace)</robotNamespace>
+        <robotNamespace>$(arg namespace)</robotNamespace>
     </plugin>
     </gazebo>  
 
