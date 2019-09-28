@@ -31,7 +31,6 @@
             <geometry>
                 <xacro:insert_block name="mesh"/>
             </geometry>
-            <material name="dark"/>
         </visual>
 
         <collision>
