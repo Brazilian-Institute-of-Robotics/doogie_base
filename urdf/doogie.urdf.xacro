@@ -8,11 +8,12 @@
     <xacro:include filename="$(find doogie_description)/urdf/common_properties.xacro"/>
     <xacro:include filename="$(find doogie_description)/urdf/doogie_base.xacro"/>
     <xacro:include filename="$(find doogie_description)/urdf/doogie_wheels.xacro"/>
+    <xacro:include filename="$(find doogie_description)/urdf/doogie_sensors.xacro"/>
 
-    <!-- Creates doogie base -->
+    <!-- Create doogie base -->
     <xacro:doogie_base namespace="$(arg namespace)"/>
 
-    <!-- Creates wheels -->
+    <!-- Create wheels -->
     <xacro:wheels namespace="$(arg namespace)" wheel="left">
         <mesh
             filename="package://doogie_description/meshes/collada/wheel.dae" />
@@ -33,10 +34,36 @@
             xyz="1.0 0.0 0.0"/>
     </xacro:wheels>
 
+    <!-- Add ros_control plugin -->
     <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>$(arg namespace)</robotNamespace>
-    </plugin>
-    </gazebo>  
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>$(arg namespace)</robotNamespace>
+        </plugin>
+    </gazebo>
+
+    <!-- Create ir_sensors -->  
+    <xacro:sensors namespace="$(arg namespace)" sensor_name="left">
+        <origin
+            xyz="0.0364324038765062 0.0351454111038035 -0.01074"
+            rpy="1.5707963267949 0 0.17453"/>
+    </xacro:sensors>
+
+    <xacro:sensors namespace="$(arg namespace)" sensor_name="front_left">
+        <origin
+            xyz="0.052482 0.014629 -0.01074"
+            rpy="1.5707963267949 0 0.87266"/>
+    </xacro:sensors>
+
+    <xacro:sensors namespace="$(arg namespace)" sensor_name="front_right">
+        <origin
+            xyz="0.0524823992514108 -0.0146287488616027 -0.01074"
+            rpy="1.5707963267949 0 -0.87266"/>
+    </xacro:sensors>
+
+    <xacro:sensors namespace="$(arg namespace)" sensor_name="right">
+        <origin
+            xyz="0.036432 -0.035145 -0.01074"
+            rpy="1.5708 0 -0.17453"/>
+    </xacro:sensors>
 
 </robot>

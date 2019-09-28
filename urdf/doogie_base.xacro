@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
     <!-- Parameters -->
-    <xacro:property name="mass" value="0.029195"/>
+    <xacro:property name="mass" value="0.03293"/>
     <xacro:property name="namespace" value="doogie"/>
 
     <!-- Includes -->
@@ -13,30 +13,34 @@
         <link name="${namespace}/base_link">
 
             <inertial>
-                <origin xyz="0.0022635 0.00032106 0.00030753" rpy="0 0 0"/>
-                <mass value="${mass}"/>
+                <origin 
+                    xyz="0.00968674071529441 -4.2987819602154E-18 -0.0125192407288749" 
+                    rpy="0 0 0"/>
+
+                <mass 
+                    value="${mass}"/>
 
                 <inertia
-                    ixx="1.2452E-05"
-                    ixy="3.9492E-12"
-                    ixz="8.5399E-17"
-                    iyy="1.635E-05"
-                    iyz="7.6951E-15"
-                    izz="2.8634E-05" />
+                    ixx="1.52668608193465E-05"
+                    ixy="4.58917710661775E-12"
+                    ixz="2.73567369382039E-23"
+                    iyy="1.93599497928914E-05"
+                    iyz="-2.31610571514848E-23"
+                    izz="3.44511538963699E-05" />
 
             </inertial>
 
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://doogie_description/meshes/collada/base.dae"/>
+                    <mesh filename="package://doogie_description/meshes/collada/base_link_v3.dae"/>
                 </geometry>
             </visual>
 
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://doogie_description/meshes/collada/base.dae"/>
+                    <mesh filename="package://doogie_description/meshes/collada/base_link_v3.dae"/>
                 </geometry>
             </collision>
 

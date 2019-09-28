@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!-- Includes -->
+    <xacro:include filename="$(find doogie_description)/urdf/acessories/ir_sensor.xacro"/>
+
+    <xacro:macro name="sensors" params="namespace sensor_name *origin">
+
+        <link name="ir_sensor/${sensor_name}">
+
+            <inertial>
+                <origin 
+                    xyz="0.00099071 9.1697E-06 0.00439" 
+                    rpy="0.0 0.0 0.0"/>
+                <mass 
+                    value="0.00039017"/>
+                <inertia 
+                    ixx="0.0" 
+                    ixy="0.0" 
+                    ixz="0.0" 
+                    iyy="0.0" 
+                    iyz="0.0" 
+                    izz="0.0"/>
+            </inertial>
+
+        </link>
+
+        <joint name="ir_sensor/${sensor_name}_joint" type="fixed">
+
+            <parent 
+                link="${namespace}/base_link"/>
+            <child 
+                link="ir_sensor/${sensor_name}"/>
+            <xacro:insert_block name="origin"/>
+
+        </joint>
+
+        <xacro:ir_sensor sensor_name="${sensor_name}"/>
+
+    </xacro:macro>
+</robot>
