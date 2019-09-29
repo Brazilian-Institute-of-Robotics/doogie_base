@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <xacro:macro name="ir_sensor" params="sensor_name">
+    <xacro:macro name="ir_sensor" params="namespace sensor_name">
 
-        <gazebo reference="ir_sensor/${sensor_name}">        
-         <sensor type="ray" name="head_hokuyo_sensor">
+        <gazebo reference="${namespace}/ir_sensor/${sensor_name}">        
+         <sensor type="ray" name="${sensor_name}">
             <pose>0 0 0 0 0 0</pose>
             <visualize>true</visualize>
             <update_rate>50</update_rate>
@@ -16,12 +16,6 @@
                      <min_angle>-0.14835</min_angle>
                      <max_angle>0.14835</max_angle>
                   </horizontal>
-                  <vertical>
-                     <samples>70</samples>
-                     <resolution>1</resolution> 
-                     <min_angle>-0.14835</min_angle>
-                     <max_angle>0.14835</max_angle> 
-                  </vertical>
                </scan>
                <range>
                   <min>0.001</min>
