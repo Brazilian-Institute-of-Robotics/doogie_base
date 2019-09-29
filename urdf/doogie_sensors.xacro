@@ -4,9 +4,10 @@
     <!-- Includes -->
     <xacro:include filename="$(find doogie_description)/urdf/acessories/ir_sensor.xacro"/>
 
+    <!-- ir_sensor -->
     <xacro:macro name="sensors" params="namespace sensor_name *origin">
 
-        <link name="ir_sensor/${sensor_name}">
+        <link name="${namespace}/ir_sensor/${sensor_name}">
 
             <inertial>
                 <origin 
@@ -30,12 +31,12 @@
             <parent 
                 link="${namespace}/base_link"/>
             <child 
-                link="ir_sensor/${sensor_name}"/>
+                link="${namespace}/ir_sensor/${sensor_name}"/>
             <xacro:insert_block name="origin"/>
 
         </joint>
 
-        <xacro:ir_sensor sensor_name="${sensor_name}"/>
+        <xacro:ir_sensor namespace="${namespace}" sensor_name="${sensor_name}"/>
 
     </xacro:macro>
 </robot>

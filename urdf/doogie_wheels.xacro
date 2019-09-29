@@ -7,7 +7,7 @@
     <!-- macro: wheel -->
     <xacro:macro name="wheels" params="namespace wheel *mesh *origin *axis">
 
-    <link name="wheel/${wheel}">
+    <link name="${namespace}/wheel/${wheel}">
 
         <inertial>
             <origin 
@@ -46,7 +46,7 @@
 
     <joint name="wheel/${wheel}_joint" type="continuous">
         <parent link="${namespace}/base_link"/>
-        <child link="wheel/${wheel}"/>
+        <child link="${namespace}/wheel/${wheel}"/>
         <xacro:insert_block name="origin"/>
         <xacro:insert_block name="axis"/>
         <dynamics friction="0.3"/>
