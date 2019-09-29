@@ -4,39 +4,39 @@
     <xacro:macro name="ir_sensor" params="sensor_name">
 
         <gazebo reference="ir_sensor/${sensor_name}">        
-         <sensor type="ray" name="TeraRanger">
+         <sensor type="ray" name="head_hokuyo_sensor">
             <pose>0 0 0 0 0 0</pose>
             <visualize>true</visualize>
             <update_rate>50</update_rate>
             <ray>
                <scan>
                   <horizontal>
-                     <samples>10</samples>
+                     <samples>70</samples>
                      <resolution>1</resolution> 
                      <min_angle>-0.14835</min_angle>
                      <max_angle>0.14835</max_angle>
                   </horizontal>
                   <vertical>
-                     <samples>10</samples>
+                     <samples>70</samples>
                      <resolution>1</resolution> 
                      <min_angle>-0.14835</min_angle>
                      <max_angle>0.14835</max_angle> 
                   </vertical>
                </scan>
                <range>
-                  <min>0.01</min>
+                  <min>0.001</min>
                   <max>2</max>
-                  <resolution>0.02</resolution>
+                  <resolution>0.01</resolution>
                </range>
+               <noise>
+                  <type>gaussian</type>
+                  <mean>0.0</mean>
+                  <stddev>0.01</stddev>
+               </noise>
             </ray>
-            <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-               <gaussianNoise>0.005</gaussianNoise>
-               <alwaysOn>true</alwaysOn>
-               <updateRate>50</updateRate>
+            <plugin filename="libgazebo_ros_laser.so" name="gazebo_head_hokuyo_controller">
                <topicName>sensor/${sensor_name}</topicName>
                <frameName>ir_sensor/${sensor_name}</frameName>
-               <radiation>INFRARED</radiation>
-               <fov>0.2967</fov>
             </plugin>
         </sensor>  
         </gazebo>
