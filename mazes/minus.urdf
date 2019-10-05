@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot name="minus_maze">
+
+	<link name="minus/base_link">
+		<inertial>
+			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+			<mass value="1.0"/>
+			<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+		</inertial>
+		<visual name="">
+			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+			<geometry>
+				<mesh filename="package://doogie_description/mazes/minus.dae"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+			<geometry>
+				<mesh filename="package://doogie_description/mazes/minus.dae"/>
+			</geometry>
+		</collision>
+	</link>
+
+</robot>
