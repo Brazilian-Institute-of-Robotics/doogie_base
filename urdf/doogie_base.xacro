@@ -10,41 +10,47 @@
     <!-- macro: base -->
     <xacro:macro name="doogie_base" params="namespace">
     
-        <link name="${namespace}/base_link">
+    <link name="${namespace}/base_link">
 
-            <inertial>
-                <origin 
-                    xyz="0.00968674071529441 -4.2987819602154E-18 -0.0125192407288749" 
-                    rpy="0 0 0"/>
+        <inertial>
+            <origin 
+                xyz="0.00968674071529441 -4.2987819602154E-18 -0.0125192407288749" 
+                rpy="0 0 0"/>
+            <mass 
+                value="${mass}"/>
+            <inertia
+                ixx="1.52668608193465E-05"
+                ixy="4.58917710661775E-12"
+                ixz="2.73567369382039E-23"
+                iyy="1.93599497928914E-05"
+                iyz="-2.31610571514848E-23"
+                izz="3.44511538963699E-05" />
+        </inertial>
 
-                <mass 
-                    value="${mass}"/>
+        <visual>
+            <origin 
+                xyz="0 0 0" 
+                rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://doogie_description/meshes/collada/base_link_v4.dae"/>
+            </geometry>
+        </visual>
 
-                <inertia
-                    ixx="1.52668608193465E-05"
-                    ixy="4.58917710661775E-12"
-                    ixz="2.73567369382039E-23"
-                    iyy="1.93599497928914E-05"
-                    iyz="-2.31610571514848E-23"
-                    izz="3.44511538963699E-05" />
+        <collision>
+            <origin 
+                xyz="0 0 0" 
+                rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://doogie_description/meshes/collada/base_link_v4.dae"/>
+            </geometry>
+        </collision>
 
-            </inertial>
+    </link>
 
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                    <mesh filename="package://doogie_description/meshes/collada/base_link_v3.dae"/>
-                </geometry>
-            </visual>
-
-            <collision>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                    <mesh filename="package://doogie_description/meshes/collada/base_link_v3.dae"/>
-                </geometry>
-            </collision>
-
-        </link>
+        <gazebo reference="doogie/base_link">
+            <kp>10000000</kp>
+            <kd>1</kd>
+        </gazebo>
 
     </xacro:macro>
 </robot>
