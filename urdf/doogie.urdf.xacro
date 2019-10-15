@@ -14,24 +14,24 @@
     <xacro:doogie_base namespace="$(arg namespace)"/>
 
     <!-- Create wheels -->
-    <xacro:wheels namespace="$(arg namespace)" wheel="left">
+    <xacro:wheels namespace="$(arg namespace)" wheel_name="left">
         <mesh
-            filename="package://doogie_description/meshes/collada/wheel_v3.dae" />
+            filename="package://doogie_description/meshes/collada/wheel_v3.dae"/>
         <origin
             xyz="0.00302 0.0464 -0.00444"
-            rpy="1.5708 0 1.5708" />
+            rpy="1.5708 0 1.5708"/>
         <axis 
-            xyz="-1.0 0.0 0.0"/>
+            xyz="1.0 0.0 0.0"/>
     </xacro:wheels>
 
-    <xacro:wheels namespace="$(arg namespace)" wheel="right">
+    <xacro:wheels namespace="$(arg namespace)" wheel_name="right">
         <mesh
-            filename="package://doogie_description/meshes/collada/wheel_v3.dae" />
+            filename="package://doogie_description/meshes/collada/wheel_v3.dae"/>
         <origin
             xyz="0.00302 -0.0464 -0.00444"
-            rpy="1.5708 0 -1.5708" />
+            rpy="1.5708 0 -1.5708"/>
         <axis
-            xyz="1.0 0.0 0.0"/>
+            xyz="-1.0 0.0 0.0"/>
     </xacro:wheels>
 
     <!-- Add ros_control plugin -->
