@@ -5,9 +5,9 @@
     <!--xacro:include filename="$(find doogie_description)/urdf/common_properties.xacro"/-->
 
     <!-- macro: wheel -->
-    <xacro:macro name="wheels" params="namespace wheel *mesh *origin *axis">
+    <xacro:macro name="wheels" params="namespace wheel_name *mesh *origin *axis">
 
-    <link name="${namespace}/wheel/${wheel}">
+    <link name="${namespace}/wheel/${wheel_name}">
 
         <inertial>
             <origin 
@@ -44,21 +44,28 @@
 
     </link>
 
-    <joint name="wheel/${wheel}_joint" type="continuous">
-        <parent link="${namespace}/base_link"/>
-        <child link="${namespace}/wheel/${wheel}"/>
+    <joint name="wheel/${wheel_name}_joint" type="continuous">
+        <parent 
+            link="${namespace}/base_link"/>
+        <child 
+            link="${namespace}/wheel/${wheel_name}"/>
+        <dynamics 
+            friction="0.3"/>
         <xacro:insert_block name="origin"/>
         <xacro:insert_block name="axis"/>
-        <dynamics friction="0.3"/>
     </joint>
 
-    <transmission name="wheel/${wheel}_trans" type="SimpleTransmission">
+    <transmission name="wheel/${wheel_name}_trans" type="SimpleTransmission">
         <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="$wheel/${wheel}_motor">
+        <actuator name="wheel/${wheel_name}_motor">
             <mechanicalReduction>1</mechanicalReduction>
+            <!-- 
+                The hardwareInterface tag is optional, but is used here to maintain compatibility 
+                with ROS releases prior to Indigo. 
+            -->
             <hardwareInterface>VelocityJointInterface</hardwareInterface>
         </actuator>
-        <joint name="wheel/${wheel}_joint">
+        <joint name="wheel/${wheel_name}_joint">
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
     </transmission>
