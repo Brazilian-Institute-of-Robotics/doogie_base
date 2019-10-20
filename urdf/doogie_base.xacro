@@ -47,7 +47,7 @@
 
     </link>
 
-        <gazebo reference="doogie/base_link">
+        <gazebo reference="${namespace}/base_link">
             <kp>10000000</kp>
             <kd>1</kd>
         </gazebo>

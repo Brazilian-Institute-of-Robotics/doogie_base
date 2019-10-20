@@ -60,7 +60,7 @@
         <actuator name="wheel/${wheel_name}_motor">
             <mechanicalReduction>1</mechanicalReduction>
             <!-- 
-                The hardwareInterface tag is optional, but is used here to maintain compatibility 
+                The hardwareInterface tag in below is optional when inside <actuator>, but it is used here to maintain compatibility 
                 with ROS releases prior to Indigo. 
             -->
             <hardwareInterface>VelocityJointInterface</hardwareInterface>
