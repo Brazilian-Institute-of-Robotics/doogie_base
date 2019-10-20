@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
     <name>doogie_description</name>
-    <version>0.4.0</version>
+    <version>0.8.0</version>
     <description>The doogie_description package</description>
 
     <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
@@ -12,5 +12,6 @@
     <buildtool_depend>catkin</buildtool_depend>
 
     <exec_depend>robot_state_publisher</exec_depend>
+    <exec_depend>urdf</exec_depend>
     <exec_depend>xacro</exec_depend>
 </package>
