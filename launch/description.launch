@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-    <param name="doogie/robot_description" textfile="$(find doogie_description)/urdf/test.urdf"/>
-</launch>
