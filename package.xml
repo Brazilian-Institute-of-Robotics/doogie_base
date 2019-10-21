@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
     <name>doogie_control</name>
-    <version>0.0.0</version>
+    <version>0.8.0</version>
     <description>The doogie_control package</description>
 
     <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
