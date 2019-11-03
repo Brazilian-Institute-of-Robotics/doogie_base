@@ -9,23 +9,24 @@ project(doogie_msgs)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   message_generation
-  nav_msgs
   sensor_msgs
   std_msgs
 )
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  MazeCell.msg
+  MazeCellMultiArray.msg
+  UpdateMatrix.msg
+  WallDistances.msg
+)
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  UpdateMatrix.srv
-)
+#add_service_files(
+#  FILES
+#  UpdateMatrix.srv
+#)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -37,7 +38,6 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  nav_msgs
   sensor_msgs
   std_msgs
 )
