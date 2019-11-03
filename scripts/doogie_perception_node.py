@@ -6,7 +6,7 @@ from doogie_msgs.msg import MazeCell
 from doogie_msgs.msg import MazeCellMultiArray
 from doogie_msgs.msg import UpdateMatrix
 from std_msgs.msg import MultiArrayDimension
-from doogie_test.msg import IrSensors
+from doogie_msgs.msg import WallDistances
 
 class DoogiePerception:
 
@@ -20,10 +20,10 @@ class DoogiePerception:
 
         
         self.matrix_publisher = rospy.Publisher('maze_walls_matrix', MazeCellMultiArray, queue_size=1)
-        self.sensors_subscriber = rospy.Subscriber('ir_sensors', IrSensors, self.process_sensors_data)
+        self.sensors_subscriber = rospy.Subscriber('wall_distances', WallDistances, self.process_sensors_data)
         self.update_matrix_subsriber = rospy.Subscriber('update_matrix', UpdateMatrix, self.update_matrix)
 
-        self.sensors = IrSensors()
+        self.sensors = WallDistances()
 
         self.left_wall = bool()
         self.right_wall = bool()
@@ -44,7 +44,7 @@ class DoogiePerception:
 #recebe os dados dos sensores do topico e converte para informacao booleana
     def process_sensors_data(self, data): 
         
-        constant = 20
+        constant = 140
 
         self.sensors = data
         if self.sensors.front_left_sensor.range >= constant:
@@ -55,7 +55,7 @@ class DoogiePerception:
             self.right_wall = False
         else:
             self.right_wall = True
-        if (self.sensors.left_sensor.range >= constant) and (self.sensor.right_sensor.range >= constant):
+        if (self.sensors.left_sensor.range >= constant) and (self.sensors.right_sensor.range >= constant):
             self.front_wall = False
         else:
             self.front_wall = True
