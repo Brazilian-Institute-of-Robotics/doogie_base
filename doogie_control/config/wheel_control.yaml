@@ -1,8 +1,8 @@
 joint_publisher:
   type: "joint_state_controller/JointStateController"
   publish_rate: 50.0
-diff_drive_controller:
-  type        : "diff_drive_controller/DiffDriveController"
+cmd_vel:
+  type        : "move_base_controller/DiffDriveController"
   left_wheel  : 'wheel/left_joint'
   right_wheel : 'wheel/right_joint'
   publish_rate: 50.0               # default: 50
