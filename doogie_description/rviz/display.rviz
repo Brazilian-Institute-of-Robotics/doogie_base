@@ -9,7 +9,7 @@ Panels:
         - /RobotModel1
         - /TF1
       Splitter Ratio: 0.5
-    Tree Height: 1774
+    Tree Height: 447
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -57,26 +57,42 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
+        /base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /ir_sensor/front_left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /ir_sensor/front_right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /ir_sensor/left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /ir_sensor/right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /wheel/left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /wheel/right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        doogie/base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel/left:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel/right:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: doogie/robot_description
       TF Prefix: ""
@@ -88,7 +104,15 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        doogie/base_link:
+        base_link:
+          Value: true
+        ir_sensor/front_left:
+          Value: true
+        ir_sensor/front_right:
+          Value: true
+        ir_sensor/left:
+          Value: true
+        ir_sensor/right:
           Value: true
         wheel/left:
           Value: true
@@ -100,7 +124,15 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        doogie/base_link:
+        base_link:
+          ir_sensor/front_left:
+            {}
+          ir_sensor/front_right:
+            {}
+          ir_sensor/left:
+            {}
+          ir_sensor/right:
+            {}
           wheel/left:
             {}
           wheel/right:
@@ -111,7 +143,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: doogie/base_link
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -147,18 +179,18 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.54039681
+      Pitch: 0.520396829
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.53359532
+      Yaw: 1.2736032
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 2121
+  Height: 744
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001c500000793fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006a00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003700000793000000ed00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000014100000793fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003700000793000000d000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000ea00000004efc0100000002fb0000000800540069006d0065010000000000000ea00000048d00fffffffb0000000800540069006d0065010000000000000450000000000000000000000b880000079300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001c50000024efc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000280000024e000000d700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c0000026100000001000001410000024efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007301000000280000024e000000ad00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005150000004efc0100000002fb0000000800540069006d00650100000000000005150000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000002030000024e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -167,6 +199,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 3744
-  X: 96
-  Y: 39
+  Width: 1301
+  X: 1431
+  Y: 24

@@ -3,6 +3,7 @@
     
     <!-- Parameters -->
     <xacro:arg name="namespace" default=""/>
+    <xacro:arg name="robotParam" default="robot_description"/>
 
     <!-- Includes -->
     <xacro:include filename="$(find doogie_description)/urdf/common_properties.xacro"/>
@@ -38,6 +39,7 @@
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>$(arg namespace)</robotNamespace>
+            <robotParam>$(arg robotParam)</robotParam>
         </plugin>
     </gazebo>
 

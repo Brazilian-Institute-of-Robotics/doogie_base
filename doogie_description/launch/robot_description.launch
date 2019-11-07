@@ -2,10 +2,12 @@
 <launch>
   
   <arg name="robot_namespace" default=""/>
+  <arg name="robot_param" default="robot_description"/>
 
-  <param name="robot_description" command="xacro '$(find doogie_description)/urdf/doogie.urdf.xacro' 
+  <param name="$(arg robot_param)" command="xacro '$(find doogie_description)/urdf/doogie.urdf.xacro' 
   --inorder
   namespace:=$(arg robot_namespace)
+  robotParam:=$(arg robot_param)
   "
   />
 
