@@ -38,7 +38,11 @@
     <!-- Add ros_control plugin -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>$(arg namespace)</robotNamespace>
+
+        <!-- robotnamespace tag is note used here because it
+             blocks changing robot namespace in extern launchfiles
+         -->
+
             <robotParam>$(arg robotParam)</robotParam>
         </plugin>
     </gazebo>
