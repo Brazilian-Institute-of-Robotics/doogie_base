@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="ns" default="doogie"/>
+    <arg name="ns" default="/"/>
     <rosparam file="$(find doogie_control)/config/wheel_control.yaml" command="load"/>
 
     <node pkg="controller_manager" type="spawner" name="spawns_control" 
