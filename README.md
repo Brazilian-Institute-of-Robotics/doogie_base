@@ -1,6 +1,6 @@
 # **doogie_base**
 
-The **doogie_base** stack provides [ROS] common packages to use both in simulation and real application for Doogie Mouse plataform.
+The **doogie_base** stack provides [ROS] common packages to use both in simulation and real life application for Doogie Mouse plataform.
 
 **Keywords:** Micromouse, ROS
 
@@ -25,8 +25,8 @@ ____
 - [**Table of Contents**](#table-of-contents)
 - [**File System**](#file-system)
 - [**Installation**](#installation)
-    - [· Installation from Packages](#installation-from-packages)
-    - [· Building from Source](#building-from-source)
+    - [Installation from Packages:](#installation-from-packages)
+    - [Building from Source:](#building-from-source)
   - [Example of Usage](#example-of-usage)
     - [Visualize Doogie Mouse in Rviz:](#visualize-doogie-mouse-in-rviz)
 - [**Purpose of the Project**](#purpose-of-the-project)
@@ -37,19 +37,18 @@ ____
 
 - [doogie_control] : Define ros_controllers used with Doogie Mouse plataform.
 - [doogie_description]: Cotains Doogie Mouse **URDF**.
-____
+
 
 # **Installation**
 
-### · Installation from Packages
+### Installation from Packages:
 
 TODO
 
     sudo apt-get install ros-indigo-...
 
-</br>
 
-### · Building from Source
+### Building from Source:
 
 Attention, if you haven't installed [ROS] yet, please check [Ubuntu install of ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu). Desktop-Full Install is the recommended one in order to work with this repository.    
 
@@ -72,7 +71,6 @@ Don't forget to source your workspace before using it.
     
     source devel/setup.bash
 
-____
 
 ## Example of Usage
 
