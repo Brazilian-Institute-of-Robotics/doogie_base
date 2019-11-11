@@ -41,14 +41,14 @@ ____
 
 # **Installation**
 
-### Installation from Packages:
+### 1. Installation from Packages:
 
 TODO
 
     sudo apt-get install ros-indigo-...
 
 
-### Building from Source:
+### 2. Building from Source:
 
 Attention, if you haven't installed [ROS] yet, please check [Ubuntu install of ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu). Desktop-Full Install is the recommended one in order to work with this repository.    
 
