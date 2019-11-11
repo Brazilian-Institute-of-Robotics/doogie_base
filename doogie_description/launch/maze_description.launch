@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="maze_name" default="minus"/>
+    <group ns="$(arg maze_name)">
+
+        <param name="maze_description" command="cat $(find doogie_description)/mazes/$(arg maze_name).urdf"/>
+    
+    </group>
+</launch>
