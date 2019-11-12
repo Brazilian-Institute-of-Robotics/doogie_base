@@ -41,7 +41,7 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 
 # **Robot URDF**
 
-[Doogie Mouse URDF](/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
+[Doogie Mouse URDF](/doogie_description/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
 
 ### Core Xacros
 
@@ -50,7 +50,7 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 2. **doogie_base.xacro:** 
    - the macro for generating Doogie Mouse **base plat**;
 3. **doogie_sensors.xacro:**
-   - the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories] folder.
+   - the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories](/doogie_description/urdf/acessories) folder.
 4. **doogie_wheels.xacro:** 
    - the macro for generating **wheels**.
 
@@ -61,7 +61,7 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 
 ### Arguments
 
-Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e.g [robot_description.launch](/launch/robot_description.launch)) such as:
+Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e.g [robot_description.launch](doogie_description/launch/robot_description.launch)) such as:
 
 1. **namespace**
 
