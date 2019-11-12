@@ -14,10 +14,15 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 
 <!-- [![Build Status](http://rsl-ci.ethz.ch/buildStatus/icon?job=ros_best_practices)](http://rsl-ci.ethz.ch/job/ros_best_practices/) TODO -->
 
+<p align="center">
+   <img src="docs/doogie_description.png" alt="doogie_description graph" title="Example Image">
+</p>
+</br>
+
 </br>
 
 ## Dependencies 
-- [robot_state_publisher] (publishes the current joints state as a sensor_msgs/JointState message),
+- [robot_state_publisher] (publish the state of a robot to [tf]),
 - [urdf] (controller for differential drive wheel systems),
 - [xacro] (provides the infrastructure to load, unload, start and stop controllers);
 
@@ -96,11 +101,15 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 
 [ROS]: http://www.ros.org
 
+[tf]: https://wiki.ros.org/tf
+
 [URDF]: http://wiki.ros.org/urdf 
 
 [Xacro]: http://wiki.ros.org/xacro 
 
 [Rviz]: http://wiki.ros.org/rviz
+
+[robot_state_publisher]: https://wiki.ros.org/robot_state_publisher
 
 [BIR - Brazilian Institute of Robotics]: https://github.com/Brazilian-Institute-of-Robotics
 
