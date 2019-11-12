@@ -1,0 +1,23 @@
+digraph G {
+node [shape=box];
+"/base_link" [label="/base_link"];
+"/ir_sensor/front_left" [label="/ir_sensor/front_left"];
+"/ir_sensor/front_right" [label="/ir_sensor/front_right"];
+"/ir_sensor/left" [label="/ir_sensor/left"];
+"/ir_sensor/right" [label="/ir_sensor/right"];
+"/wheel/left" [label="/wheel/left"];
+"/wheel/right" [label="/wheel/right"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"/base_link" -> "ir_sensor/front_left_joint" [label="xyz: 0.052482 0.014629 -0.01074 \nrpy: 1.5708 -0 0.87266"]
+"ir_sensor/front_left_joint" -> "/ir_sensor/front_left"
+"/base_link" -> "ir_sensor/front_right_joint" [label="xyz: 0.0524824 -0.0146287 -0.01074 \nrpy: 1.5708 -0 -0.87266"]
+"ir_sensor/front_right_joint" -> "/ir_sensor/front_right"
+"/base_link" -> "ir_sensor/left_joint" [label="xyz: 0.0364324 0.0351454 -0.01074 \nrpy: 1.5708 -0 0.17453"]
+"ir_sensor/left_joint" -> "/ir_sensor/left"
+"/base_link" -> "ir_sensor/right_joint" [label="xyz: 0.036432 -0.035145 -0.01074 \nrpy: 1.5708 -0 -0.17453"]
+"ir_sensor/right_joint" -> "/ir_sensor/right"
+"/base_link" -> "wheel/left_joint" [label="xyz: 0.00302 0.0464 -0.00444 \nrpy: 1.5708 -0 1.5708"]
+"wheel/left_joint" -> "/wheel/left"
+"/base_link" -> "wheel/right_joint" [label="xyz: 0.00302 -0.0464 -0.00444 \nrpy: 1.5708 -0 -1.5708"]
+"wheel/right_joint" -> "/wheel/right"
+}
