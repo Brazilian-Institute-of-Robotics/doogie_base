@@ -14,13 +14,10 @@ The **doogie_control** package has been tested under [ROS] Kinetic and Ubuntu 16
 
 <!-- [![Build Status](http://rsl-ci.ethz.ch/buildStatus/icon?job=ros_best_practices)](http://rsl-ci.ethz.ch/job/ros_best_practices/) TODO -->
 
-<p align="center">
-   <img src="docs/doogie_control.png" alt="doogie_control sim" title="Example Image">
-</p>
 </br>
 
 ## Dependencies 
-- [joint_state_controller] (publishes the current joint state as a sensor_msgs/JointState message),
+- [joint_state_controller] (publishes the current joints state as a sensor_msgs/JointState message),
 - [diff_drive_controller] (controller for differential drive wheel systems)
 - [controller_manager] (provides the infrastructure to load, unload, start and stop controllers), 
 - [doogie_description] (package with doogie URDF),
@@ -39,7 +36,7 @@ The **doogie_control** package has been tested under [ROS] Kinetic and Ubuntu 16
 
 1. **robot_control.launch:** load and spawn Doogie Mouse controllers, needs simulation or robot_application lauch before using it.
 
-     - **Arguments to set Doogie Mouse spawn**
+     - **Arguments to set controllers spawn**
 
        - **`ns:`** specifie the namespace in which will be spawned the controllers.
       
@@ -53,6 +50,8 @@ The **doogie_control** package has been tested under [ROS] Kinetic and Ubuntu 16
 
    - **move_base_controller** ([diff_drive_controller]/DiffDriveController): controls Doogie Mouse wheels.
    - **joint_publisher** ([joint_state_controller]/JointStateController): provides wheel's joints state.
+
+[controller_manager]: https://wiki.ros.org/controller_manager
 
 [diff_drive_controller]: https://wiki.ros.org/diff_drive_controller
 
