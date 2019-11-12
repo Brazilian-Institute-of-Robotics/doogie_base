@@ -20,7 +20,7 @@ The **doogie_control** package has been tested under [ROS] Kinetic and Ubuntu 16
 - [joint_state_controller] (publishes the current joints state as a sensor_msgs/JointState message),
 - [diff_drive_controller] (controller for differential drive wheel systems)
 - [controller_manager] (provides the infrastructure to load, unload, start and stop controllers), 
-- [doogie_description] (package with doogie URDF),
+- [doogie_description] (package with doogie URDF);
 
 # **Table of Contents**
 - [**doogie_control**](#doogiecontrol)
