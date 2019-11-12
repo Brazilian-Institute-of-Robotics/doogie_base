@@ -31,28 +31,51 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
     - [Supported Versions](#supported-versions)
   - [Dependencies](#dependencies)
 - [**Table of Contents**](#table-of-contents)
-- [Robot URDF](#robot-urdf)
-    - [Core Macros](#core-macros)
-    - [Acessories Macros](#acessories-macros)
+- [**Robot URDF**](#robot-urdf)
+    - [Core Xacros](#core-xacros)
+    - [Acessories Xacros](#acessories-xacros)
+    - [Arguments](#arguments)
+- [Mazes Available](#mazes-available)
 - [**Launch files**](#launch-files)
 - [**Parameters**](#parameters)
 
 </br>
 
-# Robot URDF
+# **Robot URDF**
 
-Doogie Mouse URDF desing is [xacro] oriented, so it's subdivided in macros submodules for each aspect of robot. They are subdivided in core macros and acessories macros:
+[Doogie Mouse URDF](/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
 
-### Core Macros
+### Core Xacros
 
-1. **common_properties.xacro:** defines some rviz **colors**;
-2. **doogie_base.xacro:** the macro for generating Doogie Mouse **base plat**;
-3. **doogie_sensors.xacro:** the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories] folder.
-4. **doogie_wheels.xacro:** the macro for generating **wheels**.
+1. **common_properties.xacro:** 
+   - defines some rviz **colors**;
+2. **doogie_base.xacro:** 
+   - the macro for generating Doogie Mouse **base plat**;
+3. **doogie_sensors.xacro:**
+   - the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories] folder.
+4. **doogie_wheels.xacro:** 
+   - the macro for generating **wheels**.
 
-### Acessories Macros
+### Acessories Xacros
 
-1. **ir_sensor.xacro:** the macro for generating the **ir sensor** used by Doogie Mouse. 
+1. **ir_sensor.xacro:** 
+   - the macro for generating the **ir sensor** used by Doogie Mouse. 
+
+### Arguments
+
+Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e.g [robot_description.launch](/launch/robot_description.launch)) such as:
+
+1. **namespace**
+
+   - defines a namespace which will be appended to each link name.
+  
+2. **robotParam**
+   
+   - defines the parameter name where que robot description will be loaded.
+
+# Mazes Available
+
+   - **Minus** [10x10 Modified IEEE pattern] 
 
 # **Launch files**
 
