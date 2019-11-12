@@ -24,17 +24,35 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 ## Dependencies 
 - [robot_state_publisher] (publish the state of a robot to [tf]),
 - [urdf] (controller for differential drive wheel systems),
-- [xacro] (provides the infrastructure to load, unload, start and stop controllers);
+- [xacro] (an XML macro language used to simplify URDF file construction);
 
 # **Table of Contents**
 - [**doogie_description**](#doogiedescription)
     - [Supported Versions](#supported-versions)
   - [Dependencies](#dependencies)
 - [**Table of Contents**](#table-of-contents)
+- [Robot URDF](#robot-urdf)
+    - [Core Macros](#core-macros)
+    - [Acessories Macros](#acessories-macros)
 - [**Launch files**](#launch-files)
 - [**Parameters**](#parameters)
 
 </br>
+
+# Robot URDF
+
+Doogie Mouse URDF desing is [xacro] oriented, so it's subdivided in macros submodules for each aspect of robot. They are subdivided in core macros and acessories macros:
+
+### Core Macros
+
+1. **common_properties.xacro:** defines some rviz **colors**;
+2. **doogie_base.xacro:** the macro for generating Doogie Mouse **base plat**;
+3. **doogie_sensors.xacro:** the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories] folder.
+4. **doogie_wheels.xacro:** the macro for generating **wheels**.
+
+### Acessories Macros
+
+1. **ir_sensor.xacro:** the macro for generating the **ir sensor** used by Doogie Mouse. 
 
 # **Launch files**
 
