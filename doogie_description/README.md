@@ -19,8 +19,6 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 </p>
 </br>
 
-</br>
-
 ## Dependencies 
 - [robot_state_publisher] (publish the state of a robot to [tf]),
 - [urdf] (controller for differential drive wheel systems),
