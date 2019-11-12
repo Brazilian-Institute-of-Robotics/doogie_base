@@ -15,7 +15,7 @@ The **doogie_description** package has been tested under [ROS] Kinetic and Ubunt
 <!-- [![Build Status](http://rsl-ci.ethz.ch/buildStatus/icon?job=ros_best_practices)](http://rsl-ci.ethz.ch/job/ros_best_practices/) TODO -->
 
 <p align="center">
-   <img src="docs/doogie_description.png" alt="doogie_description graph" title="Example Image">
+   <img src="docs/doogie_description.pdf" alt="doogie_description graph" title="Example Image">
 </p>
 </br>
 
