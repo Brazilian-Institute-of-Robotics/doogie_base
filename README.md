@@ -16,7 +16,8 @@ Maintainer: Caio Amaral, caioaamaral@gmail.com**
 
 ### Dependencies 
 - [ROS] : An open-source robot framework.
-____
+
+<br/>
 
 # **Table of Contents**
 - [**doogie_base**](#doogiebase)
@@ -25,8 +26,8 @@ ____
 - [**Table of Contents**](#table-of-contents)
 - [**File System**](#file-system)
 - [**Installation**](#installation)
-    - [Installation from Packages:](#installation-from-packages)
-    - [Building from Source:](#building-from-source)
+    - [1. Installation from Packages:](#1-installation-from-packages)
+    - [2. Building from Source:](#2-building-from-source)
   - [Example of Usage](#example-of-usage)
     - [Visualize Doogie Mouse in Rviz:](#visualize-doogie-mouse-in-rviz)
 - [**Purpose of the Project**](#purpose-of-the-project)

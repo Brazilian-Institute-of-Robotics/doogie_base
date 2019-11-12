@@ -1,21 +1,20 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>doogie_control</name>
-    <version>0.8.3</version>
-    <description>The doogie_control package</description>
-
-    <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
-    <author email="caioaamaral@gmail.com">Caio Amaral</author>
-
-    <url type="repository">https://github.com/Brazilian-Institute-of-Robotics/doogie_control</url>
-
-    <license>BSD</license>
-    <buildtool_depend>catkin</buildtool_depend>
-
-    <exec_depend>joint_state_controller</exec_depend>
-    <exec_depend>diff_drive_controller</exec_depend>
-    <exec_depend>controller_manager</exec_depend>
-    <exec_depend>doogie_description</exec_depend>
-
+  <name>doogie_control</name>
+  <version>0.8.3</version>
+  <description>Provides the ros controllers interface in order to controll Doogie Mouse platform</description>
+  
+  <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
+  <author email="caioaamaral@gmail.com">Caio Amaral</author>
+  
+  <url type="repository">https://github.com/Brazilian-Institute-of-Robotics/doogie_control</url>
+  <license>GPLv3</license>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <exec_depend>joint_state_controller</exec_depend>
+  <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>doogie_description</exec_depend>
 
 </package>
