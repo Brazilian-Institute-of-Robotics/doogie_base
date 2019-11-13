@@ -7,7 +7,7 @@
     <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
     <author email="caioaamaral@gmail.com">Caio Amaral</author>
 
-    <license>GPLv3</license>
+    <license>Apache-2.0</license>
 
     <buildtool_depend>catkin</buildtool_depend>
 

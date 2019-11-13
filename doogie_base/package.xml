@@ -6,9 +6,7 @@
 
     <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
     <author email="caioaamaral@gmail.com">Caio Amaral</author>
-
-    <license>BSD</license>
-
+    <license>Apache-2.0</license>
     <buildtool_depend>catkin</buildtool_depend>
 
     <exec_depend>doogie_control</exec_depend>
