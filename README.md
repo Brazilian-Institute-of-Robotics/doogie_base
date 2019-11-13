@@ -26,8 +26,7 @@ Maintainer: Caio Amaral, caioaamaral@gmail.com**
 - [**Table of Contents**](#table-of-contents)
 - [**File System**](#file-system)
 - [**Installation**](#installation)
-    - [1. Installation from Packages:](#1-installation-from-packages)
-    - [2. Building from Source:](#2-building-from-source)
+    - [Building from Source:](#building-from-source)
   - [Example of Usage](#example-of-usage)
     - [Visualize Doogie Mouse in Rviz:](#visualize-doogie-mouse-in-rviz)
 - [**Purpose of the Project**](#purpose-of-the-project)
@@ -42,14 +41,14 @@ Maintainer: Caio Amaral, caioaamaral@gmail.com**
 
 # **Installation**
 
-### 1. Installation from Packages:
+<!-- ### 1. Installation from Packages:
 
 TODO
 
-    sudo apt-get install ros-indigo-...
+    sudo apt-get install ros-indigo-... -->
 
 
-### 2. Building from Source:
+###  Building from Source:
 
 Attention, if you haven't installed [ROS] yet, please check [Ubuntu install of ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu). Desktop-Full Install is the recommended one in order to work with this repository.    
 
@@ -93,7 +92,7 @@ It's a [open source project](/LICENSE) and expects modifications and contributio
 
 # **License**
 
-Doogie Base source code is released under a [GPLv3](/LICENSE).
+Doogie Base source code is released under a [Apache 2.0](/LICENSE).
 
 </br>
 
