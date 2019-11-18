@@ -4,7 +4,7 @@
     <rosparam file="$(find doogie_control)/config/wheel_control.yaml" command="load"/>
 
     <node pkg="controller_manager" type="spawner" name="spawns_control" 
-        output="screen" respawn="false" args="--namespace=/$(arg ns) --timeout 5
+        output="screen" respawn="false" args="--namespace=/$(arg ns) --timeout 20
                                                 joint_publisher move_base_controller" />
 
 </launch>

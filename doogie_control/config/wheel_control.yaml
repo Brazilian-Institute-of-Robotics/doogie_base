@@ -45,3 +45,22 @@ move_base_controller:
       max_acceleration       : 1.5  # rad/s^2
       has_jerk_limits        : true
       max_jerk               : 2.5  # rad/s^3
+
+# PID settings for class control_toobox::PID used in control loop of the Doogie Mouse wheels 
+left_wheel_pid:
+  p: 1.18
+  i: 14.88
+  d: 0.0
+  i_clamp_min: -100.0
+  i_clamp_max: 100.0
+  antiwindup: true
+  publish_state: true
+
+right_wheel_pid:
+  p: 1.18
+  i: 14.88
+  d: 0.0
+  i_clamp_min: -100.0
+  i_clamp_max: 100.0
+  antiwindup: true
+  publish_state: true
