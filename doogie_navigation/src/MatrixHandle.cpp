@@ -5,7 +5,9 @@ namespace doogie_navigation{
 
 MatrixHandle::MatrixHandle(){
   mat.layout.dim.push_back(std_msgs::MultiArrayDimension()); 
+  mat.layout.dim.push_back(std_msgs::MultiArrayDimension()); 
 }
+
 
 void MatrixHandle::initMatrix(int i_size, int j_size, std::string i_label, std::string j_label, 
                               int fill=0, int offset=0){                                  
