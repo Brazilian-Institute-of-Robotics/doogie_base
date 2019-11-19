@@ -19,7 +19,7 @@ The **doogie_msgs** package has been tested under [ROS] Kinetic and Ubuntu 16.04
 ## Dependencies 
 - [message_generation] (package for modeling the build-time dependencies for generating language bindings of messages),
 - [message_runtime] (package for modeling the run-time dependencies for language bindings of messages);
-- [nav_msgs] (defines the common messages used to interact with the [navigation stack].),
+- [nav_msgs] (defines the common messages used to interact with the [navigation stack]),
 - [sensor_msgs] (defines messages for commonly used sensors),
 - [std_msgs] (Standard ROS Messages including common message types representing primitive data types and other basic message constructs, such as multiarrays),
 
@@ -40,7 +40,7 @@ The **doogie_msgs** package has been tested under [ROS] Kinetic and Ubuntu 16.04
 
 # **ROS Messages**
 
-[Doogie Mouse URDF](/doogie_msgs/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
+<!-- [Doogie Mouse URDF](/doogie_msgs/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
 
 ### 1. Core Xacros
 
@@ -114,7 +114,7 @@ Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e
 
 - **`maze_description`**
 
-    The name of the maze description parameter.
+    The name of the maze description parameter. -->
 
 
 [controller_manager]: https://wiki.ros.org/controller_manager

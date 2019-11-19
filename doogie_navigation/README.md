@@ -1,6 +1,6 @@
 # **doogie_navigation**
 
-This ROS catkin package provides the ros msgs to interact with **Doogie Mouse** platform.
+Provides velocity commands to **Doogie Mouse** platform based on odometry, sensor streams and goal pose.
 
 **Keywords:** Micromouse, IEEE, ROS
 
@@ -17,18 +17,15 @@ The **doogie_navigation** package has been tested under [ROS] Kinetic and Ubuntu
 </br>
 
 ## Dependencies 
-- [message_generation] (package for modeling the build-time dependencies for generating language bindings of messages),
-- [message_runtime] (package for modeling the run-time dependencies for language bindings of messages);
-- [nav_msgs] (defines the common messages used to interact with the [navigation stack].),
-- [sensor_msgs] (defines messages for commonly used sensors),
-- [std_msgs] (Standard ROS Messages including common message types representing primitive data types and other basic message constructs, such as multiarrays),
+- [rospy] (It provides a client library that enables Python programmers to quickly interface with ROS Topics, Services, and Parameters),
+- [roscpp] (It provides a client library that enables C++ programmers to quickly interface with ROS Topics, Services, and Parameters),
+- [doogie_msgs] (provides the ros msgs to interact with **Doogie Mouse** platform);
 
 # **Table of Contents**
 - [**doogie_navigation**](#doogienavigation)
     - [Supported Versions](#supported-versions)
   - [Dependencies](#dependencies)
 - [**Table of Contents**](#table-of-contents)
-- [**ROS Messages**](#ros-messages)
     - [1. Core Xacros](#1-core-xacros)
     - [2. Acessories Xacros](#2-acessories-xacros)
     - [3. Arguments](#3-arguments)
@@ -38,7 +35,7 @@ The **doogie_navigation** package has been tested under [ROS] Kinetic and Ubuntu
 
 </br>
 
-# **ROS Messages**
+<!-- # **ROS Messages**
 
 [Doogie Mouse URDF](/doogie_navigation/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
 
@@ -114,7 +111,7 @@ Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e
 
 - **`maze_description`**
 
-    The name of the maze description parameter.
+    The name of the maze description parameter. -->
 
 
 [controller_manager]: https://wiki.ros.org/controller_manager
