@@ -7,20 +7,29 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   sensor_msgs
   std_msgs
+  actionlib_msgs
 )
 
 add_message_files(
   FILES
-  MazeCell.msg
-  MazeCellMultiArray.msg
-  UpdateMatrix.msg
-  WallDistances.msg
+    MazeCell.msg
+    MazeCellMultiArray.msg
+    UpdateMatrix.msg
+    WallDistances.msg
+)
+
+add_action_files(
+  DIRECTORY 
+    action
+  FILES 
+    DoogieMove.action
 )
 
 generate_messages(
   DEPENDENCIES
   sensor_msgs
   std_msgs
+  actionlib_msgs
 )
 
 catkin_package(

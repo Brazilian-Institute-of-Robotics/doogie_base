@@ -5,6 +5,7 @@
   <description>Provides velocity commands based on odometry, sensor streams and goal pose</description>
   
   <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
+  <maintainer email="mateusmenezes95@gmail.com">Mateus Menezes</maintainer>
   <author email="caioaamaral@gmail.com">Caio Amaral</author>
   <author email="elisson_09@hotmail.com">Élisson Oliveira</author>
   
@@ -15,6 +16,10 @@
   
   <depend>rospy</depend>
   <depend>roscpp</depend>
+  <depend>std_msgs</depend>
   <depend>doogie_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>actionlib</depend>
 
 </package>

@@ -3,26 +3,42 @@ project(doogie_navigation)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS
-rospy
-std_msgs
-doogie_msgs
-sensor_msgs)
+set(CATKIN_BUILD_DEPS
+  rospy
+  roscpp
+  std_msgs
+  doogie_msgs
+  sensor_msgs
+  nav_msgs
+  actionlib
+)
 
+find_package(catkin REQUIRED COMPONENTS ${CATKIN_BUILD_DEPS})
 catkin_python_setup()
 
-#Not sure if we need generate messages again
-
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-#   doogie_msgs
-#   sensor_msgs
-# )
-
-catkin_package()
+catkin_package(
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS ${CATKIN_BUILD_DEPS}
+  # DEPENDS Boost
+  # LIBRARIES ${PROJECT_NAME} pthread
+)
 
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
+)
+
+add_library(matrix_handle src/matrix_handle.cpp)
+target_link_libraries(matrix_handle ${catkin_LIBRARIES})
+
+install(TARGETS matrix_handle
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.hpp"
+  PATTERN "*~" EXCLUDE
 )
