@@ -1,6 +1,6 @@
-# **doogie_msgs**
+# **doogie_navigation**
 
-This ROS catkin package provides the ros msgs to interact with **Doogie Mouse** platform.
+Provides velocity commands to **Doogie Mouse** platform based on odometry, sensor streams and goal pose.
 
 **Keywords:** Micromouse, IEEE, ROS
 
@@ -10,25 +10,22 @@ Maintainer: Caio Amaral, caioaamaral@gmail.com**
 
 ### Supported Versions
 
-The **doogie_msgs** package has been tested under [ROS] Kinetic and Ubuntu 16.04 using **Gazebo 7.0.0** (the one that comes with [ROS] Kinetic Desktop-full installation). 
+The **doogie_navigation** package has been tested under [ROS] Kinetic and Ubuntu 16.04 using **Gazebo 7.0.0** (the one that comes with [ROS] Kinetic Desktop-full installation). 
 
 <!-- [![Build Status](http://rsl-ci.ethz.ch/buildStatus/icon?job=ros_best_practices)](http://rsl-ci.ethz.ch/job/ros_best_practices/) TODO -->
 
 </br>
 
 ## Dependencies 
-- [message_generation] (package for modeling the build-time dependencies for generating language bindings of messages),
-- [message_runtime] (package for modeling the run-time dependencies for language bindings of messages);
-- [nav_msgs] (defines the common messages used to interact with the [navigation stack]),
-- [sensor_msgs] (defines messages for commonly used sensors),
-- [std_msgs] (Standard ROS Messages including common message types representing primitive data types and other basic message constructs, such as multiarrays),
+- [rospy] (It provides a client library that enables Python programmers to quickly interface with ROS Topics, Services, and Parameters),
+- [roscpp] (It provides a client library that enables C++ programmers to quickly interface with ROS Topics, Services, and Parameters),
+- [doogie_msgs] (provides the ros msgs to interact with **Doogie Mouse** platform);
 
 # **Table of Contents**
-- [**doogie_msgs**](#doogiemsgs)
+- [**doogie_navigation**](#doogienavigation)
     - [Supported Versions](#supported-versions)
   - [Dependencies](#dependencies)
 - [**Table of Contents**](#table-of-contents)
-- [**ROS Messages**](#ros-messages)
     - [1. Core Xacros](#1-core-xacros)
     - [2. Acessories Xacros](#2-acessories-xacros)
     - [3. Arguments](#3-arguments)
@@ -38,9 +35,9 @@ The **doogie_msgs** package has been tested under [ROS] Kinetic and Ubuntu 16.04
 
 </br>
 
-# **ROS Messages**
+<!-- # **ROS Messages**
 
-<!-- [Doogie Mouse URDF](/doogie_msgs/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
+[Doogie Mouse URDF](/doogie_navigation/urdf) desing is [xacro] oriented, so it's subdivided in macros submodules designated for each aspect of the robot. They are subdivided in core xacros and acessories xacros:
 
 ### 1. Core Xacros
 
@@ -49,7 +46,7 @@ The **doogie_msgs** package has been tested under [ROS] Kinetic and Ubuntu 16.04
 - **doogie_base.xacro:** 
    - the macro for generating Doogie Mouse **base plat**;
 - **doogie_sensors.xacro:**
-   - the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories](/doogie_msgs/urdf/acessories) folder.
+   - the macro for generating **all sensors** used by Doogie Mouse, each sensor is defined in the xacros files located in [acessories](/doogie_navigation/urdf/acessories) folder.
 - **doogie_wheels.xacro:** 
    - the macro for generating **wheels**.
 
@@ -60,7 +57,7 @@ The **doogie_msgs** package has been tested under [ROS] Kinetic and Ubuntu 16.04
 
 ### 3. Arguments
 
-Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e.g [robot_description.launch](doogie_msgs/launch/robot_description.launch)) such as:
+Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e.g [robot_description.launch](doogie_navigation/launch/robot_description.launch)) such as:
 
 - **namespace**
 
@@ -102,7 +99,7 @@ Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e
       
        - **`rvizconfig:`** set wich Rviz setup will be loaded.
          
-          - Default: `$(find doogie_msgs)/rviz/display.rviz`
+          - Default: `$(find doogie_navigation)/rviz/display.rviz`
 
 </br>
 
@@ -121,9 +118,9 @@ Doogie Mouse URDF also can be modified by passing it arguments by launchfiles (e
 
 [diff_drive_controller]: https://wiki.ros.org/diff_drive_controller
 
-[doogie_msgs]:  https://github.com/Brazilian-Institute-of-Robotics/doogie_msgs
+[doogie_navigation]:  https://github.com/Brazilian-Institute-of-Robotics/doogie_navigation
 
-[doogie_msgs]:  https://github.com/Brazilian-Institute-of-Robotics/doogie_msgs
+[doogie_navigation]:  https://github.com/Brazilian-Institute-of-Robotics/doogie_navigation
 
 [doogie_simulators]: https://github.com/Brazilian-Institute-of-Robotics/doogie_simulators
 
