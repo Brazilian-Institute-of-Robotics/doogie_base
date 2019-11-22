@@ -42,4 +42,39 @@ void MatrixHandle::setMatrixElement(doogie_msgs::MazeCellMultiArray matrix, int 
   matrix.data[offset + i + dstride1*j].visited = visited;
 }
 
+LocalCell MatrixHandle::GlobalToLocal(doogie_msgs::DoogiePosition doogie_position){
+  LocalCell local_cell;
+  doogie_msgs::MazeCell global_cell = getMatrixElement(mat, doogie_position.row, doogie_position.column);
+  switch (doogie_position.orientation){
+    case 1:
+      local_cell.front_wall = global_cell.north_wall;
+      local_cell.back_wall = global_cell.south_wall;
+      local_cell.right_wall = global_cell.east_wall;
+      local_cell.left_wall = global_cell.west_wall;
+      break;
+    
+    case 2:
+      local_cell.front_wall = global_cell.east_wall;
+      local_cell.back_wall = global_cell.west_wall;
+      local_cell.right_wall = global_cell.south_wall;
+      local_cell.left_wall = global_cell.north_wall;
+      break;
+    
+    case 3:
+      local_cell.front_wall = global_cell.south_wall;
+      local_cell.back_wall = global_cell.north_wall;
+      local_cell.right_wall = global_cell.west_wall;
+      local_cell.left_wall = global_cell.east_wall;
+      break;
+
+    case 4:
+      local_cell.front_wall = global_cell.west_wall;
+      local_cell.back_wall = global_cell.east_wall;
+      local_cell.right_wall = global_cell.north_wall;
+      local_cell.left_wall = global_cell.south_wall;
+      break;
+  }
+
+}
+
 }
