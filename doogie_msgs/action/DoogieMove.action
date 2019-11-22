@@ -8,4 +8,5 @@ uint8 cells
 uint8 turns
 ---
 bool status
---- 
+---
+float32 progress
