@@ -10,22 +10,26 @@ set(CATKIN_BUILD_DEPS
   doogie_msgs
   sensor_msgs
   nav_msgs
+  geometry_msgs
+  tf
   actionlib
 )
 
 find_package(catkin REQUIRED COMPONENTS ${CATKIN_BUILD_DEPS})
+find_package(Boost REQUIRED COMPONENTS system)
 catkin_python_setup()
 
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS ${CATKIN_BUILD_DEPS}
-  # DEPENDS Boost
-  # LIBRARIES ${PROJECT_NAME} pthread
+  DEPENDS Boost
+  LIBRARIES matrix_handle
 )
 
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 
 add_library(matrix_handle src/matrix_handle.cpp)
@@ -41,4 +45,16 @@ install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.hpp"
   PATTERN "*~" EXCLUDE
+)
+
+add_library(move_base src/move_base.cpp)
+target_link_libraries(move_base 
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+
+add_executable(move_base_node src/move_base_node.cpp)
+target_link_libraries(move_base_node
+  move_base
+  ${catkin_LIBRARIES}
 )

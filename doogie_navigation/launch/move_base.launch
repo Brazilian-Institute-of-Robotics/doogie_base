@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+ 
+  <arg name="ns" default="/"/>
+ 
+  <node name="doogie_move_base" pkg="doogie_navigation" type="move_base_node" output="screen">
+    <rosparam file="$(find doogie_navigation)/config/move_base.yaml" command="load"/>
+  </node>
+
+</launch>

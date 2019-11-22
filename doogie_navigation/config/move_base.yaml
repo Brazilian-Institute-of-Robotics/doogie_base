@@ -1,0 +1,6 @@
+distance_tolerance: 0.05 # m, default: 0.01
+angle_tolerance: 0.05 # rad, default: 0.01
+linear_velocity: 0.1 # m/s, default: 0.5
+angular_velocity: 12.56 # rad/s, default: 12.56 
+loop_frequency: 20 # Hz, default: 20
+cell_size: 0.1 # m, default 0.18
