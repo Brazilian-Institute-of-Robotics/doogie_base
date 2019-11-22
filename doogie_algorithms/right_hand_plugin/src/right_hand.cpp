@@ -1,6 +1,6 @@
-#include "doogie_navigation/right_hand.hpp"
+#include "doogie_algorithms/right_hand_plugin/right_hand.hpp"
 
-namespace doogie_navigation{
+namespace doogie_algorithms{
 void RightHandStrategy::init(){
   maze_walls_sub_ = nh_.subscribe("maze_walls_matrix",100, &RightHandStrategy::mazeWallsCallback, this);
   doogie_position_sub_ = nh_.subscribe("doogie_position", 100, &RightHandStrategy::doogiePositionCallback, this);
