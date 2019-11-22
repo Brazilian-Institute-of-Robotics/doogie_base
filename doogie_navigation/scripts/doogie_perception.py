@@ -4,7 +4,7 @@ import rospy
 from doogie_perception.matrixhandle import MatrixHandle 
 from doogie_msgs.msg import MazeCell
 from doogie_msgs.msg import MazeCellMultiArray
-from doogie_msgs.msg import UpdateMatrix
+from doogie_msgs.msg import DoogiePosition
 from std_msgs.msg import MultiArrayDimension
 from doogie_msgs.msg import WallDistances
 
@@ -21,7 +21,7 @@ class DoogiePerception:
         
         self.matrix_publisher = rospy.Publisher('maze_walls_matrix', MazeCellMultiArray, queue_size=1)
         self.sensors_subscriber = rospy.Subscriber('wall_distances', WallDistances, self.process_sensors_data)
-        self.update_matrix_subsriber = rospy.Subscriber('update_matrix', UpdateMatrix, self.update_matrix)
+        self.doogie_position_subsriber = rospy.Subscriber('doogie_position', DoogiePosition, self.doogie_position)
 
         self.sensors = WallDistances()
 
@@ -108,7 +108,7 @@ class DoogiePerception:
             self.west_wall = self.front_wall
 
 
-    def update_matrix(self, data):
+    def doogie_position(self, data):
         self.maze_cell_row = data.row
         self.maze_cell_column = data.column
         self.doogie_orientation = data.orientation
