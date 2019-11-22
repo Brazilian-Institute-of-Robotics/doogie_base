@@ -12,9 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
+    DoogiePosition.msg
     MazeCell.msg
     MazeCellMultiArray.msg
-    UpdateMatrix.msg
     WallDistances.msg
 )
 
