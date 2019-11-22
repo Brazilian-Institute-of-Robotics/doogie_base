@@ -4,7 +4,7 @@
 #include "doogie_navigation/matrix_handle.hpp"
 #include "doogie_navigation/mouse_handle.hpp"
 
-namespace doogie_navigation{
+namespace doogie_algorithms{
 
 class RightHandStrategy{
   public:
@@ -12,10 +12,10 @@ class RightHandStrategy{
   void mazeWallsCallback(const doogie_msgs::MazeCellMultiArray& matrix_msg);
   void doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg);
   private:
-  MouseHandle doogie_handle_;
-  LocalCell current_cell_;
+  doogie_navigation::MouseHandle doogie_handle_;
+  doogie_navigation::LocalCell current_cell_;
   doogie_msgs::MazeCellMultiArrayPtr matrix_maze_;
-  MatrixHandle matrix_handle_;
+  doogie_navigation::MatrixHandle matrix_handle_;
   ros::NodeHandle nh_;
   ros::Subscriber maze_walls_sub_;
   ros::Subscriber doogie_position_sub_;
