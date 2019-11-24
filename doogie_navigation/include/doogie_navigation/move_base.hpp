@@ -19,10 +19,11 @@ class MoveBase {
   void receiveGoalCallback();
   void preemptGoalCallback();
   void getOdometryDataCallback(const nav_msgs::Odometry::ConstPtr &odometry_data);
-  void moveRobot(double distance, double angle);
   void start();
 
  protected:
+  void moveRobot();
+  
   ros::NodeHandle nh_;
   ros::NodeHandle robot_controller_nh_;
   ros::NodeHandle ph_;
@@ -44,8 +45,18 @@ class MoveBase {
   double computeDistanceTarget();
   double computeAngleTarget();
 
-  bool is_to_move_straight_;
-  bool is_to_turn_;
+  enum RobotState {
+    STOPPED,
+    MOVING_STRAIGHT,
+    TURNING
+  };
+
+  void updateRobotState();
+  void performRobotStateTask();
+  float angle_to_turn_;
+  bool is_to_change_robot_state_;
+  RobotState current_robot_state_;
+  RobotState next_robot_state_;
 
   double distance_tolerance_;
   double angle_tolerance_;
