@@ -47,6 +47,7 @@ void MoveBase::receiveGoalCallback() {
   }
 
   target_pose_.position.x = current_pose_.position.x + 0.18;
+  target_pose_.orientation.w = 1.0;
 }
 
 void MoveBase::preemptGoalCallback() {
@@ -148,6 +149,7 @@ double MoveBase::computeDistanceTarget() {
 
 double MoveBase::computeAngleTarget() {
   double angle = tf::getYaw(current_pose_.orientation) - tf::getYaw(target_pose_.orientation);
+  ROS_INFO("Angle = %lf", angle);
   return angle;
 }
 
