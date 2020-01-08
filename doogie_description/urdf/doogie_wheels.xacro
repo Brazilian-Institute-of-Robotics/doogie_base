@@ -35,11 +35,11 @@
 
         <collision>
             <origin 
-                xyz="0.0 0.0 0.0" 
-                rpy="0.0 0.0 0.0"/>
+                xyz="-0.0025 0.0 0.0" 
+                rpy="0.0 1.5708 0.0"/>
             <geometry>
-                <xacro:insert_block name="mesh"/>
-            </geometry>
+                <cylinder radius="0.0162" length="0.005"/>
+             </geometry>
         </collision>
 
     </link>
