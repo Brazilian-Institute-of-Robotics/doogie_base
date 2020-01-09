@@ -17,7 +17,7 @@
     <!-- Create wheels -->
     <xacro:wheels namespace="$(arg namespace)" wheel_name="left">
         <mesh
-            filename="package://doogie_description/meshes/collada/wheel_v3.dae"/>
+            filename="package://doogie_description/meshes/collada/wheel.dae"/>
         <origin
             xyz="0.00302 0.0464 -0.00444"
             rpy="1.5708 0 1.5708"/>
@@ -27,7 +27,7 @@
 
     <xacro:wheels namespace="$(arg namespace)" wheel_name="right">
         <mesh
-            filename="package://doogie_description/meshes/collada/wheel_v3.dae"/>
+            filename="package://doogie_description/meshes/collada/wheel.dae"/>
         <origin
             xyz="0.00302 -0.0464 -0.00444"
             rpy="1.5708 0 -1.5708"/>
