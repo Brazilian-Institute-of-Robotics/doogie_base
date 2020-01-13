@@ -1,12 +1,20 @@
-set(DOOGIE_SOLVER_LIB_NAME rh_solver_plugin)
+set(DOOGIE_CORE_LIB_NAME doogie_core)
 
-add_library(${DOOGIE_SOLVER_LIB_NAME}
-  src/rh_solver_plugin.cpp
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
 )
+
+add_library(${DOOGIE_CORE_LIB_NAME}
+  src/matrix_handle.cpp
+  src/mouse_handle.cpp
+  src/solver_plugin_loader.cpp
+)
+
+target_link_libraries(${DOOGIE_CORE_LIB_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 set_target_properties(${DOOGIE_SOLVER_LIB_NAME} PROPERTIES VERSION "${${PROJECT_NAME}_VERSION}")
 
-target_link_libraries(${DOOGIE_SOLVER_LIB_NAME} ${catkin_LIBRARIES} doogie_core)
 
 install(TARGETS ${DOOGIE_SOLVER_LIB_NAME}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

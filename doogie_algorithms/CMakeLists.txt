@@ -6,9 +6,11 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED 
   COMPONENTS
     doogie_msgs
+    pluginlib
 )
 
 find_package(Boost REQUIRED COMPONENTS filesystem system)
+
 
 set(DOOGIE_ALGORITHMS_INCLUDE_DIRS
   core/include
@@ -20,12 +22,13 @@ catkin_package(
     ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}
   CATKIN_DEPENDS 
     doogie_msgs
-  DEPENDS
-    Boost
+    pluginlib
   LIBRARIES
     doogie_core
     rh_solver_plugin
-)
+  DEPENDS
+    Boost
+  )
 
 include_directories(
   ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}

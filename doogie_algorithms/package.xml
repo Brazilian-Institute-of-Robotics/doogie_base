@@ -16,6 +16,7 @@
   
   <depend>roscpp</depend>
 	<depend>doogie_msgs</depend>
+	<depend>pluginlib</depend>
   
   <export>
     <doogie_algorithms plugin="${prefix}/rh_solver_plugin_description.xml"/>

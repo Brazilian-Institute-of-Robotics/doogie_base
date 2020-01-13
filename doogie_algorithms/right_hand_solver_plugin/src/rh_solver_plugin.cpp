@@ -9,7 +9,7 @@ namespace doogie_algorithms{
 void RHSolverPlugin::init(){
   maze_walls_sub_ = nh_.subscribe("maze_walls_matrix", 100, &RHSolverPlugin::mazeWallsCallback, this);
   doogie_position_sub_ = nh_.subscribe("doogie_position", 100, &RHSolverPlugin::doogiePositionCallback, this);
-
+  ROS_INFO("Doing well");
 }
 
 void RHSolverPlugin::mazeWallsCallback(const doogie_msgs::MazeCellMultiArray& matrix_msg){
