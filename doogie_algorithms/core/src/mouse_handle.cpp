@@ -3,14 +3,14 @@
 namespace doogie_algorithms{
 
 MouseHandle::MouseHandle() : move_base_client_("move_base_action_server"){
+  position_.row = 0;
+  position_.column = 0;
+  position_.orientation = 0;
+
   ROS_INFO("Starting up Move Base Server");
-  // move_base_client_.waitForServer();
+  move_base_client_.waitForServer();
   ROS_INFO("Move Base Server has started. Ready for sending goals...");
 
-}
-
-MouseHandle::~MouseHandle(){
-  
 }
 
 void MouseHandle::setPosition(doogie_msgs::DoogiePosition position){
@@ -22,7 +22,12 @@ doogie_msgs::DoogiePosition MouseHandle::getPosition(){
 }
 
 void MouseHandle::move(doogie_msgs::DoogieMoveGoal goal){
+  ros::Rate rate(25);
   move_base_client_.sendGoal(goal);
+  while(!move_base_client_.getState().isDone()){
+    ROS_INFO_STREAM("Goal is running.\n State is " + move_base_client_.getState().toString());
+    rate.sleep();
+  }
 }
 
 }

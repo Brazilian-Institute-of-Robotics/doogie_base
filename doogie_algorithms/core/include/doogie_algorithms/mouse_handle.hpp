@@ -11,7 +11,6 @@ class MouseHandle{
 
 public:
 MouseHandle();
-~MouseHandle();
 doogie_msgs::DoogiePosition getPosition();
 void setPosition(doogie_msgs::DoogiePosition position);
 void move(doogie_msgs::DoogieMoveGoal goal);
