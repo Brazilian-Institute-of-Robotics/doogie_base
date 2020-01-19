@@ -10,18 +10,13 @@ namespace doogie_algorithms{
 
 class RHSolverPlugin : public BaseSolver{
   public:
-    void init() override;
-    void mazeWallsCallback(const doogie_msgs::MazeCellMultiArray& matrix_msg);
-    void doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg);
-
+    RHSolverPlugin();
+    bool makePlan() override;
+    bool move() override;
+    void doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg) override;
+  
   private:
-    doogie_algorithms::MouseHandle doogie_handle_;
-    doogie_algorithms::LocalCell current_cell_;
     doogie_msgs::MazeCellMultiArrayPtr matrix_maze_;
-    doogie_algorithms::MatrixHandle matrix_handle_;
-    ros::NodeHandle nh_;
-    ros::Subscriber maze_walls_sub_;
-    ros::Subscriber doogie_position_sub_;
 };
 
 }

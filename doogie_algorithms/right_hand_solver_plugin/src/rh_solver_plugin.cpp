@@ -6,16 +6,38 @@ PLUGINLIB_EXPORT_CLASS(doogie_algorithms::RHSolverPlugin, doogie_algorithms::Bas
 
 namespace doogie_algorithms{
 
-void RHSolverPlugin::init(){
-  maze_walls_sub_ = nh_.subscribe("maze_walls_matrix", 100, &RHSolverPlugin::mazeWallsCallback, this);
+RHSolverPlugin::RHSolverPlugin(){
   doogie_position_sub_ = nh_.subscribe("doogie_position", 100, &RHSolverPlugin::doogiePositionCallback, this);
-  ROS_INFO("Doing well");
 }
 
-void RHSolverPlugin::mazeWallsCallback(const doogie_msgs::MazeCellMultiArray& matrix_msg){
-  *matrix_maze_ = matrix_msg;
+bool RHSolverPlugin::makePlan(){
+  if (!isWallRight()){
+    goal_.direction = doogie_msgs::DoogieMoveGoal::RIGHT;
+    return true;
+  }
+
+  else if (!isWallFront()){
+      goal_.direction = doogie_msgs::DoogieMoveGoal::FRONT;
+      return true;
+  }
+
+  else if (!isWallLeft()){
+      goal_.direction = doogie_msgs::DoogieMoveGoal::LEFT;
+      return true;
+  }
+
+  else{
+    ROS_ERROR("Could not make a plan. There is no path robot can move");
+    return false;
+  }
 }
 
+bool RHSolverPlugin::move(){
+  doogie_handle_.move(goal_);
+  return true;
+}
+
+//I could define this callback inside the base class
 void RHSolverPlugin::doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg){
   current_cell_ = matrix_handle_.GlobalToLocal(position_msg);
   doogie_handle_.setPosition(position_msg);
