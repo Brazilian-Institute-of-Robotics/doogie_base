@@ -27,11 +27,14 @@ add_action_files(
 
 generate_messages(
   DEPENDENCIES
-  sensor_msgs
-  std_msgs
-  actionlib_msgs
+    sensor_msgs
+    std_msgs
+    actionlib_msgs
 )
 
 catkin_package(
-  CATKIN_DEPENDS nav_msgs sensor_msgs std_msgs
+  CATKIN_DEPENDS 
+    nav_msgs 
+    sensor_msgs 
+    std_msgs
 )
