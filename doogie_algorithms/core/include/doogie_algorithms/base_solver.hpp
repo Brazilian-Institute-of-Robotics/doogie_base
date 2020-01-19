@@ -6,21 +6,30 @@
 #include "doogie_msgs/DoogiePosition.h"
 #include "doogie_algorithms/mouse_handle.hpp"
 #include "doogie_algorithms/matrix_handle.hpp"
-namespace doogie_algorithms
-{
+namespace doogie_algorithms{
 
-class BaseSolver
-{
+class BaseSolver{
   public:
-    virtual void init() = 0;
-    virtual void mazeWallsCallback(const doogie_msgs::MazeCellMultiArray& matrix_msg) = 0;
+
+    BaseSolver();
+    virtual bool getParams();
+    virtual bool isWallFront();
+    virtual bool isWallLeft();
+    virtual bool isWallRight();
+    virtual bool makePlan() = 0;
+    virtual bool move() = 0;
+    virtual void sleep();
     virtual void doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg) = 0;
     virtual ~BaseSolver(){}
 
   protected:
-    BaseSolver(){}
+    doogie_algorithms::LocalCell current_cell_;
+    doogie_msgs::DoogieMoveGoal goal_;
     doogie_algorithms::MouseHandle doogie_handle_;
-    doogie_algorithms::MatrixHandle maze_handle_;
+    doogie_algorithms::MatrixHandle matrix_handle_;
+    ros::Subscriber doogie_position_sub_;
+    ros::NodeHandle nh_;
+    ros::Rate rate_;
 };
 
 };

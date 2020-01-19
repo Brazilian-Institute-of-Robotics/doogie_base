@@ -9,7 +9,7 @@ boost::shared_ptr<doogie_algorithms::BaseSolver> SolverPluginLoader::getSolverIn
   }
     catch(pluginlib::PluginlibException& ex)
   {
-    ROS_ERROR("The %s plugin failed to load.", solver_param_name.c_str());
+    ROS_FATAL("The %s plugin failed to load.", solver_param_name.c_str());
     throw pluginlib::PluginlibException (ex.what());
   }
 
