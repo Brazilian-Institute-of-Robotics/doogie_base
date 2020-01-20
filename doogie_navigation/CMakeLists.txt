@@ -20,19 +20,14 @@ find_package(Boost REQUIRED COMPONENTS filesystem system)
 catkin_python_setup()
 
 catkin_package(
-  INCLUDE_DIRS 
-    include
-  CATKIN_DEPENDS 
-    ${CATKIN_BUILD_DEPS} 
-  LIBRARIES 
-    move_base
-  DEPENDS
-    Boost   
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS ${CATKIN_BUILD_DEPS} 
+  LIBRARIES move_base
+  DEPENDS Boost   
 )
 
 include_directories(
   include
-  ${PROJECT_SOURCE_DIR}
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
 )
@@ -49,10 +44,13 @@ target_link_libraries(move_base
   ${Boost_LIBRARIES}
 )
 
-add_executable(move_base_node src/move_base_node.cpp)
-target_link_libraries(move_base_node
-  move_base
+add_executable(doogie_perception_node 
+  src/doogie_perception.cpp
+  src/doogie_perception_node.cpp
+)
+target_link_libraries(doogie_perception_node
   ${catkin_LIBRARIES}
+  maze_matrix_handle
 )
 
 add_executable(maze_solver_node src/maze_solver_node.cpp)

@@ -1,0 +1,5 @@
+maze:
+  rows: 2 # Number of rows
+  columns: 2 # Number of columns
+  front_distance_threshold: 0.12
+  side_distance_threshold: 0.12
