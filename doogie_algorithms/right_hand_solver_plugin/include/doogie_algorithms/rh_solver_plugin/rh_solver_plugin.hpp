@@ -2,13 +2,13 @@
 #define DOOGIE_ALGORITHMS_RIGHT_HAND_PLUGIN_HPP_
 
 #include <ros/ros.h>
-#include "doogie_algorithms/base_solver.hpp"
+#include "doogie_core/base_solver.hpp"
 #include "doogie_msgs/MazeCellMultiArray.h"
 #include "doogie_msgs/DoogiePosition.h"
 
 namespace doogie_algorithms{
 
-class RHSolverPlugin : public BaseSolver{
+class RHSolverPlugin : public doogie_core::BaseSolver{
   public:
     RHSolverPlugin();
     bool makePlan() override;

@@ -2,7 +2,7 @@
 
 // register RHSolver as a BaseSolver implementation
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(doogie_algorithms::RHSolverPlugin, doogie_algorithms::BaseSolver)
+PLUGINLIB_EXPORT_CLASS(doogie_algorithms::RHSolverPlugin, doogie_core::BaseSolver)
 
 namespace doogie_algorithms{
 

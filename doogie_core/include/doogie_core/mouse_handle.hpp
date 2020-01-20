@@ -1,11 +1,11 @@
-#ifndef DOOGIE_ALGORITHMS_MOUSE_HANDLE_HPP_
-#define DOOGIE_ALGORITHMS_MOUSE_HANDLE_HPP_
+#ifndef DOOGIE_CORE_MOUSE_HANDLE_HPP_
+#define DOOGIE_CORE_MOUSE_HANDLE_HPP_
 
 #include <actionlib/client/simple_action_client.h>
 #include "doogie_msgs/DoogiePosition.h"
 #include "doogie_msgs/DoogieMoveAction.h"
 
-namespace doogie_algorithms{
+namespace doogie_core{
 
 class MouseHandle{
 
@@ -21,4 +21,4 @@ actionlib::SimpleActionClient<doogie_msgs::DoogieMoveAction> move_base_client_;
 
 };
 }
-#endif // DOOGIE_ALGORITHMS_MOUSE_HANDLE_HPP_
+#endif // DOOGIE_CORE_MOUSE_HANDLE_HPP_

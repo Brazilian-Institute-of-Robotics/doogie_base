@@ -6,10 +6,9 @@ add_compile_options(-std=c++11)
 set(CATKIN_BUILD_DEPS
   rospy
   roscpp
-  std_msgs
+  doogie_core
   doogie_msgs
   doogie_algorithms
-  sensor_msgs
   nav_msgs
   geometry_msgs
   tf
@@ -59,5 +58,5 @@ target_link_libraries(move_base_node
 add_executable(maze_solver_node src/maze_solver_node.cpp)
 add_dependencies(maze_solver_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(maze_solver_node
-  ${catkin_LIBRARIES} 
+  ${catkin_LIBRARIES}
 )

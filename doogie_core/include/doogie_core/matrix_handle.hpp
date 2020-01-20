@@ -1,5 +1,5 @@
-#ifndef DOOGIE_ALGORITHMS_WALL_DETECTOR_HPP_
-#define DOOGIE_ALGORITHMS_WALL_DETECTOR_HPP_
+#ifndef DOOGIE_CORE_MATRIX_HANDLE_HPP_
+#define DOOGIE_CORE_MATRIX_HANDLE_HPP_
 
 #include <ros/ros.h>
 #include "doogie_msgs/MazeCell.h"
@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace doogie_algorithms {
+namespace doogie_core{
 typedef struct LocalCell{
   bool front_wall;
   bool back_wall;
@@ -31,4 +31,4 @@ class MatrixHandle {
 
 }
 
-#endif  // DOOGIE_ALGORITHMS_WALL_DETECTOR_HPP_
+#endif  // DOOGIE_CORE_MATRIX_HANDLE_HPP_

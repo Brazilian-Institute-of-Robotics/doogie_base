@@ -16,10 +16,9 @@
   
   <depend>rospy</depend>
   <depend>roscpp</depend>
-  <depend>std_msgs</depend>
   <depend>doogie_msgs</depend>
+  <depend>doogie_core</depend>
   <depend>doogie_algorithms</depend>
-  <depend>sensor_msgs</depend>
   <depend>nav_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>tf</depend>

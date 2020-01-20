@@ -1,7 +1,7 @@
 #include <std_msgs/MultiArrayDimension.h>
-#include "doogie_algorithms/matrix_handle.hpp"
+#include "doogie_core/matrix_handle.hpp"
 
-namespace doogie_algorithms {
+namespace doogie_core{
 
 MatrixHandle::MatrixHandle() {
   mat.layout.dim.push_back(std_msgs::MultiArrayDimension());

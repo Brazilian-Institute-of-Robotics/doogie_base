@@ -1,12 +1,12 @@
-#ifndef DOOGIE_ALGORITHMS_BASE_SOLVER_HPP_
-#define DOOGIE_ALGORITHMS_BASE_SOLVER_HPP_
+#ifndef DOOGIE_CORE_BASE_SOLVER_HPP_
+#define DOOGIE_CORE_BASE_SOLVER_HPP_
 
 #include <actionlib/client/action_client.h>
 #include "doogie_msgs/MazeCellMultiArray.h"
 #include "doogie_msgs/DoogiePosition.h"
-#include "doogie_algorithms/mouse_handle.hpp"
-#include "doogie_algorithms/matrix_handle.hpp"
-namespace doogie_algorithms{
+#include "doogie_core/mouse_handle.hpp"
+#include "doogie_core/matrix_handle.hpp"
+namespace doogie_core{
 
 class BaseSolver{
   public:
@@ -23,10 +23,10 @@ class BaseSolver{
     virtual ~BaseSolver(){}
 
   protected:
-    doogie_algorithms::LocalCell current_cell_;
+    doogie_core::LocalCell current_cell_;
     doogie_msgs::DoogieMoveGoal goal_;
-    doogie_algorithms::MouseHandle doogie_handle_;
-    doogie_algorithms::MatrixHandle matrix_handle_;
+    doogie_core::MouseHandle doogie_handle_;
+    doogie_core::MatrixHandle matrix_handle_;
     ros::Subscriber doogie_position_sub_;
     ros::NodeHandle nh_;
     ros::Rate rate_;

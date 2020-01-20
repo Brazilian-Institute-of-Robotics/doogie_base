@@ -1,26 +1,23 @@
 <?xmle version="1.0"?>
 <package format="2">
-<name>doogie_algorithms</name>
+<name>doogie_core</name>
   <version>0.0.0</version>
-  <description>Package for all search algorithms implementation in Doogie Mouse</description>
+  <description>Package with core system API and base classes used in Doogie Mouse</description>
   
   <maintainer email="caioaamaral@gmail.com">Caio Amaral</maintainer>
   <maintainer email="mateusmenezes95@gmail.com">Mateus Menezes</maintainer>
   <author email="caioaamaral@gmail.com">Caio Amaral</author>
-  <author email="elisson_09@hotmail.com">Élisson Oliveira</author>
   
   <url type="repository">https://github.com/Brazilian-Institute-of-Robotics/doogie_base</url>
   <license>Apache-2.0</license>
   
- <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
   
-
-	<depend>pluginlib</depend>
-  <depend>doogie_core</depend>
-
+  <depend>roscpp</depend>
+  <depend>actionlib</depend>
+  <depend>doogie_msgs</depend>
   
   <export>
-    <doogie_core plugin="${prefix}/rh_solver_plugin_description.xml"/>
   </export>
   
 

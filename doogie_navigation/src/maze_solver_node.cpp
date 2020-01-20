@@ -1,23 +1,22 @@
 #include <ros/ros.h>
 #include <pluginlib/class_loader.h>
-#include "doogie_algorithms/solver_plugin_loader.hpp"
-#define BASE_CLASS_PACKAGE "doogie_algorithms"
-#define BASE_CLASS "doogie_algorithms::BaseSolver"
+#include "doogie_core/solver_plugin_loader.hpp"
 
-const std::string& package = "doogie_algorithms";
-const std::string& base_class = "doogie_algorithms::BaseSolver";
 
-void loop(const boost::shared_ptr<doogie_algorithms::BaseSolver>& solver);
+const std::string& BASE_CLASS_PACKAGE = "doogie_core";
+const std::string& BASE_CLASS = BASE_CLASS_PACKAGE+"::BaseSolver";
+
+void loop(const boost::shared_ptr<doogie_core::BaseSolver>& solver);
 
 int main (int argc, char** argv)
 {
   std::string plugin_param_name;
-  boost::shared_ptr<doogie_algorithms::BaseSolver> solver;
+  boost::shared_ptr<doogie_core::BaseSolver> solver;
   
   ros::init(argc, argv, "maze_solver");
   ros::NodeHandle ph("~");
   
-  doogie_algorithms::SolverPluginLoader plugin_loader(BASE_CLASS_PACKAGE, BASE_CLASS);
+  doogie_core::SolverPluginLoader plugin_loader(BASE_CLASS_PACKAGE, BASE_CLASS);
 
   if (ph.getParam("/solver_plugin", plugin_param_name))
   {  
@@ -32,7 +31,7 @@ int main (int argc, char** argv)
     
 }
 
-void loop(const boost::shared_ptr<doogie_algorithms::BaseSolver>& solver){
+void loop(const boost::shared_ptr<doogie_core::BaseSolver>& solver){
   while(ros::ok()){
     solver->makePlan();
     solver->move();

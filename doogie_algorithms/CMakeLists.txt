@@ -5,15 +5,14 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED 
   COMPONENTS
-    doogie_msgs
     pluginlib
+    doogie_core
 )
 
-find_package(Boost REQUIRED COMPONENTS filesystem system)
+find_package(Boost)
 
 
 set(DOOGIE_ALGORITHMS_INCLUDE_DIRS
-  core/include
   right_hand_solver_plugin/include
 )
 
@@ -21,11 +20,8 @@ catkin_package(
   INCLUDE_DIRS 
     ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}
   CATKIN_DEPENDS 
-    doogie_msgs
     pluginlib
-  LIBRARIES
     doogie_core
-    rh_solver_plugin
   DEPENDS
     Boost
   )
@@ -37,4 +33,3 @@ include_directories(
 )
 
 add_subdirectory(right_hand_solver_plugin)
-add_subdirectory(core)
