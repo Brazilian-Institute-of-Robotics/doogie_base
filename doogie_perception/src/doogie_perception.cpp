@@ -1,7 +1,7 @@
 #include <cstddef>
-#include "doogie_navigation/doogie_perception.hpp"
+#include "doogie_perception/doogie_perception.hpp"
 
-namespace doogie_navigation {
+namespace doogie_percption {
 
 DoogiePerception::DoogiePerception()
   : is_to_pub_maze_obstacle_matrix_(false) {
@@ -30,35 +30,35 @@ void DoogiePerception::wallDistancesCallback(const doogie_msgs::WallDistancesCon
   uint8_t row = doogie_position_.row;
   uint8_t column = doogie_position_.column;
 
-  if(wall_distances->left_sensor.range < front_dist_threshold_ &&
+  if (wall_distances->left_sensor.range < front_dist_threshold_ &&
      wall_distances->right_sensor.range < front_dist_threshold_) local_cell.front_wall = true;
-  if(wall_distances->front_left_sensor.range < side_dist_threshold_) local_cell.left_wall = true;
-  if(wall_distances->front_right_sensor.range < side_dist_threshold_) local_cell.right_wall = true;
+  if (wall_distances->front_left_sensor.range < side_dist_threshold_) local_cell.left_wall = true;
+  if (wall_distances->front_right_sensor.range < side_dist_threshold_) local_cell.right_wall = true;
 
-  switch(doogie_position_.orientation) {
+  switch (doogie_position_.orientation) {
     case doogie_msgs::DoogiePosition::NORTH:
-      if(row - 1 < 0) {
+      if (row - 1 < 0) {
         local_cell.back_wall = true;
         break;
       }
       local_cell.back_wall = maze_obstacle_matrix_.getMazeMatrixCell(row - 1, column).north_wall;
       break;
     case doogie_msgs::DoogiePosition::SOUTH:
-      if(row + 1 > max_row_val) {
+      if (row + 1 > max_row_val) {
         local_cell.back_wall = true;
         break;
       }
       local_cell.back_wall = maze_obstacle_matrix_.getMazeMatrixCell(row + 1, column).south_wall;
       break;
     case doogie_msgs::DoogiePosition::EAST:
-      if(column - 1 < 0) {
+      if (column - 1 < 0) {
         local_cell.back_wall = true;
         break;
       }
       local_cell.back_wall = maze_obstacle_matrix_.getMazeMatrixCell(row, column - 1).east_wall;
       break;
     case doogie_msgs::DoogiePosition::WEST:
-      if(column + 1 > max_column_val) {
+      if (column + 1 > max_column_val) {
         local_cell.back_wall = true;
         break;
       }
@@ -92,4 +92,4 @@ void DoogiePerception::loadParameters() {
   maze_obstacle_matrix_.initMatrix(static_cast<uint8_t>(rows_qty), static_cast<uint8_t>(columns_qty));
 }
 
-}
+}  // namespace doogie_percption

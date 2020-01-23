@@ -22,7 +22,6 @@ catkin_python_setup()
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS ${CATKIN_BUILD_DEPS} 
-  LIBRARIES move_base
   DEPENDS Boost   
 )
 
@@ -42,15 +41,6 @@ add_library(move_base src/move_base.cpp)
 target_link_libraries(move_base 
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
-)
-
-add_executable(doogie_perception_node 
-  src/doogie_perception.cpp
-  src/doogie_perception_node.cpp
-)
-target_link_libraries(doogie_perception_node
-  ${catkin_LIBRARIES}
-  maze_matrix_handle
 )
 
 add_executable(maze_solver_node src/maze_solver_node.cpp)

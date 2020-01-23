@@ -2,11 +2,11 @@
 #define DOOGIE_NAVIGATION_DOOGIE_PERCEPTION_HPP_
 
 #include <ros/ros.h>
-#include "doogie_algorithms/maze_matrix_handle.hpp"
+#include "doogie_core/maze_matrix_handle.hpp"
 #include "doogie_msgs/DoogiePosition.h"
 #include "doogie_msgs/WallDistances.h"
 
-namespace doogie_navigation {
+namespace doogie_perception {
 
 class DoogiePerception {
  public:
@@ -22,7 +22,7 @@ class DoogiePerception {
   ros::Publisher maze_obstacle_matrix_pub_;
   ros::Subscriber doogie_position_sub_;
   ros::Subscriber wall_distances_sub_;
-  
+
   doogie_algorithms::MazeMatrixHandle maze_obstacle_matrix_;
   doogie_msgs::DoogiePosition doogie_position_;
 
@@ -33,4 +33,4 @@ class DoogiePerception {
 
 }
 
-#endif  // DOOGIE_NAVIGATION_DOOGIE_PERCEPTION_HPP_
+#endif  // DOOGIE_PERCEPTION_DOOGIE_PERCEPTION_HPP_
