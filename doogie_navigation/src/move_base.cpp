@@ -60,41 +60,47 @@ void MoveBase::start() {
 }
 
 void MoveBase::loadParameters() {
-  std::string param_name = "distance_tolerance";
-  if (!ph_.param<double>(param_name, distance_tolerance_, 0.01)) {
-    ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
-    << distance_tolerance_ << " m");
-  }
+  doogie_navigation::MoveBase::checkParameters(ph_, "distance_tolerance", &distance_tolerance_);
+  doogie_navigation::MoveBase::checkParameters(ph_, "angle_tolerance", &angle_tolerance_);
+  doogie_navigation::MoveBase::checkParameters(ph_, "linear_velocity", &linear_velocity_);
+  doogie_navigation::MoveBase::checkParameters(ph_, "angular_velocity", &angular_velocity_);
+  doogie_navigation::MoveBase::checkParameters(ph_, "loop_frequency", &loop_frequency_);
+  doogie_navigation::MoveBase::checkParameters(ph_, "cell_size", &cell_size_);
+  // std::string param_name = "distance_tolerance";
+  // // if (!ph_.param<double>(param_name, distance_tolerance_, 0.01)) {
+  // //   ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
+  // //   << distance_tolerance_ << " m");
+  // // }
 
-  param_name = "angle_tolerance";
-  if (!ph_.param<double>(param_name, angle_tolerance_, 0.01)) {
-    ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
-    << angle_tolerance_ << " m");
-  }
+  // param_name = "angle_tolerance";
+  // if (!ph_.param<double>(param_name, angle_tolerance_, 0.01)) {
+  //   ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
+  //   << angle_tolerance_ << " m");
+  // }
 
-  param_name = "linear_velocity";
-  if (!ph_.param<double>(param_name, linear_velocity_, 0.5)) {
-    ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
-    << linear_velocity_ << " m/s");
-  }
+  // param_name = "linear_velocity";
+  // if (!ph_.param<double>(param_name, linear_velocity_, 0.5)) {
+  //   ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
+  //   << linear_velocity_ << " m/s");
+  // }
 
-  param_name = "angular_velocity";
-  if (!ph_.param<double>(param_name, angular_velocity_, 4 * M_PI)) {
-    ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
-    << angular_velocity_ << " rad/s");
-  }
+  // param_name = "angular_velocity";
+  // if (!ph_.param<double>(param_name, angular_velocity_, 4 * M_PI)) {
+  //   ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
+  //   << angular_velocity_ << " rad/s");
+  // }
 
-  param_name = "loop_frequency";
-  if (!ph_.param<double>(param_name, loop_frequency_, 20)) {
-    ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
-    << loop_frequency_ << " Hz");
-  }
+  // param_name = "loop_frequency";
+  // if (!ph_.param<double>(param_name, loop_frequency_, 20)) {
+  //   ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
+  //   << loop_frequency_ << " Hz");
+  // }
 
-  param_name = "cell_size";
-  if (!ph_.param<double>(param_name, cell_size_, 0.18)) {
-    ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
-    << cell_size_ << + " m");
-  }
+  // param_name = "cell_size";
+  // if (!ph_.param<double>(param_name, cell_size_, 0.18)) {
+  //   ROS_WARN_STREAM(param_name + " parameter not found in the parameter server. Using default parameter of "
+  //   << cell_size_ << + " m");
+  // }
 }
 
 // double MoveBase::computeDistanceTarget() {
