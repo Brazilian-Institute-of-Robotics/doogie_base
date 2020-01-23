@@ -50,26 +50,26 @@
     <!-- Create ir_sensors -->  
     <xacro:sensors namespace="$(arg namespace)" sensor_name="left">
         <origin
-            xyz="0.0364324038765062 0.0351454111038035 -0.01074"
-            rpy="1.5707963267949 0 0.17453"/>
+            xyz="0.0229854612389802 0.0415098295899679 -0.01074"
+            rpy="1.5707963267949 0 0.0415640560935549"/>
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="front_left">
         <origin
-            xyz="0.052482 0.014629 -0.01074"
-            rpy="1.5707963267949 0 0.87266"/>
+            xyz="0.0549597020112072 0.013499578883641 -0.01074"
+            rpy="1.5707963267949 0 1.08295252826201"/>
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="front_right">
         <origin
-            xyz="0.0524823992514108 -0.0146287488616027 -0.01074"
-            rpy="1.5707963267949 0 -0.87266"/>
+            xyz="0.0551208644089312 -0.0136426818026577 -0.01074"
+            rpy="1.5707963267949 0 -1.0215948588127" />
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="right">
         <origin
-            xyz="0.036432 -0.035145 -0.01074"
-            rpy="1.5708 0 -0.17453"/>
+            xyz="0.023438 -0.041802 -0.01074"
+            rpy="1.5708 0 -0.097308" />
     </xacro:sensors>
 
 </robot>
