@@ -24,12 +24,15 @@ void MazeMatrixHandle::initMatrix(uint8_t row_qty, uint8_t column_qty) {
     maze_matrix_.data.push_back(doogie_msgs::MazeCell());
   }
 
+
   for (std::size_t i = 0; i < row_qty; i++) {
     for (std::size_t j = 0; j < column_qty; j++) {
-      if (i == 0) this->setMazeMatrixCell(i, j, false, false, false, true);  // Left side of the maze
-      if (i == row_qty - 1) this->setMazeMatrixCell(i, j, false, false, true, false);  // Right side of the maze
-      if (j == 0) this->setMazeMatrixCell(i, j, false, true, false, false);  // Bottom side of the maze
-      if (j == column_qty - 1) this->setMazeMatrixCell(i, j, true, false, false, false);  // Top side of the maze
+      doogie_msgs::MazeCell maze_cell;
+      if (i == 0) maze_cell.south_wall = true;
+      if (i == row_qty - 1) maze_cell.north_wall = true;
+      if (j == 0) maze_cell.west_wall = true;
+      if (j == column_qty - 1) maze_cell.east_wall = true;
+      this->setMazeMatrixCell(i, j, maze_cell);
     }
   }
 }
