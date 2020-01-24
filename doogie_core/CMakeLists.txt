@@ -28,7 +28,7 @@ include_directories(
 
 add_library(${DOOGIE_CORE_LIB_NAME}
   src/base_solver.cpp
-  src/matrix_handle.cpp
+  src/maze_matrix_handle.cpp
   src/mouse_handle.cpp
   src/solver_plugin_loader.cpp
 )

@@ -36,7 +36,7 @@ void BaseSolver::sleep(){
 }
 
 void BaseSolver::doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg){
-  current_cell_ = matrix_handle_.GlobalToLocal(position_msg);
+  // current_cell_ = matrix_handle_.globalToLocal(position_msg);
   doogie_handle_.setPosition(position_msg);
 }
 

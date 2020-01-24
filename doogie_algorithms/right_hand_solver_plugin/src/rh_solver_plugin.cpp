@@ -39,7 +39,7 @@ bool RHSolverPlugin::move(){
 
 //I could define this callback inside the base class
 void RHSolverPlugin::doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg){
-  current_cell_ = maze_handle_.globalToLocalCell(position_msg);
+  // current_cell_ = maze_handle_.globalToLocalCell(position_msg);
   doogie_handle_.setPosition(position_msg);
 }
 

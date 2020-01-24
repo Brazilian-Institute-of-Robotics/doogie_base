@@ -5,7 +5,7 @@
 #include "doogie_msgs/MazeCellMultiArray.h"
 #include "doogie_msgs/DoogiePosition.h"
 #include "doogie_core/mouse_handle.hpp"
-#include "doogie_core/matrix_handle.hpp"
+#include "doogie_core/maze_matrix_handle.hpp"
 namespace doogie_core{
 
 class BaseSolver{
@@ -26,7 +26,7 @@ class BaseSolver{
     doogie_core::LocalCell current_cell_;
     doogie_msgs::DoogieMoveGoal goal_;
     doogie_core::MouseHandle doogie_handle_;
-    doogie_core::MatrixHandle matrix_handle_;
+    doogie_core::MazeMatrixHandle matrix_handle_;
     ros::Subscriber doogie_position_sub_;
     ros::NodeHandle nh_;
     ros::Rate rate_;
