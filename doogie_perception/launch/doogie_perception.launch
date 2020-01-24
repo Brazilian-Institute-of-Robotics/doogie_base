@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+ 
+  <arg name="ns" default="/"/>
+ 
+  <rosparam file="$(find doogie_perception)/config/maze.yaml" command="load"/>
+  <node name="doogie_perception" pkg="doogie_perception" type="doogie_perception_node" output="screen"/>
+
+</launch>

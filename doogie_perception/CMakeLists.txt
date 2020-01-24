@@ -21,10 +21,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-# add_executable(doogie_perception_node 
-#   src/doogie_perception.cpp
-#   src/doogie_perception_node.cpp
-# )
-# target_link_libraries(doogie_perception_node
-#   ${catkin_LIBRARIES}
-# )
+add_executable(doogie_perception_node 
+  src/doogie_perception.cpp
+  src/doogie_perception_node.cpp
+)
+target_link_libraries(doogie_perception_node
+  ${catkin_LIBRARIES}
+)

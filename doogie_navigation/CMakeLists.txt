@@ -43,6 +43,13 @@ target_link_libraries(move_base
   ${Boost_LIBRARIES}
 )
 
+add_executable(move_base_node src/move_base_node.cpp)
+add_dependencies(move_base_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(move_base_node
+  ${catkin_LIBRARIES}
+  move_base
+)
+
 add_executable(maze_solver_node src/maze_solver_node.cpp)
 add_dependencies(maze_solver_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(maze_solver_node

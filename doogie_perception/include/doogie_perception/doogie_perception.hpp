@@ -23,7 +23,7 @@ class DoogiePerception {
   ros::Subscriber doogie_position_sub_;
   ros::Subscriber wall_distances_sub_;
 
-  doogie_algorithms::MazeMatrixHandle maze_obstacle_matrix_;
+  doogie_core::MazeMatrixHandle maze_obstacle_matrix_;
   doogie_msgs::DoogiePosition doogie_position_;
 
   bool is_to_pub_maze_obstacle_matrix_;

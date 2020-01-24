@@ -16,6 +16,7 @@
   <depend>roscpp</depend>
   <depend>actionlib</depend>
   <depend>doogie_msgs</depend>
+  <depend>pluginlib</depend>
   
   <export>
   </export>

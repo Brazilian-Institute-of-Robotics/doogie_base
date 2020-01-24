@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "doogie_perception/doogie_perception.hpp"
 
-namespace doogie_percption {
+namespace doogie_perception {
 
 DoogiePerception::DoogiePerception()
   : is_to_pub_maze_obstacle_matrix_(false) {
@@ -13,6 +13,7 @@ DoogiePerception::DoogiePerception()
 
 void DoogiePerception::run() {
   ROS_INFO("Doogie perception node has started!");
+  maze_obstacle_matrix_pub_.publish(maze_obstacle_matrix_.getMazeMatrix());
   ros::spin();
 }
 
@@ -24,7 +25,7 @@ void DoogiePerception::doogiePositionCallback(const doogie_msgs::DoogiePositionC
 void DoogiePerception::wallDistancesCallback(const doogie_msgs::WallDistancesConstPtr& wall_distances) {
   if (!is_to_pub_maze_obstacle_matrix_) return;
 
-  doogie_algorithms::LocalCell local_cell = {false, false, false, false};
+  doogie_core::LocalCell local_cell = {false, false, false, false};
   uint8_t max_row_val = maze_obstacle_matrix_.getNumberOfRows();
   uint8_t max_column_val = maze_obstacle_matrix_.getNumberOfColumns();
   uint8_t row = doogie_position_.row;
@@ -92,4 +93,4 @@ void DoogiePerception::loadParameters() {
   maze_obstacle_matrix_.initMatrix(static_cast<uint8_t>(rows_qty), static_cast<uint8_t>(columns_qty));
 }
 
-}  // namespace doogie_percption
+}  // namespace doogie_perception

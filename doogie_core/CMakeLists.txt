@@ -8,6 +8,7 @@ set(DOOGIE_CORE_DEPS
   roscpp
   actionlib
   doogie_msgs
+  pluginlib
 )
 
 find_package(catkin REQUIRED COMPONENTS ${DOOGIE_CORE_DEPS})
