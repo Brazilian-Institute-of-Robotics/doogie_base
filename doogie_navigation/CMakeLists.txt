@@ -17,7 +17,6 @@ set(CATKIN_BUILD_DEPS
 
 find_package(catkin REQUIRED COMPONENTS ${CATKIN_BUILD_DEPS})
 find_package(Boost REQUIRED COMPONENTS filesystem system)
-catkin_python_setup()
 
 catkin_package(
   INCLUDE_DIRS include
@@ -31,27 +30,13 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
 )
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.hpp"
-  PATTERN "*~" EXCLUDE
+add_executable(move_base_node 
+  src/move_base_node.cpp
+  src/move_base.cpp
 )
-
-add_library(move_base src/move_base.cpp)
-target_link_libraries(move_base 
-  ${catkin_LIBRARIES}
-  ${Boost_LIBRARIES}
-)
-
-add_executable(move_base_node src/move_base_node.cpp)
 add_dependencies(move_base_node ${catkin_EXPORTED_TARGETS})
-target_link_libraries(move_base_node
-  ${catkin_LIBRARIES}
-  move_base
-)
+target_link_libraries(move_base_node ${catkin_LIBRARIES})
 
 add_executable(maze_solver_node src/maze_solver_node.cpp)
 add_dependencies(maze_solver_node ${catkin_EXPORTED_TARGETS})
-target_link_libraries(maze_solver_node
-  ${catkin_LIBRARIES}
-)
+target_link_libraries(maze_solver_node ${catkin_LIBRARIES})
