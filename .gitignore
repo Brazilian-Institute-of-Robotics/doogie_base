@@ -136,3 +136,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Doxygen folders
+html/
+latex/
