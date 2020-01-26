@@ -5,7 +5,9 @@
 #include <actionlib/server/simple_action_server.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Quaternion.h>
 #include <nav_msgs/Odometry.h>
+#include <angles/angles.h>
 #include <doogie_msgs/DoogieMoveAction.h>
 #include <boost/geometry/geometries/point_xy.hpp>
 
@@ -34,7 +36,7 @@ class MoveBase {
    * @param goal The goal to move_base send the robot.
    */
   void executeCB(const doogie_msgs::DoogieMoveActionGoalConstPtr &goal);
-  // void receiveGoalCallback();
+  void receiveGoalCallback();
   // void preemptGoalCallback();
   /**
    * @brief Get the odometry data from the odometry topic to control the position of the 
@@ -79,7 +81,7 @@ class MoveBase {
   void checkParameters(const ros::NodeHandle& private_nh, const std::string& param_name, param_type* param_value) {
     if(!private_nh.hasParam(param_name)) {
       std::stringstream error_msgs;
-      error_msgs << "No parameter with name:" + param_name + "was found in the parameter server.";
+      error_msgs << "No parameter with name:" + param_name + " was found in the parameter server.";
       ROS_ERROR_STREAM(error_msgs.str());
       throw std::runtime_error (error_msgs.str());
     }
@@ -91,8 +93,34 @@ class MoveBase {
    * 
    */
   void loadParameters();
-  float angle_to_turn_;
+  /**
+   * @brief Get the orientation of doogie robot according to the odometry. The yaw angle 
+   * get from the orientation using tf::getYaw() varies [0, PI] and [0, -PI]. So, if the angle is
+   * equal to PI/2 or -PI/2, the robot is heading the y axis. If is equal to 0, PI or -PI is heading
+   * the x axis. Considering this angle, the flag is_heading_x is set. 
+   * 
+   * @param orientation Quaternion of the orientation of the robot.
+   */
+  void getOrientation(const geometry_msgs::Quaternion& orientation);
+
+
+  void computeDistance(int cell_number);
+
+  void computeAngle(int direction);
+
+  double angle_to_turn_;
+  double distance_to_move_;
+  /** Flag to set if the rotational movement will be clockwise or couter clockwise
+   *    - true: clockwise
+   *    - false: couter clockwise  **/
+  int is_clockwise_;
+
   bool is_to_change_robot_state_;
+  /**
+   * Flag to reference which axis the robot is heading. TRUE if heading x axis, FALSE otherwise.
+   * 
+   */
+  bool is_heading_x_;
   double distance_tolerance_;
   double angle_tolerance_;
   double linear_velocity_;
