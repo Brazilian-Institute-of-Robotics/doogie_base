@@ -1,5 +1,9 @@
 #include <cstddef>
+#include <string>
 #include "doogie_perception/doogie_perception.hpp"
+#include "doogie_core/utils.hpp"
+
+using namespace doogie_core;
 
 namespace doogie_perception {
 
@@ -71,26 +75,19 @@ void DoogiePerception::wallDistancesCallback(const doogie_msgs::WallDistancesCon
 }
 
 void DoogiePerception::loadParameters() {
-  int rows_qty;
-  int columns_qty;
+  uint8_t number_of_rows;
+  uint8_t number_of_columns;
+  std::string maze_name;
+  std::string log_prefix("doogie_perception");
+  ros::NodeHandle ph("~");
 
-  if (!nh_.param<int>("maze/rows", rows_qty, 16)) {
-    ROS_WARN("No maze/rows parameter found in the parameter server. Using default parameter value: 16");
-  }
+  DoogieUtils::getParameterHelper<std::string>(ph, log_prefix, "maze_name", &maze_name, "minus");
+  DoogieUtils::getParameterHelper<float>(ph, log_prefix, "front_distance_threshold", &front_dist_threshold_, 0.10);
+  DoogieUtils::getParameterHelper<float>(ph, log_prefix, "side_distance_threshold", &side_dist_threshold_, 0.10);
 
-  if (!nh_.param<int>("maze/columns", columns_qty, 16)) {
-    ROS_WARN("No maze/columns parameter found in the parameter server. Using default parameter value: 16");
-  }
-
-  if (!nh_.param<float>("maze/front_distance_threshold", front_dist_threshold_, 0.10)) {
-    ROS_WARN("No maze/front_distance_threshold parameter found in the parameter server. Using default parameter value: 0.10");
-  }
-
-  if (!nh_.param<float>("maze/side_distance_threshold", side_dist_threshold_, 0.10)) {
-    ROS_WARN("No maze/side_distance_threshold parameter found in the parameter server. Using default parameter value: 0.10");
-  }
-
-  maze_obstacle_matrix_.initMatrix(static_cast<uint8_t>(rows_qty), static_cast<uint8_t>(columns_qty));
+  number_of_rows = DoogieUtils::getNumberOfRows(maze_name);
+  number_of_columns = DoogieUtils::getNumberOfColumns(maze_name);
+  maze_obstacle_matrix_.initMatrix(number_of_rows, number_of_columns);
 }
 
 }  // namespace doogie_perception

@@ -32,6 +32,7 @@ add_library(${DOOGIE_CORE_LIB_NAME}
   src/maze_matrix_handle.cpp
   src/mouse_handle.cpp
   src/solver_plugin_loader.cpp
+  src/utils.cpp
 )
 target_link_libraries(${DOOGIE_CORE_LIB_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 set_target_properties(${DOOGIE_SOLVER_LIB_NAME} PROPERTIES VERSION "${${PROJECT_NAME}_VERSION}")

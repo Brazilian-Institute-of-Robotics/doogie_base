@@ -1,5 +1,0 @@
-maze:
-  rows: 2 # Number of rows of the maze
-  columns: 2 # Number of columns of the maze
-  front_distance_threshold: 0.12 # Threshold value in meters used to infer if there is a wall on the front of the robot
-  side_distance_threshold: 0.12 # Threshold value in meters used to infer if there are walls on the sides of the robot
