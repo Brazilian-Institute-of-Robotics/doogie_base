@@ -10,7 +10,7 @@ namespace doogie_perception {
 DoogiePerception::DoogiePerception()
   : is_to_pub_maze_obstacle_matrix_(false) {
   this->loadParameters();
-  maze_obstacle_matrix_pub_ = nh_.advertise<doogie_msgs::MazeCellMultiArray>("maze_obstacle_matrix", 1);
+  maze_obstacle_matrix_pub_ = nh_.advertise<doogie_msgs::MazeCellMultiArray>("maze_matrix", 1);
   doogie_position_sub_ = nh_.subscribe("doogie_position", 1, &DoogiePerception::doogiePositionCallback, this);
   wall_distances_sub_ = nh_.subscribe("wall_distances", 1, &DoogiePerception::wallDistancesCallback, this);
 }
