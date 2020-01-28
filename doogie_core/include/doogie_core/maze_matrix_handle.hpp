@@ -9,19 +9,27 @@
 #include <string>
 #include <cstddef>
 
+
+typedef doogie_msgs::MazeCellMultiArray MazeMatrix;
+typedef doogie_msgs::MazeCellMultiArrayPtr MazeMatrixPtr;  
+
 namespace doogie_core {
 
-typedef doogie_msgs::MazeCellMultiArray MazeMatrix; 
 
 /**
  * @brief Struct to represent the cells around the robot locally.
  * 
  */
 typedef struct LocalCell{
+  doogie_msgs::MazeCellPtr toGlobalCell();
+
   bool front_wall;
   bool back_wall;
   bool right_wall;
   bool left_wall;
+
+  uint8_t orientation;
+
 } LocalCell;
 
 /**
@@ -51,6 +59,8 @@ class MazeMatrixHandle {
    * 
    */
   MazeMatrixHandle();
+
+  MazeMatrixHandle(MazeMatrixPtr maze_matrix);
   
   /**
    * @brief Construct a new MazeMatrixHandle object.
@@ -68,6 +78,13 @@ class MazeMatrixHandle {
    */
   void initMatrix(uint8_t row_qty, uint8_t column_qty);
 
+  static MazeMatrixPtr makeMatrix(uint8_t row_size, uint8_t column_size);
+
+  // updateMatrix is a recurrent function design to operate nested within a callback
+  // so is better inline define it for perfomance optimization
+  inline void updateMatrix(MazeMatrix maze_matrix){
+    *maze_matrix_ = maze_matrix;
+  }
   /**
    * @brief Get a maze matrix cell holding walls information in the global reference.
    * 
@@ -86,6 +103,14 @@ class MazeMatrixHandle {
    * @return doogie_msgs::MazeCell Object holding walls data of the cell (row, column).
    */
   doogie_msgs::MazeCell getMazeMatrixCell(uint8_t row, uint8_t column);
+  
+  /**
+   * @brief Get the LocalCell for a specified robot position.
+   * 
+   * @param doogie_position Position of the robot in the maze matrix.
+   * @return LocalCell Struct with walls information referenced in respect to the robot.
+   */
+  LocalCell getLocalCell(doogie_msgs::DoogiePosition doogie_position);
 
   /**
    * @brief Get the internal maze matrix.
@@ -134,14 +159,6 @@ class MazeMatrixHandle {
    * @return LocalCell Struct with walls information referenced in respect to the robot.
    */
   static LocalCell globalToLocalCell(MazeMatrix maze_matrix, doogie_msgs::DoogiePosition doogie_position);
-  
-  /**
-   * @brief Converts the cell walls information from global to local reference.
-   * 
-   * @param doogie_position Position of the robot in the maze matrix.
-   * @return LocalCell Struct with walls information referenced in respect to the robot.
-   */
-  LocalCell globalToLocalCell(doogie_msgs::DoogiePosition doogie_position);
 
   /**
    * @brief Converts the cell walls information from local to global reference.
@@ -151,6 +168,8 @@ class MazeMatrixHandle {
    * @return doogie_msgs::MazeCell Object holding the walls information in the global reference.
    */
   static doogie_msgs::MazeCell localToGlobalCell(uint8_t orientation, LocalCell local_cell);
+
+  static doogie_msgs::MazeCellPtr localToGlobalCell(LocalCell* local_cell);
   
   /**
    * @brief Get the number of rows of internal maze matrix.
@@ -177,9 +196,10 @@ class MazeMatrixHandle {
   static LocalCell globalToLocal(uint8_t orientation, doogie_msgs::MazeCell maze_cell_walls);
   
   /** Internal maze matrix. */
-  doogie_msgs::MazeCellMultiArray maze_matrix_;
+  MazeMatrixPtr maze_matrix_;
 };
 
 }
+
 
 #endif  // #ifndef DOOGIE_CORE_MAZE_MATRIX_HANDLE_HPP_

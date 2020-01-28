@@ -25,7 +25,7 @@ void MouseHandle::move(doogie_msgs::DoogieMoveGoal goal){
   ros::Rate rate(10);
   move_base_client_.sendGoal(goal);
   while(!move_base_client_.getState().isDone() && ros::ok()){
-    ROS_INFO_STREAM("Goal is running.\n State is " + move_base_client_.getState().toString());
+    ROS_DEBUG_STREAM_THROTTLE(0.5,"Goal is running.\n State is " + move_base_client_.getState().toString());
     rate.sleep();
   }
 }
