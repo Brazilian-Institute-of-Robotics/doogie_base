@@ -16,6 +16,13 @@ namespace doogie_navigation {
 
 // typedef boost::geometry::model::d2::point_xy<double> twod_point;
 
+enum GlobalOrientation {
+  NORTH,
+  SOUTH,
+  EAST,
+  WEST
+};
+
 /**
  * @class MoveBase move_base.hpp
  * @brief Class to control the doogie robot in the maze, receiving goal from the doogie_algorithms_node
@@ -67,6 +74,8 @@ class MoveBase {
   geometry_msgs::Pose target_pose_;
   geometry_msgs::Pose current_pose_;
 
+  doogie_navigation::GlobalOrientation global_orientation_;
+
  private:
   /**
    * @brief Check if the desired parameter is in the parameter server. If the parameter exist, return trhough pointer,
@@ -111,6 +120,8 @@ class MoveBase {
   void computeAngle(int direction);
   // TODO add documentation 
   bool turnRobot(double target_angle, double current_angle, bool is_clockwise);
+
+  void updateOrientation();
 
   double angle_to_turn_;
   double distance_to_move_;

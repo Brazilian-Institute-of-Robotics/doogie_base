@@ -18,7 +18,8 @@ MoveBase::MoveBase(const ros::NodeHandle &robot_controller_nh)
   , angle_to_turn_(0)
   , distance_to_move_(0)
   , moving_foward_(false)
-  , turning_(false) {
+  , turning_(false)
+  , global_orientation_(doogie_navigation::NORTH) {
   move_to_goal_action_server_.registerGoalCallback(boost::bind(&MoveBase::receiveGoalCallback, this));
   // move_to_goal_action_server_.registerPreemptCallback(boost::bind(&MoveBase::preemptGoalCallback, this));
 
@@ -214,6 +215,98 @@ bool MoveBase::turnRobot(double target_angle, double current_angle, bool is_cloc
       turning_ = false;
     }
   
+  }
+}
+
+void MoveBase::updateOrientation() {
+  switch (global_orientation_)
+  {
+  case GlobalOrientation::NORTH:
+  
+    switch (goal_->direction)
+    {
+    case doogie_msgs::DoogieMoveGoal::RIGHT:
+      global_orientation_ = GlobalOrientation::EAST;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::LEFT:
+      global_orientation_ = GlobalOrientation::WEST;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::BACK:
+      global_orientation_ = GlobalOrientation::SOUTH;
+      return;
+      break;
+    default:
+      break;
+    }
+    break;
+
+  case GlobalOrientation::SOUTH:
+    
+    switch (goal_->direction)
+    {
+    case doogie_msgs::DoogieMoveGoal::RIGHT:
+      global_orientation_ = GlobalOrientation::WEST;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::LEFT:
+      global_orientation_ = GlobalOrientation::EAST;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::BACK:
+      global_orientation_ = GlobalOrientation::NORTH;
+      return;
+      break;
+    default:
+      break;
+    }
+    break;
+  
+  case GlobalOrientation::EAST:
+    
+    switch (goal_->direction)
+    {
+    case doogie_msgs::DoogieMoveGoal::RIGHT:
+      global_orientation_ = GlobalOrientation::SOUTH;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::LEFT:
+      global_orientation_ = GlobalOrientation::NORTH;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::BACK:
+      global_orientation_ = GlobalOrientation::WEST;
+      return;
+      break;
+    default:
+      break;
+    }
+    break;
+
+  case GlobalOrientation::WEST:
+
+    switch (goal_->direction)
+    {
+    case doogie_msgs::DoogieMoveGoal::RIGHT:
+      global_orientation_ = GlobalOrientation::SOUTH;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::LEFT:
+      global_orientation_ = GlobalOrientation::NORTH;
+      return;
+      break;
+    case doogie_msgs::DoogieMoveGoal::BACK:
+      global_orientation_ = GlobalOrientation::WEST;
+      return;
+      break;
+    default:
+      break;
+    }
+    break;
+    
+  default:
+    break;
   }
 }
 
