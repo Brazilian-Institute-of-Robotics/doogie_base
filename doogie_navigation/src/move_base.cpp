@@ -50,6 +50,7 @@ void MoveBase::receiveGoalCallback() {
   case doogie_msgs::DoogieMoveGoal::FRONT:
     computeDistance(goal_->cells);
     moving_foward_ = true;
+    robot_state_ = State::MOVING;
     break;
   case doogie_msgs::DoogieMoveGoal::BACK:
     break;
@@ -57,11 +58,13 @@ void MoveBase::receiveGoalCallback() {
     // computeAngle(goal_->direction);
     updateOrientation();
     turning_ = true;
+    robot_state_ = State::TURNNING;
     break;
   case doogie_msgs::DoogieMoveGoal::RIGHT:
     // computeAngle(goal_->direction);
     updateOrientation();
     turning_ = true;
+    robot_state_ = State::TURNNING;
     break;
   default:
     break;
@@ -93,11 +96,42 @@ void MoveBase::getOdometryDataCallback(const nav_msgs::Odometry::ConstPtr &odome
   double current_angle = tf::getYaw(current_pose_.orientation);
   current_angle = angles::normalize_angle_positive(current_angle);
   getOrientation(current_angle);
- 
-  if(moving_foward_) {
 
-    moveFoward();
+  switch (robot_state_)
+  {
+  case State::IDLE :
+    twist_cmd_.angular.z = 0;
+    twist_cmd_.linear.x = 0;
+    cmd_vel_pub_.publish(twist_cmd_);
+    ROS_INFO_STREAM_THROTTLE(1, "idle");
+    break;
+  
+  case State::TURNNING:
+      ROS_INFO_STREAM_THROTTLE(1, "turning");
+    // ROS_INFO_STREAM_THROTTLE(1, current_position);
+    if (!turnRobot(angle_to_turn_, current_angle, is_clockwise_)) {
+      robot_state_ = State::MOVING;
+      computeDistance(goal_->cells);
+    };
+    break;
+
+  case State::MOVING:
+    ROS_INFO_STREAM_THROTTLE(1, "moving");
+    if(!moveForward()) {
+      robot_state_ = State::IDLE;
+    }
+    break;
+  
+  default:
+    break;
   }
+  
+ 
+  // if(moving_foward_) {
+
+  //   moveFoward();
+  // }
+
   // ROS_INFO_STREAM_THROTTLE(1, "position");
   // ROS_INFO_STREAM_THROTTLE(1, current_position);
 
@@ -107,16 +141,15 @@ void MoveBase::getOdometryDataCallback(const nav_msgs::Odometry::ConstPtr &odome
  
   
   
-  if(turning_) {
-    turnRobot(angle_to_turn_, current_angle, is_clockwise_);
-    // ros::requestShutdown();
-  }
+  // if(turning_) {
+  //   turnRobot(angle_to_turn_, current_angle, is_clockwise_);
+  //   // ros::requestShutdown();
+  // }
 
   
 }
 void MoveBase::getOrientation(double current_angle) {
   
-  // double yaw_angle = tf::getYaw(orientation);
   // between 45º and 135º or 225º and 315º
   if ( ((0.79) <= current_angle && 
         (2.36) >= current_angle) || 
@@ -166,85 +199,84 @@ void MoveBase::computeAngle(int direction) {
   return;
 }
 
-void MoveBase::turnRobot(double target_angle, double current_angle, bool is_clockwise) {
+bool MoveBase::turnRobot(double target_angle, double current_angle, bool is_clockwise) {
   double error = std::abs(target_angle - current_angle);
-  // double error = angle_to_turn_ - angle;
+
   if(is_clockwise) {
     twist_cmd_.angular.z = -0.2 * error;
   }else {
     twist_cmd_.angular.z = 0.2 * error;
   }
 
-  ROS_INFO_STREAM_THROTTLE(1, "current angle");
-  ROS_INFO_STREAM_THROTTLE(1, current_angle);
+  // ROS_INFO_STREAM_THROTTLE(1, "current angle");
+  // ROS_INFO_STREAM_THROTTLE(1, current_angle);
 
-  ROS_INFO_STREAM_THROTTLE(1, "angle to turn");
-  ROS_INFO_STREAM_THROTTLE(1, angle_to_turn_);
+  // ROS_INFO_STREAM_THROTTLE(1, "angle to turn");
+  // ROS_INFO_STREAM_THROTTLE(1, angle_to_turn_);
 
-  ROS_INFO_STREAM_THROTTLE(1, "error angular");
-  ROS_INFO_STREAM_THROTTLE(1, error);
+  // ROS_INFO_STREAM_THROTTLE(1, "error angular");
+  // ROS_INFO_STREAM_THROTTLE(1, error);
 
-  if(is_to_change_robot_state_ && turning_) {
+  // if(is_to_change_robot_state_ && turning_) {
 
     if (error >= angle_tolerance_) {
       ROS_INFO_STREAM_THROTTLE(1, "pub turning");
       cmd_vel_pub_.publish(twist_cmd_);
-      // ros::requestShutdown();
+      return true;
+
     }else {
       twist_cmd_.angular.z = 0;
       cmd_vel_pub_.publish(twist_cmd_);
       // updateOrientation();
-      is_to_change_robot_state_ = false;
+      // is_to_change_robot_state_ = false;
       turning_ = false;
+      return false;
     }
   
-  }
+  // }
 }
 
-void MoveBase::moveFoward() {
+bool MoveBase::moveForward() {
   
-  ROS_INFO_STREAM_THROTTLE(1, "is_heading_x_"); 
-  ROS_INFO_STREAM_THROTTLE(1, is_heading_x_); 
+  // ROS_INFO_STREAM_THROTTLE(1, "is_heading_x_"); 
+  // ROS_INFO_STREAM_THROTTLE(1, is_heading_x_); 
 
-  ROS_INFO_STREAM_THROTTLE(1, "distance_to_move_");
-  ROS_INFO_STREAM_THROTTLE(1, distance_to_move_);
+  // ROS_INFO_STREAM_THROTTLE(1, "distance_to_move_");
+  // ROS_INFO_STREAM_THROTTLE(1, distance_to_move_);
   
 
 
   double position_error;
   double current_position; 
   if(!is_heading_x_) {
-    // current_position = current_pose_.position.y;
+
     position_error = std::abs(distance_to_move_ - current_pose_.position.y);
   } else {
-    // current_position = current_pose_.position.x;
+    
     position_error = std::abs(distance_to_move_ - current_pose_.position.x);
   }
 
-  ROS_INFO_STREAM_THROTTLE(1, "error position");
-  ROS_INFO_STREAM_THROTTLE(1, position_error);
+  // ROS_INFO_STREAM_THROTTLE(1, "error position");
+  // ROS_INFO_STREAM_THROTTLE(1, position_error);
 
-  if(is_to_change_robot_state_ && moving_foward_) {
+  // if(is_to_change_robot_state_ && moving_foward_) {
   twist_cmd_.linear.x = 0.1 * position_error;
   // ROS_INFO_STREAM(is_to_change_robot_state_);
   // ROS_INFO_STREAM(moving_foward_);
-  // ros::Duration(5).sleep();
   
     if (position_error >= distance_tolerance_) {
       ROS_INFO_STREAM_THROTTLE(1, "pub foward");
       cmd_vel_pub_.publish(twist_cmd_);
+      return true;
 
     }else {
       twist_cmd_.linear.x = 0;
       cmd_vel_pub_.publish(twist_cmd_);
-      is_to_change_robot_state_ = false;
+      // is_to_change_robot_state_ = false;
       moving_foward_ = false;
-      updateOrientation();
-      ROS_INFO_STREAM(is_to_change_robot_state_);
-      ROS_INFO_STREAM(moving_foward_);
-      // ros::Duration(5).sleep();
+      return false;
     }
-  }
+  // }
 }
 
 void MoveBase::updateOrientation() {

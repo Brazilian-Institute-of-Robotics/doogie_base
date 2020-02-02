@@ -34,6 +34,12 @@ enum GlobalOrientation {
   WEST
 };
 
+enum State {
+  IDLE,
+  TURNNING,
+  MOVING
+};
+
 /**
  * @class MoveBase move_base.hpp
  * @brief Class to control the doogie robot in the maze, receiving goal from the doogie_algorithms_node
@@ -130,11 +136,11 @@ class MoveBase {
   // TODO add documentation
   void computeAngle(int direction);
   // TODO add documentation 
-  void turnRobot(double target_angle, double current_angle, bool is_clockwise);
+  bool turnRobot(double target_angle, double current_angle, bool is_clockwise);
   // TODO add documentation
   void updateOrientation();
   // TODO add documentation
-  void moveFoward();
+  bool moveForward();
 
 
 
@@ -146,6 +152,8 @@ class MoveBase {
    *    - true: clockwise
    *    - false: couter clockwise  **/
   int is_clockwise_;
+
+  State robot_state_;
 
   bool is_to_change_robot_state_;
   /**
