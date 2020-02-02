@@ -12,12 +12,23 @@
 #include <doogie_msgs/DoogieMoveAction.h>
 #include <boost/geometry/geometries/point_xy.hpp>
 
+/**
+ * TODO 
+ * 1- add back behavior
+ * 2- remove comments and LOG_INFO debug msgs
+ * 3- Add kp as a parameter
+ * 4- Update the global_orientation_ cheking if is_heading_x_ was changed
+ * 5- Corrigir computeAngle para resolver o problema da mudança de 2pi pra 0
+ *  
+ * 
+ */
+
 namespace doogie_navigation {
 
 // typedef boost::geometry::model::d2::point_xy<double> twod_point;
 
 enum GlobalOrientation {
-  NORTH,
+  NORTH = 1,
   SOUTH,
   EAST,
   WEST
@@ -119,9 +130,13 @@ class MoveBase {
   // TODO add documentation
   void computeAngle(int direction);
   // TODO add documentation 
-  bool turnRobot(double target_angle, double current_angle, bool is_clockwise);
-
+  void turnRobot(double target_angle, double current_angle, bool is_clockwise);
+  // TODO add documentation
   void updateOrientation();
+  // TODO add documentation
+  void moveFoward();
+
+
 
   double angle_to_turn_;
   double distance_to_move_;
