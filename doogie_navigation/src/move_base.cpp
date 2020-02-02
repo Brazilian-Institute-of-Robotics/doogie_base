@@ -51,6 +51,8 @@ void MoveBase::receiveGoalCallback() {
     robot_state_ = State::MOVING;
     break;
   case doogie_msgs::DoogieMoveGoal::BACK:
+    updateOrientation();
+    robot_state_ = State::TURNNING;
     break;
   case doogie_msgs::DoogieMoveGoal::LEFT:
     // computeAngle(goal_->direction);
@@ -151,6 +153,9 @@ void MoveBase::computeDistance(int cell_number) {
       return;
     } else if (global_orientation_ == GlobalOrientation::EAST) {
       distance_to_move_ = current_pose_.position.y - (cell_number * cell_size_);
+      return;
+    } else if (global_orientation_ == GlobalOrientation::SOUTH) {
+      distance_to_move_ = current_pose_.position.x - (cell_number * cell_size_);
       return;
     }
   // }
@@ -295,7 +300,7 @@ void MoveBase::updateOrientation() {
       break;
     case doogie_msgs::DoogieMoveGoal::BACK:
       global_orientation_ = GlobalOrientation::NORTH;
-      angle_to_turn_ = 0.0;
+      angle_to_turn_ = 6.28;
       is_clockwise_ = false;
       return;
       break;
