@@ -10,6 +10,7 @@
 #include <nav_msgs/Odometry.h>
 #include <angles/angles.h>
 #include <doogie_msgs/DoogieMoveAction.h>
+#include <doogie_msgs/DoogiePosition.h>
 #include <boost/geometry/geometries/point_xy.hpp>
 
 /**
@@ -23,6 +24,7 @@
  * o metodo para setar posicao absoluta
  * 7- Robo nao funciona corretamente quando reinicia o launch com a simulacao
  * funcionando
+ * 8- Colocar valor de matrix como default?
  *  
  * 
  */
@@ -85,6 +87,7 @@ class MoveBase {
 
   ros::Subscriber odom_sub_;
   ros::Publisher cmd_vel_pub_;
+  ros::Publisher position_pub_;
 
   actionlib::SimpleActionServer<doogie_msgs::DoogieMoveAction> move_to_goal_action_server_;
   doogie_msgs::DoogieMoveGoalConstPtr goal_;
@@ -94,6 +97,8 @@ class MoveBase {
   geometry_msgs::Twist twist_cmd_;
   geometry_msgs::Pose target_pose_;
   geometry_msgs::Pose current_pose_;
+
+  doogie_msgs::DoogiePosition robot_position_;
 
   doogie_navigation::GlobalOrientation global_orientation_;
 
@@ -146,6 +151,8 @@ class MoveBase {
   // TODO add documentation
   bool moveForward();
 
+  void updatePosition();
+
 
 
   double angle_to_turn_;
@@ -158,6 +165,9 @@ class MoveBase {
   int is_clockwise_;
 
   State robot_state_;
+  
+  int current_row_;
+  int current_column_;
 
   bool is_to_change_robot_state_;
   /**
@@ -173,6 +183,8 @@ class MoveBase {
   double cell_size_;
   double angular_gain_;
   double linear_gain_;
+  int row_init_position_;
+  int column_init_position_; 
 };
 
 }  // namespace doogie_navigation
