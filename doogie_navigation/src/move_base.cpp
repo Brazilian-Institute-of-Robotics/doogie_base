@@ -19,14 +19,17 @@ MoveBase::MoveBase(const ros::NodeHandle &robot_controller_nh)
   , distance_to_move_(0)
   , moving_foward_(false)
   , turning_(false)
-  , global_orientation_(doogie_navigation::NORTH) {
+  , global_orientation_(doogie_navigation::NORTH){
   move_to_goal_action_server_.registerGoalCallback(boost::bind(&MoveBase::receiveGoalCallback, this));
   // move_to_goal_action_server_.registerPreemptCallback(boost::bind(&MoveBase::preemptGoalCallback, this));
 
   odom_sub_ = robot_controller_nh_.subscribe("odom", 1, &MoveBase::getOdometryDataCallback, this);
   cmd_vel_pub_ = robot_controller_nh_.advertise<geometry_msgs::Twist>("cmd_vel", 5);
-
+  position_pub_ = robot_controller_nh_.advertise<doogie_msgs::DoogiePosition>("doogie_postion", 5);
   this->loadParameters();
+  current_row_ = row_init_position_;
+  current_column_ = column_init_position_;
+
   move_to_goal_action_server_.start();
 }
 
@@ -49,20 +52,24 @@ void MoveBase::receiveGoalCallback() {
   case doogie_msgs::DoogieMoveGoal::FRONT:
     computeDistance(goal_->cells);
     robot_state_ = State::MOVING;
+    updatePosition();
     break;
   case doogie_msgs::DoogieMoveGoal::BACK:
     updateOrientation();
     robot_state_ = State::TURNNING;
+    updatePosition();
     break;
   case doogie_msgs::DoogieMoveGoal::LEFT:
     // computeAngle(goal_->direction);
     updateOrientation();
     robot_state_ = State::TURNNING;
+    updatePosition();
     break;
   case doogie_msgs::DoogieMoveGoal::RIGHT:
     // computeAngle(goal_->direction);
     updateOrientation();
     robot_state_ = State::TURNNING;
+    updatePosition();
     break;
   default:
     break;
@@ -248,6 +255,7 @@ bool MoveBase::moveForward() {
   }else {
     twist_cmd_.linear.x = 0;
     cmd_vel_pub_.publish(twist_cmd_);
+    position_pub_.publish(robot_position_);
     return false;
   }
 }
@@ -368,6 +376,42 @@ void MoveBase::updateOrientation() {
   }
 }
 
+void MoveBase::updatePosition() {
+
+  switch (global_orientation_)
+  {
+  case GlobalOrientation::NORTH:
+    current_row_ = current_row_ + goal_->cells;
+    robot_position_.orientation = doogie_msgs::DoogiePosition::NORTH;
+    break;
+  case GlobalOrientation::SOUTH:
+    current_row_ -= goal_->cells;
+    robot_position_.orientation = doogie_msgs::DoogiePosition::SOUTH;
+    break;
+  case GlobalOrientation::EAST:
+    current_column_ += goal_->cells;
+    robot_position_.orientation = doogie_msgs::DoogiePosition::EAST;
+    break;
+  case GlobalOrientation::WEST:
+    current_column_ -= goal_->cells;
+    robot_position_.orientation = doogie_msgs::DoogiePosition::WEST;
+    break;
+  default:
+    break;
+  }
+  
+  if ( current_row_ < 1) {
+    current_row_ = 1;
+  }
+
+  if ( current_column_ < 1) {
+    current_column_ = 1;
+  }
+
+  robot_position_.row = current_row_;
+  robot_position_.column = current_column_;
+}
+
 
 void MoveBase::start() {
   ros::Duration rate(1 / loop_frequency_);
@@ -389,6 +433,8 @@ void MoveBase::loadParameters() {
   checkParameters(ph_, "cell_size", &cell_size_);
   checkParameters(ph_, "angular_gain", &angular_gain_);
   checkParameters(ph_, "linear_gain", &linear_gain_);
+  checkParameters(ph_, "row_init_position", &row_init_position_);
+  checkParameters(ph_, "column_init_position", &column_init_position_);
   
 }
 
