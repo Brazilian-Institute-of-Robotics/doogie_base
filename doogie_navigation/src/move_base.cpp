@@ -41,15 +41,13 @@ void MoveBase::receiveGoalCallback() {
   // ROS_INFO("Goal received");
 
   goal_ = move_to_goal_action_server_.acceptNewGoal();
-  int direction = goal_->direction;
   is_to_change_robot_state_ = true;
   distance_to_move_ = 0;
   angle_to_turn_ = 0;
-  switch (direction)
+  switch (goal_->direction)
   {
   case doogie_msgs::DoogieMoveGoal::FRONT:
     computeDistance(goal_->cells);
-    moving_foward_ = true;
     robot_state_ = State::MOVING;
     break;
   case doogie_msgs::DoogieMoveGoal::BACK:
@@ -57,13 +55,11 @@ void MoveBase::receiveGoalCallback() {
   case doogie_msgs::DoogieMoveGoal::LEFT:
     // computeAngle(goal_->direction);
     updateOrientation();
-    turning_ = true;
     robot_state_ = State::TURNNING;
     break;
   case doogie_msgs::DoogieMoveGoal::RIGHT:
     // computeAngle(goal_->direction);
     updateOrientation();
-    turning_ = true;
     robot_state_ = State::TURNNING;
     break;
   default:
@@ -107,8 +103,7 @@ void MoveBase::getOdometryDataCallback(const nav_msgs::Odometry::ConstPtr &odome
     break;
   
   case State::TURNNING:
-      ROS_INFO_STREAM_THROTTLE(1, "turning");
-    // ROS_INFO_STREAM_THROTTLE(1, current_position);
+    ROS_INFO_STREAM_THROTTLE(1, "turning");
     if (!turnRobot(angle_to_turn_, current_angle, is_clockwise_)) {
       robot_state_ = State::MOVING;
       computeDistance(goal_->cells);
@@ -125,27 +120,12 @@ void MoveBase::getOdometryDataCallback(const nav_msgs::Odometry::ConstPtr &odome
   default:
     break;
   }
-  
- 
-  // if(moving_foward_) {
-
-  //   moveFoward();
-  // }
 
   // ROS_INFO_STREAM_THROTTLE(1, "position");
   // ROS_INFO_STREAM_THROTTLE(1, current_position);
 
   // ROS_INFO_STREAM_THROTTLE(1, "global_orientation");
   // ROS_INFO_STREAM_THROTTLE(1, global_orientation_);
-
- 
-  
-  
-  // if(turning_) {
-  //   turnRobot(angle_to_turn_, current_angle, is_clockwise_);
-  //   // ros::requestShutdown();
-  // }
-
   
 }
 void MoveBase::getOrientation(double current_angle) {
@@ -163,7 +143,6 @@ void MoveBase::getOrientation(double current_angle) {
   return;
 }
 
-//  
 void MoveBase::computeDistance(int cell_number) {
   distance_to_move_ = 0;
   // if(!is_heading_x_) {
@@ -203,9 +182,9 @@ bool MoveBase::turnRobot(double target_angle, double current_angle, bool is_cloc
   double error = std::abs(target_angle - current_angle);
 
   if(is_clockwise) {
-    twist_cmd_.angular.z = -0.2 * error;
+    twist_cmd_.angular.z = -angular_gain_ * error;
   }else {
-    twist_cmd_.angular.z = 0.2 * error;
+    twist_cmd_.angular.z = angular_gain_ * error;
   }
 
   // ROS_INFO_STREAM_THROTTLE(1, "current angle");
@@ -217,23 +196,16 @@ bool MoveBase::turnRobot(double target_angle, double current_angle, bool is_cloc
   // ROS_INFO_STREAM_THROTTLE(1, "error angular");
   // ROS_INFO_STREAM_THROTTLE(1, error);
 
-  // if(is_to_change_robot_state_ && turning_) {
+  if (error >= angle_tolerance_) {
+    ROS_INFO_STREAM_THROTTLE(1, "pub turning");
+    cmd_vel_pub_.publish(twist_cmd_);
+    return true;
 
-    if (error >= angle_tolerance_) {
-      ROS_INFO_STREAM_THROTTLE(1, "pub turning");
-      cmd_vel_pub_.publish(twist_cmd_);
-      return true;
-
-    }else {
-      twist_cmd_.angular.z = 0;
-      cmd_vel_pub_.publish(twist_cmd_);
-      // updateOrientation();
-      // is_to_change_robot_state_ = false;
-      turning_ = false;
-      return false;
-    }
-  
-  // }
+  }else {
+    twist_cmd_.angular.z = 0;
+    cmd_vel_pub_.publish(twist_cmd_);
+    return false;
+  }
 }
 
 bool MoveBase::moveForward() {
@@ -259,24 +231,20 @@ bool MoveBase::moveForward() {
   // ROS_INFO_STREAM_THROTTLE(1, "error position");
   // ROS_INFO_STREAM_THROTTLE(1, position_error);
 
-  // if(is_to_change_robot_state_ && moving_foward_) {
-  twist_cmd_.linear.x = 0.1 * position_error;
+  twist_cmd_.linear.x = linear_gain_ * position_error;
   // ROS_INFO_STREAM(is_to_change_robot_state_);
   // ROS_INFO_STREAM(moving_foward_);
   
-    if (position_error >= distance_tolerance_) {
-      ROS_INFO_STREAM_THROTTLE(1, "pub foward");
-      cmd_vel_pub_.publish(twist_cmd_);
-      return true;
+  if (position_error >= distance_tolerance_) {
+    ROS_INFO_STREAM_THROTTLE(1, "pub foward");
+    cmd_vel_pub_.publish(twist_cmd_);
+    return true;
 
-    }else {
-      twist_cmd_.linear.x = 0;
-      cmd_vel_pub_.publish(twist_cmd_);
-      // is_to_change_robot_state_ = false;
-      moving_foward_ = false;
-      return false;
-    }
-  // }
+  }else {
+    twist_cmd_.linear.x = 0;
+    cmd_vel_pub_.publish(twist_cmd_);
+    return false;
+  }
 }
 
 void MoveBase::updateOrientation() {
@@ -414,6 +382,8 @@ void MoveBase::loadParameters() {
   checkParameters(ph_, "angular_velocity", &angular_velocity_);
   checkParameters(ph_, "loop_frequency", &loop_frequency_);
   checkParameters(ph_, "cell_size", &cell_size_);
+  checkParameters(ph_, "angular_gain", &angular_gain_);
+  checkParameters(ph_, "linear_gain", &linear_gain_);
   
 }
 
