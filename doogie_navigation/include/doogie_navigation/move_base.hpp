@@ -16,9 +16,13 @@
  * TODO 
  * 1- add back behavior
  * 2- remove comments and LOG_INFO debug msgs
- * 3- Add kp as a parameter
+ * 
  * 4- Update the global_orientation_ cheking if is_heading_x_ was changed
  * 5- Corrigir computeAngle para resolver o problema da mudança de 2pi pra 0
+ * 6- Colocar updateOrientation so depois que o robo chegar na posicao, separar
+ * o metodo para setar posicao absoluta
+ * 7- Robo nao funciona corretamente quando reinicia o launch com a simulacao
+ * funcionando
  *  
  * 
  */
@@ -167,6 +171,8 @@ class MoveBase {
   double angular_velocity_;
   double loop_frequency_;
   double cell_size_;
+  double angular_gain_;
+  double linear_gain_;
 };
 
 }  // namespace doogie_navigation
