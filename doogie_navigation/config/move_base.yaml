@@ -4,3 +4,4 @@ linear_velocity: 0.1 # m/s, default: 0.5
 angular_velocity: 12.56 # rad/s, default: 12.56 
 loop_frequency: 20 # Hz, default: 20
 maze_name: minus
+cell_size: 0.18 # m, default 0.18

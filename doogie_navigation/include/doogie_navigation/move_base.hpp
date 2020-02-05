@@ -6,6 +6,7 @@
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Quaternion.h>
+#include <geometry_msgs/Point.h>
 #include <nav_msgs/Odometry.h>
 #include <angles/angles.h>
 #include <doogie_msgs/DoogieMoveAction.h>
@@ -101,15 +102,20 @@ class MoveBase {
    * 
    * @param orientation Quaternion of the orientation of the robot.
    */
-  void getOrientation(const geometry_msgs::Quaternion& orientation);
+  // TODO correct documentation.
+  void getOrientation(double current_angle);
 
-
+  // TODO add documentation
   void computeDistance(int cell_number);
-
+  // TODO add documentation
   void computeAngle(int direction);
+  // TODO add documentation 
+  bool turnRobot(double target_angle, double current_angle, bool is_clockwise);
 
   double angle_to_turn_;
   double distance_to_move_;
+  bool moving_foward_;
+  bool turning_;
   /** Flag to set if the rotational movement will be clockwise or couter clockwise
    *    - true: clockwise
    *    - false: couter clockwise  **/
