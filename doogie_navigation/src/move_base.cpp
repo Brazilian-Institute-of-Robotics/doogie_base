@@ -25,7 +25,7 @@ MoveBase::MoveBase(const ros::NodeHandle &robot_controller_nh)
 
   odom_sub_ = robot_controller_nh_.subscribe("odom", 1, &MoveBase::getOdometryDataCallback, this);
   cmd_vel_pub_ = robot_controller_nh_.advertise<geometry_msgs::Twist>("cmd_vel", 5);
-  position_pub_ = robot_controller_nh_.advertise<doogie_msgs::DoogiePosition>("doogie_postion", 5);
+  position_pub_ = nh_.advertise<doogie_msgs::DoogiePosition>("doogie_position", 5);
   this->loadParameters();
   current_row_ = row_init_position_;
   current_column_ = column_init_position_;
@@ -256,6 +256,9 @@ bool MoveBase::moveForward() {
     twist_cmd_.linear.x = 0;
     cmd_vel_pub_.publish(twist_cmd_);
     position_pub_.publish(robot_position_);
+    doogie_msgs::DoogieMoveResult result;
+    result.status = true;
+    move_to_goal_action_server_.setSucceeded(result);
     return false;
   }
 }
@@ -401,11 +404,11 @@ void MoveBase::updatePosition() {
   }
   
   if ( current_row_ < 1) {
-    current_row_ = 1;
+    current_row_ = 0;
   }
 
   if ( current_column_ < 1) {
-    current_column_ = 1;
+    current_column_ = 0;
   }
 
   robot_position_.row = current_row_;

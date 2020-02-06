@@ -1,4 +1,4 @@
 minus:
-  rows: 2 # Number of rows of the maze
-  columns: 2 # Number of columns of the maze
+  rows: 10 # Number of rows of the maze
+  columns: 10 # Number of columns of the maze
   cell_size: 0.18 # m, default 0.18
