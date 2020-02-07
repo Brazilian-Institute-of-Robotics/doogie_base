@@ -1,7 +1,7 @@
-set(DOOGIE_SOLVER_LIB_NAME rh_solver_plugin)
+set(DOOGIE_SOLVER_LIB_NAME right_hand_solver_plugin)
 
 add_library(${DOOGIE_SOLVER_LIB_NAME}
-  src/rh_solver_plugin.cpp
+  src/right_hand_solver_plugin.cpp
 )
 
 set_target_properties(${DOOGIE_SOLVER_LIB_NAME} PROPERTIES VERSION "${${PROJECT_NAME}_VERSION}")

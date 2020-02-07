@@ -1,9 +1,0 @@
-<library path="lib/librh_solver_plugin">
-
-  <class name="doogie_algorithms/RHSolverPlugin" type="doogie_algorithms::RHSolverPlugin" base_class_type="doogie_core::BaseSolver">
-    <description>
-      A right-hand solver for micromouse maze.
-    </description>
-  </class>
-  
-</library>

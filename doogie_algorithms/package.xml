@@ -20,7 +20,7 @@
 
   
   <export>
-    <doogie_core plugin="${prefix}/rh_solver_plugin_description.xml"/>
+    <doogie_core plugin="${prefix}/right_hand_solver_plugin_description.xml"/>
   </export>
   
 
