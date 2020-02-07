@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>doogie_perception</name>
+  <version>0.0.0</version>
+  <description>The doogie_perception package</description>
+
+  <maintainer email="mateusmenezes95@gmail.com">Mateus Menezes</maintainer>
+  <author email="mateusmenezes95@gmail.com">Mateus Menezes</author>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>doogie_core</depend>
+  <depend>doogie_msgs</depend>
+
+</package>

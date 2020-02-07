@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+ 
+  <arg name="ns" default="/"/>
+ 
+  <node name="doogie_perception" pkg="doogie_perception" type="doogie_perception_node" output="screen">
+    <rosparam file="$(find doogie_perception)/config/perception.yaml" command="load"/>
+  </node>
+
+</launch>

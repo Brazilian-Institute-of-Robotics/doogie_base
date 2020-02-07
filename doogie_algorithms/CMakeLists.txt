@@ -5,27 +5,31 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED 
   COMPONENTS
-    doogie_msgs
-    doogie_navigation
+    pluginlib
+    doogie_core
 )
 
+find_package(Boost)
+
+
 set(DOOGIE_ALGORITHMS_INCLUDE_DIRS
-  right_hand_plugin/include
+  right_hand_solver_plugin/include
 )
 
 catkin_package(
   INCLUDE_DIRS 
     ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}
   CATKIN_DEPENDS 
-    doogie_msgs
-    doogie_navigation
-# LIBRARIES
-)
+    pluginlib
+    doogie_core
+  DEPENDS
+    Boost
+  )
 
 include_directories(
-  include
+  ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 
-# add_library(matrix_handle src/matrix_handle.cpp)
-# target_link_libraries(matrix_handle ${catkin_LIBRARIES})
+add_subdirectory(right_hand_solver_plugin)

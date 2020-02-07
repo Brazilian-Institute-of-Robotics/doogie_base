@@ -6,9 +6,9 @@ add_compile_options(-std=c++11)
 set(CATKIN_BUILD_DEPS
   rospy
   roscpp
-  std_msgs
+  doogie_core
   doogie_msgs
-  sensor_msgs
+  doogie_algorithms
   nav_msgs
   geometry_msgs
   tf
@@ -16,14 +16,12 @@ set(CATKIN_BUILD_DEPS
 )
 
 find_package(catkin REQUIRED COMPONENTS ${CATKIN_BUILD_DEPS})
-find_package(Boost REQUIRED COMPONENTS system)
-catkin_python_setup()
+find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS ${CATKIN_BUILD_DEPS}
-  DEPENDS Boost
-  LIBRARIES matrix_handle
+  CATKIN_DEPENDS ${CATKIN_BUILD_DEPS} 
+  DEPENDS Boost   
 )
 
 include_directories(
@@ -32,29 +30,13 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
 )
 
-add_library(matrix_handle src/matrix_handle.cpp)
-target_link_libraries(matrix_handle ${catkin_LIBRARIES})
-
-install(TARGETS matrix_handle
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+add_executable(move_base_node 
+  src/move_base_node.cpp
+  src/move_base.cpp
 )
+add_dependencies(move_base_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(move_base_node ${catkin_LIBRARIES})
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.hpp"
-  PATTERN "*~" EXCLUDE
-)
-
-add_library(move_base src/move_base.cpp)
-target_link_libraries(move_base 
-  ${catkin_LIBRARIES}
-  ${Boost_LIBRARIES}
-)
-
-add_executable(move_base_node src/move_base_node.cpp)
-target_link_libraries(move_base_node
-  move_base
-  ${catkin_LIBRARIES}
-)
+add_executable(maze_solver_node src/maze_solver_node.cpp)
+add_dependencies(maze_solver_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(maze_solver_node ${catkin_LIBRARIES})
