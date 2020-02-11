@@ -10,7 +10,7 @@
 		<visual name="">
 			<origin xyz="0.0 0.0 0.001" rpy="0.0 0.0 0.0"/>
 			<geometry>
-				<mesh filename="package://doogie_description/mazes/minus_visual.dae"/>
+				<mesh filename="package://doogie_description/mazes/minus_visual_debug.dae"/>
 			</geometry>
 		</visual>
 		<collision>
