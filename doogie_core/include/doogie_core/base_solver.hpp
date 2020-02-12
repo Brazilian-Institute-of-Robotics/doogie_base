@@ -21,6 +21,7 @@ class BaseSolver{
     virtual void configureSolverFromParams();
     virtual void waitForStart();
     virtual bool isWallFront();
+    virtual bool isWallBack();
     virtual bool isWallLeft();
     virtual bool isWallRight();
     virtual bool makePlan() = 0;

@@ -35,6 +35,12 @@ bool RightHandSolverPlugin::makePlan(){
       return true;
     }
 
+    else if(!isWallBack()){
+      goal_.direction = doogie_msgs::DoogieMoveGoal::BACK;
+      ROS_DEBUG_STREAM("Goal is: back");
+      return true;
+    }
+
     else{
       plan_attempts++;
       ros::spinOnce();
