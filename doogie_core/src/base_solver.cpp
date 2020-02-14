@@ -43,24 +43,19 @@ void BaseSolver::waitForStart(){
 }
 
 bool BaseSolver::isWallFront(){
-  if(current_cell_.front_wall){
-    return true;
-  }
-  return false;
+  return current_cell_.front_wall;
+}
+
+bool BaseSolver::isWallBack(){
+  return current_cell_.back_wall;
 }
 
 bool BaseSolver::isWallLeft(){
-  if(current_cell_.left_wall){
-    return true;
-  }
-  return false;  
+  return current_cell_.left_wall;  
 }
 
 bool BaseSolver::isWallRight(){
-  if(current_cell_.right_wall){
-    return true;
-  }
-  return false;  
+  return current_cell_.right_wall;  
 }
 
 void BaseSolver::sleep(){
