@@ -43,18 +43,22 @@ void BaseSolver::waitForStart(){
 }
 
 bool BaseSolver::isWallFront(){
+    ROS_INFO_STREAM("front_wall" << current_cell_.front_wall);
   return current_cell_.front_wall;
 }
 
 bool BaseSolver::isWallBack(){
+    ROS_INFO_STREAM("back_wall" << current_cell_.back_wall);
   return current_cell_.back_wall;
 }
 
 bool BaseSolver::isWallLeft(){
+    ROS_INFO_STREAM("left_wall" << current_cell_.left_wall);
   return current_cell_.left_wall;  
 }
 
 bool BaseSolver::isWallRight(){
+  ROS_INFO_STREAM("right wall" << current_cell_.right_wall);
   return current_cell_.right_wall;  
 }
 
@@ -75,10 +79,12 @@ std::string BaseSolver::getSolverName(){
 void BaseSolver::doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg){
   current_cell_ = matrix_handle_.getLocalCell(position_msg);
   doogie_handle_.setPosition(position_msg);
+   ROS_INFO("UPDATE CELL");
 }
 
 void BaseSolver::mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze){
   matrix_handle_.updateMatrix(matrix_maze);
+  ROS_INFO("UPDATE MAZE MATRIX");
 }
 
 } //namespace doogie_core

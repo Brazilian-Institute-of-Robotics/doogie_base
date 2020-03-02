@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="ns" default="/"/>
-    <rosparam file="$(find doogie_control)/config/wheel_control.yaml" command="load"/>
+    <rosparam file="$(find doogie_control)/config/diff_drive_controller.yaml" command="load"/>
 
     <node pkg="controller_manager" type="spawner" name="spawns_control" 
         output="screen" respawn="false" args="--namespace=/$(arg ns) --timeout 20
-                                                joint_publisher move_base_controller" />
+                                                joint_publisher diff_drive_controller" />
 
 </launch>

@@ -1,9 +1,9 @@
-uint8 FRONT=1
-uint8 BACK=2
-uint8 RIGHT=3
-uint8 LEFT=4
+int8 FRONT=0
+int8 BACK=2
+int8 RIGHT=1
+int8 LEFT=-1
 
-uint8 direction
+int8 direction
 uint8 cells
 uint8 turns
 ---

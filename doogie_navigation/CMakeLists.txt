@@ -5,7 +5,9 @@ add_compile_options(-std=c++11)
 
 set(CATKIN_BUILD_DEPS
   roscpp
+  # control_toolbox
   doogie_core
+  doogie_control
   doogie_msgs
   doogie_algorithms
   nav_msgs
@@ -39,3 +41,15 @@ target_link_libraries(move_base_node ${catkin_LIBRARIES})
 add_executable(maze_solver_node src/maze_solver_node.cpp)
 add_dependencies(maze_solver_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(maze_solver_node ${catkin_LIBRARIES})
+
+
+if (CATKIN_ENABLE_TESTING)
+catkin_add_gtest(direction_operations tests/directions_operation.cpp)
+add_dependencies(direction_operations ${catkin_EXPORTED_TARGETS})
+target_link_libraries(direction_operations ${catkin_LIBRARIES})
+
+endif()
+
+add_executable(fake_planner tests/fake_planner.cpp)
+add_dependencies(fake_planner ${catkin_EXPORTED_TARGETS})
+target_link_libraries(fake_planner ${catkin_LIBRARIES})

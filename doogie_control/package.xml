@@ -12,6 +12,8 @@
   
   <buildtool_depend>catkin</buildtool_depend>
   
+  <depend>control_toolbox</depend>
+
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>diff_drive_controller</exec_depend>
   <exec_depend>controller_manager</exec_depend>

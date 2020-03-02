@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
     DoogiePosition.msg
+    DoogieOrientation.msg
+    DoogiePose.msg
     MazeCell.msg
     MazeCellMultiArray.msg
     WallDistances.msg

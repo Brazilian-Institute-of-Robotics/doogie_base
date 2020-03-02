@@ -50,20 +50,20 @@
     <!-- Create ir_sensors -->  
     <xacro:sensors namespace="$(arg namespace)" sensor_name="left">
         <origin
-            xyz="0.0229854612389802 0.0415098295899679 -0.01074"
-            rpy="1.5707963267949 0 0.0415640560935549"/>
+            xyz="0.023438 0.041802 -0.01074"
+            rpy="1.5708 0 0.097308"/>
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="front_left">
         <origin
             xyz="0.0549597020112072 0.013499578883641 -0.01074"
-            rpy="1.5707963267949 0 1.08295252826201"/>
+            rpy="1.5707963267949 0 1.5708"/>
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="front_right">
         <origin
             xyz="0.0551208644089312 -0.0136426818026577 -0.01074"
-            rpy="1.5707963267949 0 -1.0215948588127" />
+            rpy="1.5707963267949 0 -1.5708" />
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="right">

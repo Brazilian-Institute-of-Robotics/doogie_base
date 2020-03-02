@@ -38,7 +38,10 @@ void DoogiePerception::wallDistancesCallback(const doogie_msgs::WallDistancesCon
   if (wall_distances->left_sensor.range < front_dist_threshold_ &&
      wall_distances->right_sensor.range < front_dist_threshold_) local_cell.front_wall = true;
   if (wall_distances->front_left_sensor.range < side_dist_threshold_) local_cell.left_wall = true;
-  if (wall_distances->front_right_sensor.range < side_dist_threshold_) local_cell.right_wall = true;
+  if (wall_distances->front_right_sensor.range < side_dist_threshold_) {
+    local_cell.right_wall = true;
+    ROS_INFO_STREAM("PERCEP: RIGH WALL TRUE");
+  } 
 
   switch (doogie_position_.orientation) {
     case doogie_msgs::DoogiePosition::NORTH:

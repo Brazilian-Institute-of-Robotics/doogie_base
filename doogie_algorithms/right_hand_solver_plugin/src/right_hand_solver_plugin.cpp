@@ -69,13 +69,13 @@ bool RightHandSolverPlugin::move(){
 }
 
 void RightHandSolverPlugin::doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg){
-  ROS_DEBUG("update doogie");
+  ROS_INFO("update doogie");
   start_solver = true; //to do: avoid using flags
   doogie_handle_.setPosition(position_msg);
 }
 
 void RightHandSolverPlugin::mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze){
-  ROS_DEBUG("update matrix");
+  ROS_INFO("update matrix");
   matrix_handle_.updateMatrix(matrix_maze);
   current_cell_ = matrix_handle_.getLocalCell(doogie_handle_.getPosition());
 }
