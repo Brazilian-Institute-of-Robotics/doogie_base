@@ -4,7 +4,6 @@ project(doogie_navigation)
 add_compile_options(-std=c++11)
 
 set(CATKIN_BUILD_DEPS
-  rospy
   roscpp
   doogie_core
   doogie_msgs

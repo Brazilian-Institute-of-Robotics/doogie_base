@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="ns" default="/"/>
+
     <node name="maze_solver" pkg="doogie_navigation" type="maze_solver_node" output="screen" />
 </launch>
