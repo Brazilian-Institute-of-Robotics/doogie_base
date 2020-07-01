@@ -16,45 +16,33 @@
 
 #include "doogie_control/pid_controller.hpp"
 #include "doogie_control/diff_driver_controller.hpp"
-#include "doogie_navigation/move_base.hpp"
+
 #include "doogie_msgs/DoogieMoveAction.h"
-#include "doogie_msgs/DoogiePose.h"
 
-namespace doogie {
-
-  const int8_t static computeResultDirection (int8_t const& current_orientation, int8_t const& goal_direction) {
-    int8_t temp = current_orientation + goal_direction;
-    if (temp > 4) {
-      temp -= 4;
-    } 
-    if (temp < 1) {
-      temp += 4;
-    }
-    const int8_t result = temp;
-    return result;
-}
-
-}  // namespace doogie
+#include "doogie_navigation/move_base.hpp"
+#include "doogie_navigation/maze_goal.hpp"
+#include "doogie_navigation/maze_pose.hpp"
 
 namespace doogie_navigation {
 
 /**
  * @class MoveInMaze MOVE_TO_CELL.hpp
  * @brief Class to control the doogie robot in the maze, receiving goal from the doogie_algorithms_node
- * and send the robot to the desired point. It's command the robot through the cmd_vel topic and ready
+ * and send the robot to the desired point. It commands the robot through the cmd_vel topic and ready
  * odometry from odom topic to control the position.
  * 
  */
 class MoveInMaze : public MoveBase {
  public:
+  using Direction = doogie::Direction;
+  using GlobalOrientation = doogie::GlobalOrientation;
+  using Pose = doogie::doogie_navigation::MazePose;
 
-  explicit MoveInMaze(const std::string &robot_namespace);
+
+  explicit MoveInMaze(const std::string &robot_namespace, const ros::NodeHandle& robot_nh);
   
-  doogie_msgs::DoogiePosition getCurrentDoogiePosition();
-  const int8_t getCurrentDoogieOrientation() const;
-  void setCurrentDoogieOrientation(int8_t current_orientation);
   void moveStraight();
-  void rotate();
+  void rotate(Direction goal_direction);
   
   /**
    * @brief The callback function executed in each goal received by the action server.
@@ -74,32 +62,15 @@ class MoveInMaze : public MoveBase {
   void start() override;
 
  protected:
-  class DoogieMoveBaseServer {
-   public:
-    explicit DoogieMoveBaseServer(ros::NodeHandle nh);
-    ~DoogieMoveBaseServer();
-    void acceptNewGoal();
-    const int8_t getCurrentGoalDirection() const;
-    const int8_t getCurrentGoalNumberOfCells() const;
-    const bool getCurrentGoalStatus() const;
-    void setSucceeded();
-
-   private:
-    actionlib::SimpleActionServer<doogie_msgs::DoogieMoveAction> move_base_server_controller_;
-
-    doogie_msgs::DoogieMoveGoalPtr current_goal_;
-    doogie_msgs::DoogieMoveResultPtr current_goal_result_;
-    doogie_msgs::DoogieMoveFeedbackPtr current_goal_feedback_;
-  }; 
-
   ros::NodeHandle nh_;
-  ros::NodeHandle ph_;
 
   ros::Publisher position_pub_;
 
-  doogie_msgs::DoogiePose robot_pose_;
+  Pose robot_pose_;
 
-  DoogieMoveBaseServer move_base_action_server;
+  actionlib::SimpleActionServer<doogie_msgs::DoogieMoveAction> move_base_action_server;
+  MazeGoal goal_;
+
   std::map<int8_t, std::function<void(const double&)>> command_map;
 
  private:
@@ -118,8 +89,8 @@ class MoveInMaze : public MoveBase {
 
   bool isRotateGoalReached();
 
-  void updatePosition();
-  void updateOrientation();
+  void updatePosition(int cells);
+  void updateOrientation(Direction goal_direction);
 
 };
 

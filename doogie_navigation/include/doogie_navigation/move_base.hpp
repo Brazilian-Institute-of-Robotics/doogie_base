@@ -16,7 +16,8 @@
 #include <doogie_control/pid_controller.hpp>
 #include <doogie_control/diff_driver_controller.hpp>
 #include <doogie_msgs/DoogieMoveAction.h>
-#include <doogie_msgs/DoogiePose.h>
+#include <doogie_navigation/move_base_params.hpp>
+#include <doogie_navigation/maze_pose.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 
 /**
@@ -43,11 +44,11 @@ namespace doogie_navigation {
 
 // typedef boost::geometry::model::d2::point_xy<double> twod_point;
 
-enum GlobalOrientation {
-  NORTH = 1u,
-  SOUTH = 3u,
-  EAST = 2u,
-  WEST = 4u
+enum GlobalOrientation : int8_t {
+  NORTH = doogie_msgs::DoogieOrientation::NORTH,
+  SOUTH = doogie_msgs::DoogieOrientation::SOUTH,
+  EAST = doogie_msgs::DoogieOrientation::EAST,
+  WEST = doogie_msgs::DoogieOrientation::WEST
 };
 
 enum State {
@@ -65,12 +66,13 @@ enum State {
  */
 class MoveBase {
  public:
+ using Pose = doogie::doogie_navigation::MazePose;
   /**
    * @brief Construct a new Move Base object
    * 
    * @param robot_namespace node handle to get the robot parameters.
    */
-  explicit MoveBase(const std::string &robot_namespace);
+  explicit MoveBase(const std::string &robot_namespace, const ros::NodeHandle& robot_nh);
   /**
    * @brief The callback function executed in each goal received by the action server.
    * 
@@ -83,81 +85,40 @@ class MoveBase {
   bool turnRobot(bool is_clockwise);
   void turnRobot(double rad_angle);
   virtual void receiveGoalCallback();
-  // void preemptGoalCallback();
-  /**
-   * @brief Get the odometry data from the odometry topic to control the position of the 
-   * robot.
-   * 
-   * @param odometry_data The data received from the topic.
-   */
-  // virtual void getOdometryDataCallback(const nav_msgs::Odometry::ConstPtr &odometry_data);
   virtual void start();
 
  protected:
-  /**
-   * @brief Load all parameters from parameter server
-   * 
-   */
-  void loadParameters();
-
-
-  enum Error{
+  enum Error {
     LINEAR,
     ANGULAR
   };
-  
+
+  enum Direction  : int8_t {
+    FRONT = doogie_msgs::DoogieMoveGoal::FRONT,
+    BACK = doogie_msgs::DoogieMoveGoal::BACK,
+    LEFT = doogie_msgs::DoogieMoveGoal::LEFT,
+    RIGHT = doogie_msgs::DoogieMoveGoal::RIGHT
+  };
+
   ros::NodeHandle nh_;
-  ros::NodeHandle robot_controller_nh_;
-  ros::NodeHandle ph_;
 
   ros::Publisher position_pub_;
-
   actionlib::SimpleActionServer<doogie_msgs::DoogieMoveAction> move_to_goal_action_server_;
-  
+
   doogie_msgs::DoogieMoveGoalConstPtr goal_;
   doogie_msgs::DoogieMoveResult move_to_goal_result_;
   doogie_msgs::DoogieMoveFeedback move_to_goal_feedback_;
 
   doogie_msgs::DoogiePosition robot_position_;
-  doogie_navigation::GlobalOrientation global_orientation_;
+  doogie_navigation::GlobalOrientation global_orientation_{doogie_navigation::NORTH};
 
   doogie_control::PIDController pid_[2];
   doogie_control::DiffDriveController diff_drive_controller;
   State robot_state_;
-  
-  double distance_tolerance_;
-  double angle_tolerance_;
-  double linear_velocity_;
-  double angular_velocity_;
-  double loop_frequency_;
-  double cell_size_;
-  double angular_gain_;
-  double linear_gain_;
-  int row_init_position_;
-  int column_init_position_; 
+
+  MoveBaseParams params; 
 
  private:
-  /**
-   * @brief Check if the desired parameter is in the parameter server. If the parameter exist, return trhough pointer,
-   * throw an excepction, otherwise.
-   * 
-   * @tparam param_type 
-   * @param private_nh Nodehandle to acess the parameter server.
-   * @param param_name Name of the parameter
-   * 
-   * @param[out] param_value Value of the desired parameter
-   */
-  template <typename param_type>
-  void checkParameters(const ros::NodeHandle& private_nh, const std::string& param_name, param_type* param_value) {
-    if(!private_nh.hasParam(param_name)) {
-      std::stringstream error_msgs;
-      error_msgs << "No parameter with name:" + param_name + " was found in the parameter server.";
-      ROS_ERROR_STREAM(error_msgs.str());
-      throw std::runtime_error (error_msgs.str());
-    }
-
-    private_nh.getParam(param_name, *param_value);
-  }
   /**
    * @brief Check if whether robot is heading x or y axis. It returns true if robot is heading x axis and false otherwise. First it gets the orientation of doogie robot according to the odometry. Then the yaw angle 
    * get from the orientation using tf::getYaw() varies [0, PI] and [0, -PI]. So, if the angle is
@@ -169,8 +130,8 @@ class MoveBase {
   void configureControllers();
   void spin();
 
-  // NOT BEING USED!
-  void computeAngle(int direction);
+  double computeAngleToTurn(double angle_offset);
+  double computeAngleToTurn(Direction goal_direction);
 
   double computeDistanceToMove();
   double computeLinearControlAction();
