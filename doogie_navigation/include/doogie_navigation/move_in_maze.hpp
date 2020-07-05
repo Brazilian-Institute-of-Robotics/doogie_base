@@ -39,7 +39,7 @@ class MoveInMaze : public MoveBase {
   using Pose = doogie::doogie_navigation::MazePose;
 
 
-  explicit MoveInMaze(const std::string &robot_namespace, const ros::NodeHandle& robot_nh);
+  explicit MoveInMaze(const ros::NodeHandle& robot_nh);
   
   void moveStraight();
   void rotate(Direction goal_direction);

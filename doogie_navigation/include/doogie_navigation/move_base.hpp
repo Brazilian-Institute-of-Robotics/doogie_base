@@ -44,13 +44,6 @@ namespace doogie_navigation {
 
 // typedef boost::geometry::model::d2::point_xy<double> twod_point;
 
-enum GlobalOrientation : int8_t {
-  NORTH = doogie_msgs::DoogieOrientation::NORTH,
-  SOUTH = doogie_msgs::DoogieOrientation::SOUTH,
-  EAST = doogie_msgs::DoogieOrientation::EAST,
-  WEST = doogie_msgs::DoogieOrientation::WEST
-};
-
 enum State {
   IDLE,
   TURNNING,
@@ -66,25 +59,20 @@ enum State {
  */
 class MoveBase {
  public:
- using Pose = doogie::doogie_navigation::MazePose;
   /**
    * @brief Construct a new Move Base object
    * 
    * @param robot_namespace node handle to get the robot parameters.
    */
-  explicit MoveBase(const std::string &robot_namespace, const ros::NodeHandle& robot_nh);
+  explicit MoveBase(const ros::NodeHandle& robot_nh);
   /**
    * @brief The callback function executed in each goal received by the action server.
    * 
    * @param goal The goal to move_base send the robot.
    */
-  void moveForward();
-  void moveForward(int number_of_cells);
   void moveHeadingXAxis(double goal_position);
   void moveHeadingYAxis(double goal_position);
-  bool turnRobot(bool is_clockwise);
   void turnRobot(double rad_angle);
-  virtual void receiveGoalCallback();
   virtual void start();
 
  protected:
@@ -93,30 +81,13 @@ class MoveBase {
     ANGULAR
   };
 
-  enum Direction  : int8_t {
-    FRONT = doogie_msgs::DoogieMoveGoal::FRONT,
-    BACK = doogie_msgs::DoogieMoveGoal::BACK,
-    LEFT = doogie_msgs::DoogieMoveGoal::LEFT,
-    RIGHT = doogie_msgs::DoogieMoveGoal::RIGHT
-  };
-
   ros::NodeHandle nh_;
-
-  ros::Publisher position_pub_;
-  actionlib::SimpleActionServer<doogie_msgs::DoogieMoveAction> move_to_goal_action_server_;
-
-  doogie_msgs::DoogieMoveGoalConstPtr goal_;
-  doogie_msgs::DoogieMoveResult move_to_goal_result_;
-  doogie_msgs::DoogieMoveFeedback move_to_goal_feedback_;
-
-  doogie_msgs::DoogiePosition robot_position_;
-  doogie_navigation::GlobalOrientation global_orientation_{doogie_navigation::NORTH};
 
   doogie_control::PIDController pid_[2];
   doogie_control::DiffDriveController diff_drive_controller;
   State robot_state_;
 
-  MoveBaseParams params; 
+  MoveBaseParams params;
 
  private:
   /**
@@ -131,24 +102,17 @@ class MoveBase {
   void spin();
 
   double computeAngleToTurn(double angle_offset);
-  double computeAngleToTurn(Direction goal_direction);
 
   double computeDistanceToMove();
-  double computeLinearControlAction();
   double getCurrentPosition();
   double getCurrentOrientation();
 
-  /**
-   * @brief Check if whether robot is heading x or y axis. It returns true if robot is heading x axis and false otherwise.
-   */
-  bool isHeadingXAxis();
-
-  bool isMoveForwardGoalReached();
+  bool isMoveForwardGoalReached(double actual_position);
   bool isTurnRobotGoalReached();
-  
-  void updatePosition();
 
-  void updateOrientation();
+  // void updatePosition();
+
+  // void updateOrientation();
 
   // double getCurrentRadOrientation();
   // double getCurrentNormalizedRadOrientation();
@@ -158,7 +122,7 @@ class MoveBase {
    *    - true: clockwise
    *    - false: couter clockwise  **/
   bool is_clockwise_;
-  
+
   int current_row_;
   int current_column_;
 

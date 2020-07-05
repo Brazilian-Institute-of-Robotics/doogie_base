@@ -3,7 +3,7 @@ namespace doogie_navigation {
 using Direction = doogie::Direction;
 
 void MazeGoal::acceptNewGoal(const doogie_msgs::DoogieMoveGoalConstPtr& goal) {
-  goal_ = goal;
+  *goal_ = *goal;
   if(goal_->cells == 0) {
     goal_->cells = 1;
   }
@@ -11,7 +11,7 @@ void MazeGoal::acceptNewGoal(const doogie_msgs::DoogieMoveGoalConstPtr& goal) {
 }
 
 Direction MazeGoal::getDirection() const {
-  return Direction{goal_->direction};
+  return (Direction)goal_->direction;
 }
 
 const int8_t MazeGoal::getNumberOfCells() const {

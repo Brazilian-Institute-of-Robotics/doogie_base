@@ -14,28 +14,26 @@ using Pose = doogie::doogie_navigation::MazePose;
 using GlobalOrientation = doogie::GlobalOrientation;
 using Direction = doogie::Direction;
 
-MoveInMaze::MoveInMaze(const std::string &robot_namespace, const ros::NodeHandle& robot_nh)
-  : MoveBase::MoveBase(robot_namespace, robot_nh)
+MoveInMaze::MoveInMaze(const ros::NodeHandle& robot_nh)
+  : MoveBase::MoveBase(robot_nh)
   , move_base_action_server(nh_, "move_base_action_server", false) {
-  
+
   move_base_action_server.registerGoalCallback(boost::bind(&MoveInMaze::receiveGoalCallback, this));
   move_base_action_server.start();
 
   position_pub_ = nh_.advertise<doogie_msgs::DoogiePosition>("doogie_position", 5);
   robot_pose_ = Pose{params.row_init_position, params.row_init_position, GlobalOrientation::NORTH};
   initializeCommandMap();
-
 }
 
 void MoveInMaze::initializeCommandMap() {
   command_map[GlobalOrientation::NORTH] =  std::bind(&MoveInMaze::sendMoveToNorthCommand, this, std::placeholders::_1);
   command_map[GlobalOrientation::SOUTH] =  std::bind(&MoveInMaze::sendMoveToSouthCommand, this, std::placeholders::_1);
   command_map[GlobalOrientation::EAST]  =  std::bind(&MoveInMaze::sendMoveToEastCommand, this, std::placeholders::_1);
-  command_map[GlobalOrientation::WEST]  =  std::bind(&MoveInMaze::sendMoveToWestCommand, this, std::placeholders::_1);  
+  command_map[GlobalOrientation::WEST]  =  std::bind(&MoveInMaze::sendMoveToWestCommand, this, std::placeholders::_1);
 }
 
 void MoveInMaze::receiveGoalCallback() {
-
   goal_ = move_base_action_server.acceptNewGoal();
   auto goal_direction = goal_.getDirection();
   ROS_DEBUG_STREAM("goal received");
@@ -43,7 +41,8 @@ void MoveInMaze::receiveGoalCallback() {
   if (goal_direction == Direction::FRONT) {
     robot_state_ = State::MOVING;
     return;
-  } 
+  }
+
   updateOrientation(goal_.getDirection());
   updatePosition(goal_.getNumberOfCells());
   robot_state_ = State::TURNNING;
@@ -77,7 +76,8 @@ void MoveInMaze::sendMoveToWestCommand(const double& distance_to_move) {
 }
 
 void MoveInMaze::updatePosition(int cells) {
-  switch (global_orientation_) {
+  auto global_orientation = robot_pose_.getGlobalOrientation();
+  switch (global_orientation) {
     case GlobalOrientation::NORTH:
       robot_pose_.incrementRow(cells);
       robot_pose_.setGlobalOrientation(GlobalOrientation::NORTH);
@@ -95,8 +95,8 @@ void MoveInMaze::updatePosition(int cells) {
       robot_pose_.setGlobalOrientation(GlobalOrientation::WEST);
       break;
   }
-
-  position_pub_.publish(robot_position_);
+  auto doogie_pose = robot_pose_.toDoogieMsg();
+  position_pub_.publish(doogie_pose);
 }
 
 void MoveInMaze::rotate(Direction goal_direction) {

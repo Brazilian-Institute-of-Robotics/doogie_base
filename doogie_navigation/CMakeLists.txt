@@ -1,18 +1,15 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1.3)
 project(doogie_navigation)
 
-add_compile_options(-std=c++11)
+set(CMAKE_CXX_STANDARD 11)
 
 set(CATKIN_BUILD_DEPS
+  rospy
   roscpp
-  # control_toolbox
   doogie_core
   doogie_control
   doogie_msgs
   doogie_algorithms
-  nav_msgs
-  geometry_msgs
-  tf
   actionlib
 )
 
@@ -32,11 +29,20 @@ include_directories(
 )
 
 add_library(move_base
-  src/move_base_params.cpp
-  src/local_cell.cpp
   src/move_base.cpp
+  src/move_base_params.cpp
 )
 target_link_libraries(move_base
+  ${catkin_LIBRARIES}
+)
+
+add_library(move_in_maze
+  src/move_in_maze.cpp
+  src/local_cell.cpp
+  src/maze_goal.cpp
+)
+target_link_libraries(move_in_maze
+  move_base
   ${catkin_LIBRARIES}
 )
 
@@ -45,6 +51,12 @@ add_executable(move_base_node
 )
 add_dependencies(move_base_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(move_base_node move_base ${catkin_LIBRARIES})
+
+add_executable(move_in_maze_node 
+  src/move_in_maze_node.cpp
+)
+add_dependencies(move_in_maze_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(move_in_maze_node move_in_maze ${catkin_LIBRARIES})
 
 add_executable(maze_solver_node src/maze_solver_node.cpp)
 add_dependencies(maze_solver_node ${catkin_EXPORTED_TARGETS})

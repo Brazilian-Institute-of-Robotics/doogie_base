@@ -7,7 +7,8 @@ namespace doogie_navigation {
 class MoveBaseParams {
  public:
   MoveBaseParams(const ros::NodeHandle& axis_nh);
-  double loadParam(const ros::NodeHandle& private_nh, const std::string& param_name);
+  template <typename T>
+  T loadParam(const ros::NodeHandle& private_nh, const std::string& param_name);
 
   double distance_tolerance;
   double angle_tolerance;
@@ -15,8 +16,8 @@ class MoveBaseParams {
   double angular_velocity;
   double loop_frequency;
   double cell_size;
-  double row_init_position;
-  double column_init_position;
+  int row_init_position;
+  int column_init_position;
 
 };
 }  // namespace doogie_navigation

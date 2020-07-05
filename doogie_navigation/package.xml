@@ -16,14 +16,10 @@
   
   <depend>rospy</depend>
   <depend>roscpp</depend>
-  <!-- <depend>control_toolbox</depend> -->
   <depend>doogie_msgs</depend>
   <depend>doogie_core</depend>
   <depend>doogie_control</depend>
   <depend>doogie_algorithms</depend>
-  <depend>nav_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>tf</depend>
   <depend>actionlib</depend>
 
 </package>

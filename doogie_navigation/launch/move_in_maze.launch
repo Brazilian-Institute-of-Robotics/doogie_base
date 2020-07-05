@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+ 
+  <rosparam file="$(find doogie_control)/config/pid_controller.yaml" command="load"/>
+  
+  <node name="doogie_move_base_controller" pkg="doogie_navigation" type="move_in_maze_node" output="log">
+    <rosparam file="$(find doogie_navigation)/config/move_base.yaml" command="load"/>
+  </node>
+
+</launch>

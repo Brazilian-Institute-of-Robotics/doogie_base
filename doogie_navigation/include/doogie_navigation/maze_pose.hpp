@@ -6,6 +6,7 @@
 #include <doogie_msgs/DoogieMoveGoal.h>
 #include <doogie_msgs/DoogieOrientation.h>
 #include <doogie_msgs/DoogiePosition.h>
+#include "doogie_msgs/DoogiePose.h"
 
 namespace doogie {
   enum Direction : int8_t {
@@ -15,7 +16,7 @@ namespace doogie {
     LEFT = doogie_msgs::DoogieMoveGoal::LEFT
   };
 
-  enum GlobalOrientation : int8_t {
+  enum GlobalOrientation {
     NORTH = doogie_msgs::DoogieOrientation::NORTH,
     SOUTH = doogie_msgs::DoogieOrientation::SOUTH,
     EAST = doogie_msgs::DoogieOrientation::EAST,
@@ -33,6 +34,15 @@ class MazePose {
     global_orientation_ = start_orientation;
   }
 
+  doogie_msgs::DoogiePose toDoogieMsg() {
+    doogie_msgs::DoogiePose msg;
+    msg.position.column = getColumn();
+    msg.position.row = getRow();
+    msg.orientation.direction = getGlobalOrientation();
+
+    return msg;
+  }
+
   void transformOrientation(Direction goal_direction) {
     auto new_orientation = global_orientation_ + goal_direction;
     if (new_orientation > 4) {
@@ -44,15 +54,15 @@ class MazePose {
     setGlobalOrientation(GlobalOrientation(new_orientation));
   }
 
-  int getRow() {
+  int getRow() const {
     return position_.row;
   }
 
-  int getColumn() {
+  int getColumn() const {
     return position_.column;
   }
 
-  GlobalOrientation getGlobalOrientation() {
+  GlobalOrientation getGlobalOrientation() const {
     return global_orientation_;
   }
 
