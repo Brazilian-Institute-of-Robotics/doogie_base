@@ -1,11 +1,11 @@
-#include <cmath>
-
 #include "doogie_control/pid_controller.hpp"
+
+#include <cmath>
 
 namespace doogie_control {
 
-PIDController::PIDController(const std::string& controller_name) : pid_nh(controller_name) {
-    pid_.init(pid_nh);
+PIDController::PIDController(const ros::NodeHandle& pid_nh) : pid_nh_(pid_nh) {
+    pid_.init(pid_nh_);
     last_time_ = ros::Time(0);
 }
 

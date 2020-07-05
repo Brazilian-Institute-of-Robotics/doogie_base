@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include <ros/ros.h>
 #include <control_toolbox/pid.h>
 
 namespace doogie_control {
@@ -11,7 +12,7 @@ class PIDController{
 
  public:
 
-  PIDController(const std::string& controller_name);
+  PIDController(const ros::NodeHandle& pid_nh);
   ~PIDController();
   void initialize();
   void setTolerance(double tolerance);
@@ -28,7 +29,7 @@ class PIDController{
 
  private:
 
-  ros::NodeHandle pid_nh;
+  ros::NodeHandle pid_nh_;
 
   control_toolbox::Pid pid_;
   
