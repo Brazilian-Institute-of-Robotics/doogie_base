@@ -8,7 +8,6 @@ set(DOOGIE_CORE_DEPS
   roscpp
   actionlib
   doogie_msgs
-  pluginlib
 )
 
 find_package(catkin REQUIRED COMPONENTS ${DOOGIE_CORE_DEPS})
@@ -28,10 +27,8 @@ include_directories(
 )
 
 add_library(${DOOGIE_CORE_LIB_NAME}
-  src/base_solver.cpp
   src/maze_matrix_handle.cpp
   src/mouse_handle.cpp
-  src/solver_plugin_loader.cpp
   src/utils.cpp
 )
 target_link_libraries(${DOOGIE_CORE_LIB_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
