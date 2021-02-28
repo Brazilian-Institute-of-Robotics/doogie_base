@@ -3,9 +3,9 @@
 namespace doogie_core{
 
 MouseHandle::MouseHandle() : move_base_client_("move_base_action_server"){
-  position_.row = 0;
-  position_.column = 0;
-  position_.orientation = 0;
+  pose_.position.row = 0;
+  pose_.position.column = 0;
+  pose_.orientation.direction = 0;
 
   ROS_INFO("Starting up Move Base Server");
   move_base_client_.waitForServer();
@@ -13,12 +13,12 @@ MouseHandle::MouseHandle() : move_base_client_("move_base_action_server"){
 
 }
 
-void MouseHandle::setPosition(doogie_msgs::DoogiePosition position){
-  position_ = position;
+void MouseHandle::setPose(doogie_msgs::DoogiePose pose){
+  pose_ = pose;
 }
 
-doogie_msgs::DoogiePosition MouseHandle::getPosition(){
-  return position_;
+doogie_msgs::DoogiePose MouseHandle::getPose(){
+  return pose_;
 }
 
 void MouseHandle::move(doogie_msgs::DoogieMoveGoal goal){

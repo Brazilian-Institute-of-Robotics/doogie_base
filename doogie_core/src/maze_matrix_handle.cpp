@@ -1,9 +1,10 @@
-#include <std_msgs/MultiArrayDimension.h>
 #include "doogie_core/maze_matrix_handle.hpp"
+
+#include <std_msgs/MultiArrayDimension.h>
 
 namespace doogie_core {
 
-doogie_msgs::MazeCellPtr LocalCell::toGlobalCell(){
+doogie_msgs::MazeCellPtr LocalCell::toGlobalCell() {
   return MazeMatrixHandle::localToGlobalCell(this);
 }
 
@@ -11,7 +12,7 @@ MazeMatrixHandle::MazeMatrixHandle() {
   maze_matrix_ = boost::make_shared<doogie_msgs::MazeCellMultiArray>();
 }
 
-MazeMatrixHandle::MazeMatrixHandle(MazeMatrixPtr maze_matrix){
+MazeMatrixHandle::MazeMatrixHandle(MazeMatrixPtr maze_matrix) {
   maze_matrix_ = maze_matrix;
 }
 
@@ -71,9 +72,9 @@ doogie_msgs::MazeCell MazeMatrixHandle::getMazeMatrixCell(uint8_t row, uint8_t c
   return this->maze_matrix_->data[row + this->maze_matrix_->layout.dim[1].stride * column];
 }
 
-LocalCell MazeMatrixHandle::getLocalCell(doogie_msgs::DoogiePosition doogie_position) {
-  doogie_msgs::MazeCell maze_cell = this->getMazeMatrixCell(doogie_position.row, doogie_position.column);
-  LocalCell local_cell = MazeMatrixHandle::globalToLocal(doogie_position.orientation, maze_cell);
+LocalCell MazeMatrixHandle::getLocalCell(doogie_msgs::DoogiePose doogie_pose) {
+  doogie_msgs::MazeCell maze_cell = this->getMazeMatrixCell(doogie_pose.position.row, doogie_pose.position.column);
+  LocalCell local_cell = MazeMatrixHandle::globalToLocal(doogie_pose.orientation, maze_cell);
   return local_cell;
 }
 
@@ -85,11 +86,11 @@ void MazeMatrixHandle::setMazeMatrixCell(uint8_t row, uint8_t column, doogie_msg
   this->maze_matrix_->data[row + this->maze_matrix_->layout.dim[1].stride * column] = maze_cell_walls;
 }
 
-void MazeMatrixHandle::setMazeMatrixCell(doogie_msgs::DoogiePosition doogie_position, LocalCell local_cell_walls,
+void MazeMatrixHandle::setMazeMatrixCell(doogie_msgs::DoogiePose doogie_pose, LocalCell local_cell_walls,
                                          bool visited) {
-  doogie_msgs::MazeCell maze_cell_walls = this->localToGlobalCell(doogie_position.orientation, local_cell_walls);
+  doogie_msgs::MazeCell maze_cell_walls = this->localToGlobalCell(doogie_pose.orientation.direction, local_cell_walls);
   maze_cell_walls.visited = visited;
-  this->setMazeMatrixCell(doogie_position.row, doogie_position.column, maze_cell_walls);
+  this->setMazeMatrixCell(doogie_pose.position.row, doogie_pose.position.column, maze_cell_walls);
 }
 
 void MazeMatrixHandle::setMazeMatrixCell(uint8_t row, uint8_t column, bool north_wall, bool south_wall, bool east_wall,
@@ -103,41 +104,43 @@ void MazeMatrixHandle::setMazeMatrixCell(uint8_t row, uint8_t column, bool north
   this->setMazeMatrixCell(row, column, maze_cell_walls);
 }
 
-LocalCell MazeMatrixHandle::globalToLocal(uint8_t orientation, doogie_msgs::MazeCell maze_cell) {
-  LocalCell local_cell;
+LocalCell MazeMatrixHandle::globalToLocal(doogie_msgs::DoogieOrientation orientation, doogie_msgs::MazeCell maze_cell) {
+  LocalCell local_cell{};
 
-  switch (orientation){
-    case doogie_msgs::DoogiePosition::NORTH:
+  switch (orientation.direction) {
+    case doogie_msgs::DoogieOrientation::NORTH:
       local_cell.front_wall = maze_cell.north_wall;
       local_cell.back_wall = maze_cell.south_wall;
       local_cell.right_wall = maze_cell.east_wall;
       local_cell.left_wall = maze_cell.west_wall;
       return local_cell;
-    case doogie_msgs::DoogiePosition::SOUTH:
+    case doogie_msgs::DoogieOrientation::SOUTH:
       local_cell.front_wall = maze_cell.south_wall;
       local_cell.back_wall = maze_cell.north_wall;
       local_cell.right_wall = maze_cell.west_wall;
       local_cell.left_wall = maze_cell.east_wall;
       return local_cell;
-    case doogie_msgs::DoogiePosition::EAST:
+    case doogie_msgs::DoogieOrientation::EAST:
       local_cell.front_wall = maze_cell.east_wall;
       local_cell.back_wall = maze_cell.west_wall;
       local_cell.right_wall = maze_cell.south_wall;
       local_cell.left_wall = maze_cell.north_wall;
       return local_cell;
-    case doogie_msgs::DoogiePosition::WEST:
+    case doogie_msgs::DoogieOrientation::WEST:
       local_cell.front_wall = maze_cell.west_wall;
       local_cell.back_wall = maze_cell.east_wall;
       local_cell.right_wall = maze_cell.north_wall;
       local_cell.left_wall = maze_cell.south_wall;
       return local_cell;
   }
+  ROS_FATAL_STREAM("Invalid direction");
+  throw std::runtime_error("");
 }
 
-LocalCell MazeMatrixHandle::globalToLocalCell(MazeMatrix maze_matrix, doogie_msgs::DoogiePosition doogie_position) {
-  doogie_msgs::MazeCell maze_cell = MazeMatrixHandle::getMazeMatrixCell(maze_matrix, doogie_position.row,
-                                                                        doogie_position.column);
-  LocalCell local_cell = MazeMatrixHandle::globalToLocal(doogie_position.orientation, maze_cell);
+LocalCell MazeMatrixHandle::globalToLocalCell(MazeMatrix maze_matrix, doogie_msgs::DoogiePose doogie_pose) {
+  doogie_msgs::MazeCell maze_cell = MazeMatrixHandle::getMazeMatrixCell(maze_matrix, doogie_pose.position.row,
+                                                                        doogie_pose.position.column);
+  LocalCell local_cell = MazeMatrixHandle::globalToLocal(doogie_pose.orientation, maze_cell);
   return local_cell;
 }
 
@@ -149,33 +152,35 @@ doogie_msgs::MazeCellPtr MazeMatrixHandle::localToGlobalCell(LocalCell* local_ce
 
 doogie_msgs::MazeCell MazeMatrixHandle::localToGlobalCell(uint8_t orientation, LocalCell local_cell) {
   doogie_msgs::MazeCell maze_cell;
-  
-  switch (orientation){
-    case doogie_msgs::DoogiePosition::NORTH:
+
+  switch (orientation) {
+    case doogie_msgs::DoogieOrientation::NORTH:
       maze_cell.north_wall = local_cell.front_wall;
       maze_cell.south_wall = local_cell.back_wall;
       maze_cell.east_wall = local_cell.right_wall;
       maze_cell.west_wall = local_cell.left_wall;
       return maze_cell;
-    case doogie_msgs::DoogiePosition::SOUTH:
+    case doogie_msgs::DoogieOrientation::SOUTH:
       maze_cell.north_wall = local_cell.back_wall;
       maze_cell.south_wall = local_cell.front_wall;
       maze_cell.east_wall = local_cell.left_wall;
       maze_cell.west_wall = local_cell.right_wall;
       return maze_cell;
-    case doogie_msgs::DoogiePosition::EAST:
+    case doogie_msgs::DoogieOrientation::EAST:
       maze_cell.north_wall = local_cell.left_wall;
       maze_cell.south_wall = local_cell.right_wall;
       maze_cell.east_wall = local_cell.front_wall;
       maze_cell.west_wall = local_cell.back_wall;
       return maze_cell;
-    case doogie_msgs::DoogiePosition::WEST:
+    case doogie_msgs::DoogieOrientation::WEST:
       maze_cell.north_wall = local_cell.right_wall;
       maze_cell.south_wall = local_cell.left_wall;
       maze_cell.east_wall = local_cell.back_wall;
       maze_cell.west_wall = local_cell.front_wall;
       return maze_cell;
   }
+  ROS_FATAL_STREAM("Invalid direction");
+  throw std::runtime_error("");
 }
 
 uint8_t MazeMatrixHandle::getNumberOfRows() {

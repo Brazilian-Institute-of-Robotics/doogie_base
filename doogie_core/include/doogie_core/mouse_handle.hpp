@@ -2,7 +2,7 @@
 #define DOOGIE_CORE_MOUSE_HANDLE_HPP_
 
 #include <actionlib/client/simple_action_client.h>
-#include "doogie_msgs/DoogiePosition.h"
+#include "doogie_msgs/DoogiePose.h"
 #include "doogie_msgs/DoogieMoveAction.h"
 
 namespace doogie_core{
@@ -11,12 +11,12 @@ class MouseHandle{
 
 public:
 MouseHandle();
-doogie_msgs::DoogiePosition getPosition();
-void setPosition(doogie_msgs::DoogiePosition position);
+doogie_msgs::DoogiePose getPose();
+void setPose(doogie_msgs::DoogiePose pose);
 void move(doogie_msgs::DoogieMoveGoal goal);
 
 private:
-doogie_msgs::DoogiePosition position_;
+doogie_msgs::DoogiePose pose_;
 actionlib::SimpleActionClient<doogie_msgs::DoogieMoveAction> move_base_client_;
 
 };
