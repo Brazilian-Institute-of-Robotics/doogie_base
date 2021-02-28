@@ -7,6 +7,7 @@ set(DOOGIE_CORE_DEPS
   roscpp
   doogie_core
   doogie_msgs
+  doogie_navigation
 )
 
 find_package(catkin REQUIRED COMPONENTS ${DOOGIE_CORE_DEPS})
