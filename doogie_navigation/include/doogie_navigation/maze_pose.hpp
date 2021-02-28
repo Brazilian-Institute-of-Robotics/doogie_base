@@ -8,7 +8,7 @@
 #include <doogie_msgs/DoogiePosition.h>
 #include "doogie_msgs/DoogiePose.h"
 
-namespace doogie {
+inline namespace doogie {
   enum Direction : int8_t {
     FRONT = doogie_msgs::DoogieMoveGoal::FRONT,
     BACK = doogie_msgs::DoogieMoveGoal::BACK,
@@ -22,20 +22,28 @@ namespace doogie {
     EAST = doogie_msgs::DoogieOrientation::EAST,
     WEST = doogie_msgs::DoogieOrientation::WEST
   };
+}  // namespace doogie
 
 namespace doogie_navigation {
 class MazePose {
  public:
   using Position = doogie_msgs::DoogiePosition;
+  using Pose = doogie_msgs::DoogiePose;
   MazePose() = default;
+
+  explicit MazePose(const Pose& doogie_position) {
+    position_.row = doogie_position.position.row;
+    position_.column = doogie_position.position.column;
+  }
+
   MazePose(int start_row, int start_column, GlobalOrientation start_orientation) {
     position_.row = start_row;
     position_.column = start_column;
     global_orientation_ = start_orientation;
   }
 
-  doogie_msgs::DoogiePose toDoogieMsg() {
-    doogie_msgs::DoogiePose msg;
+  Pose toDoogieMsg() const {
+    Pose msg;
     msg.position.column = getColumn();
     msg.position.row = getRow();
     msg.orientation.direction = getGlobalOrientation();
@@ -62,6 +70,10 @@ class MazePose {
     return position_.column;
   }
 
+  Position getPosition() const {
+    return toDoogieMsg().position;
+  }
+
   GlobalOrientation getGlobalOrientation() const {
     return global_orientation_;
   }
@@ -83,7 +95,7 @@ class MazePose {
   }
 
   void setGlobalOrientation(GlobalOrientation orientation) {
-    global_orientation_;
+    global_orientation_ = orientation;
   }
 
  private:
@@ -92,6 +104,5 @@ class MazePose {
 };
 
 }  // namespace doogie_navigation
-}  // namespace doogie
 
 #endif  // DOOGIE_NAVIGATION_MAZE_POSE_POSE_HPP_
