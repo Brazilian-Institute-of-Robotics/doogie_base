@@ -14,27 +14,11 @@
 #include <angles/angles.h>
 
 #include <doogie_control/diff_driver_controller.hpp>
-#include <doogie_control/odom_controller.hpp>
 #include <doogie_control/pid_controller.hpp>
+#include "doogie_localization/base_localization.hpp"
 #include <doogie_msgs/DoogieMoveAction.h>
 #include <doogie_navigation/move_base_params.hpp>
 #include <doogie_navigation/maze_pose.hpp>
-
-/**
- * TODO 
- * 
- * 2- remove comments and LOG_INFO debug msgs
- * 
- * 4- Update the global_orientation_ cheking if is_heading_x_ was changed
- * 5- Corrigir computeAngle para resolver o problema da mudança de 2pi pra 0
- * 6- Colocar updateOrientation so depois que o robo chegar na posicao, separar
- * o metodo para setar posicao absoluta
- * 7- Robo nao funciona corretamente quando reinicia o launch com a simulacao
- * funcionando
- * 8- Colocar valor de matrix como default?
- *  
- * 
- */
 
 namespace doogie {
   constexpr double PI = 3.14159265358979323846;
@@ -90,6 +74,7 @@ class MoveBase {
 
   doogie_control::PIDController pid_[2];
   doogie_control::DiffDriveController motion_iface_;
+  doogie_localization::BaseLocalizationPtr localization_iface_;
   State robot_state_;
 
   MoveBaseParams params_;

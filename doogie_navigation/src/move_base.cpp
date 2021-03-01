@@ -13,15 +13,21 @@ namespace doogie_navigation {
 using doogie_msgs::DoogiePosition;
 using doogie_msgs::DoogieOrientation;
 
+const std::string& BASE_CLASS_PACKAGE = "doogie_localization";
+const std::string& BASE_CLASS = BASE_CLASS_PACKAGE + "::BaseLocalization";
+
 MoveBase::MoveBase(const ros::NodeHandle& robot_nh)
 : pid_{ros::NodeHandle{robot_nh, "pid/linear"}, ros::NodeHandle{robot_nh, "pid/angular"}}
 , params_(robot_nh) {
+  localization_iface_ =
+    pluginlib::ClassLoader<doogie_localization::BaseLocalization>{BASE_CLASS_PACKAGE, BASE_CLASS}
+      .createInstance(params_.localization_plugin);
 }
 
 void MoveBase::turnRobot(double rad_angle) {
-  double current_orientation = diff_drive_controller.getCurrentYawOrientation();
-    current_orientation = diff_drive_controller.getCurrentYPosition();
   double target_angle = angles::normalize_angle(rad_angle);
+  double current_orientation =
+    angles::normalize_angle(localization_iface_->getCurrentNormalizedYawOrientation());
   double control_action_input = pid_[ANGULAR].computeControlAction(target_angle, current_orientation);
   ROS_INFO_STREAM_THROTTLE(1, "Target Orientation: " << target_angle);
   ROS_INFO_STREAM_THROTTLE(1, "Current Orientation: " << current_orientation);
@@ -30,6 +36,8 @@ void MoveBase::turnRobot(double rad_angle) {
   while (!isTurnRobotGoalReached()) {
     motion_iface_.setAngularVelocity(control_action_input);
     motion_iface_.publishVelocityMessage();
+    current_orientation = 
+      angles::normalize_angle(localization_iface_->getCurrentNormalizedYawOrientation());
     control_action_input = pid_[ANGULAR].computeControlAction(target_angle, current_orientation);
     ROS_INFO_STREAM_THROTTLE(1, "\nstill rotating");
     ROS_INFO_STREAM_THROTTLE(1, "Target Orientation: " << target_angle);
@@ -39,9 +47,11 @@ void MoveBase::turnRobot(double rad_angle) {
 
     spin();
   }
+  ROS_INFO_STREAM("\n--------------Goal is finished--------------\n");
 }
 
 bool MoveBase::isTurnRobotGoalReached() {
+  double actual_orientation = angles::normalize_angle(localization_iface_->getCurrentNormalizedYawOrientation());
 
   return (pid_[ANGULAR].getAbsoluteError() <= params_.angle_tolerance);
 }
@@ -50,16 +60,16 @@ void MoveBase::moveHeadingXAxis(double goal_position, Heading heading) {
   double setpoint = goal_position;
   pid_[LINEAR].setSetPoint(setpoint);
 
-  double current_position = diff_drive_controller.getCurrentXPosition();
+  double current_position = localization_iface_->getCurrentXPosition();
 
   while (!isMoveForwardGoalReached(current_position)) {
     double control_action_input = pid_[LINEAR].computeControlAction(current_position);
 
     motion_iface_.setLinearVelocity(heading * control_action_input);
     motion_iface_.publishVelocityMessage();
+    current_position = localization_iface_->getCurrentXPosition();
     ROS_INFO_STREAM_THROTTLE(1, "pub foward");
 
-    current_position = diff_drive_controller.getCurrentXPosition();
     spin();
   }
   ROS_INFO_STREAM("\n--------------Goal is finished--------------\n");
@@ -69,12 +79,12 @@ void MoveBase::moveHeadingYAxis(double goal_position, Heading heading) {
   double setpoint = goal_position;
   pid_[LINEAR].setSetPoint(setpoint);
 
-  double current_position = diff_drive_controller.getCurrentYPosition();
+  double current_position = localization_iface_->getCurrentYPosition();
   double control_action_input = pid_[LINEAR].computeControlAction(current_position);
   while (!isMoveForwardGoalReached(current_position)) {
-    current_position = diff_drive_controller.getCurrentYPosition();
     motion_iface_.setLinearVelocity(heading * control_action_input);
     motion_iface_.publishVelocityMessage();
+    current_position = localization_iface_->getCurrentYPosition();
     control_action_input = pid_[LINEAR].computeControlAction(current_position);
     ROS_INFO_STREAM_THROTTLE(1, "pub foward");
 

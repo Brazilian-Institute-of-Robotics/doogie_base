@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.1.3)
 project(doogie_navigation)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 set(CATKIN_BUILD_DEPS
   rospy
   roscpp
-  doogie_core
   doogie_control
+  doogie_localization
   doogie_msgs
   doogie_algorithms
   actionlib
@@ -66,7 +66,7 @@ target_link_libraries(maze_solver_node ${catkin_LIBRARIES})
 if (CATKIN_ENABLE_TESTING)
 catkin_add_gtest(direction_operations tests/directions_operation.cpp)
 add_dependencies(direction_operations ${catkin_EXPORTED_TARGETS})
-target_link_libraries(direction_operations ${catkin_LIBRARIES})
+target_link_libraries(direction_operations move_in_maze ${catkin_LIBRARIES})
 
 endif()
 
