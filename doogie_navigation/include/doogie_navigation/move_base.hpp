@@ -13,12 +13,12 @@
 #include <nav_msgs/Odometry.h>
 #include <angles/angles.h>
 
-#include <doogie_control/pid_controller.hpp>
 #include <doogie_control/diff_driver_controller.hpp>
+#include <doogie_control/odom_controller.hpp>
+#include <doogie_control/pid_controller.hpp>
 #include <doogie_msgs/DoogieMoveAction.h>
 #include <doogie_navigation/move_base_params.hpp>
 #include <doogie_navigation/maze_pose.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
 
 /**
  * TODO 
@@ -50,6 +50,11 @@ enum State {
   MOVING
 };
 
+enum Heading {
+    NEGATIVE=-1,
+    POSITIVE=1
+  };
+
 /**
  * @class MoveBase move_base.hpp
  * @brief Class to control the doogie robot in the maze, receiving goal from the doogie_algorithms_node
@@ -70,8 +75,8 @@ class MoveBase {
    * 
    * @param goal The goal to move_base send the robot.
    */
-  void moveHeadingXAxis(double goal_position);
-  void moveHeadingYAxis(double goal_position);
+  void moveHeadingXAxis(double goal_position, Heading heading);
+  void moveHeadingYAxis(double goal_position, Heading heading);
   void turnRobot(double rad_angle);
   virtual void start();
 
@@ -84,48 +89,16 @@ class MoveBase {
   ros::NodeHandle nh_;
 
   doogie_control::PIDController pid_[2];
-  doogie_control::DiffDriveController diff_drive_controller;
+  doogie_control::DiffDriveController motion_iface_;
   State robot_state_;
 
-  MoveBaseParams params;
+  MoveBaseParams params_;
 
  private:
-  /**
-   * @brief Check if whether robot is heading x or y axis. It returns true if robot is heading x axis and false otherwise. First it gets the orientation of doogie robot according to the odometry. Then the yaw angle 
-   * get from the orientation using tf::getYaw() varies [0, PI] and [0, -PI]. So, if the angle is
-   * equal to PI/2 or -PI/2, the robot is heading the y axis. If is equal to 0, PI or -PI is heading
-   * the x axis. Considering this angle, the flag is_heading_x is set. 
-   */
-  // TODO correct documentation
-
   void configureControllers();
   void spin();
-
-  double computeAngleToTurn(double angle_offset);
-
-  double computeDistanceToMove();
-  double getCurrentPosition();
-  double getCurrentOrientation();
-
   bool isMoveForwardGoalReached(double actual_position);
   bool isTurnRobotGoalReached();
-
-  // void updatePosition();
-
-  // void updateOrientation();
-
-  // double getCurrentRadOrientation();
-  // double getCurrentNormalizedRadOrientation();
-
-  double angle_to_turn_;
-  /** Flag to set if the rotational movement will be clockwise or couter clockwise
-   *    - true: clockwise
-   *    - false: couter clockwise  **/
-  bool is_clockwise_;
-
-  int current_row_;
-  int current_column_;
-
 };
 
 }  // namespace doogie_navigation

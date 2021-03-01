@@ -17,8 +17,8 @@ namespace doogie_navigation {
 
     void acceptNewGoal(const doogie_msgs::DoogieMoveGoalConstPtr& goal);
     Direction getDirection() const;
-    const int8_t getNumberOfCells() const;
-    const bool getStatus() const;
+    int8_t getNumberOfCells() const;
+    doogie_msgs::DoogieMoveResult getResult() const;
     void finish();
     void operator=(const doogie_msgs::DoogieMoveGoalConstPtr& goal) {
       acceptNewGoal(goal);
@@ -29,8 +29,8 @@ namespace doogie_navigation {
 
    private:
     doogie_msgs::DoogieMoveGoalPtr goal_{nullptr};
-    doogie_msgs::DoogieMoveResultPtr goal_result_;
-    doogie_msgs::DoogieMoveFeedbackPtr goal_feedback_;
+    doogie_msgs::DoogieMoveResult goal_result_;
+    doogie_msgs::DoogieMoveFeedback goal_feedback_;
   }; 
 }  // namespace doogie_navigation
 
