@@ -9,7 +9,7 @@ BaseSolver::BaseSolver(const MazeMatrixPtr maze_matrix)
 }
 
 BaseSolver::BaseSolver(){
-  doogie_pose_sub_ = nh_.subscribe("doogie_position", 100, &BaseSolver::doogiePoseCallback, this);
+  doogie_pose_sub_ = nh_.subscribe("doogie_pose", 100, &BaseSolver::doogiePoseCallback, this);
   maze_matrix_sub_ = nh_.subscribe("maze_matrix",2, &BaseSolver::mazeMatrixCallback, this);
 }
 
