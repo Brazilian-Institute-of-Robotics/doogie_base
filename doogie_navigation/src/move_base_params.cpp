@@ -3,6 +3,7 @@
 namespace doogie_navigation {
   MoveBaseParams::MoveBaseParams(const ros::NodeHandle& robot_nh) {
     ros::NodeHandle private_nh{"~"};
+    localization_plugin = loadParam<std::string>(private_nh, "localization_plugin");
     distance_tolerance = loadParam<double>(private_nh, "distance_tolerance");
     angle_tolerance = loadParam<double>(private_nh, "angle_tolerance");
     linear_velocity = loadParam<double>(private_nh, "linear_velocity");

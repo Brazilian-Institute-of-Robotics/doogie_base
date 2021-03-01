@@ -10,6 +10,7 @@ class MoveBaseParams {
   template <typename T>
   T loadParam(const ros::NodeHandle& private_nh, const std::string& param_name);
 
+  std::string localization_plugin{"doogie_localization/OdomController"};
   double distance_tolerance;
   double angle_tolerance;
   double linear_velocity;
