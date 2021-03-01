@@ -50,13 +50,13 @@ double PIDController::computeControlAction(double actual_value) {
     return pid_.computeCommand(computeError(actual_value), dt);
 }
 
+double PIDController::computeError(double actual_value) {
+    return error_ = setpoint_ - actual_value;
+}
+
 double PIDController::computeAbsoluteError(double actual_value) {
     error_ = computeError(actual_value);
     return std::abs(error_);
-}
-
-double PIDController::computeError(double actual_value) {
-    return error_ = setpoint_ - actual_value;
 }
 
 double const PIDController::getError() const {

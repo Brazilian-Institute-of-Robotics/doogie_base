@@ -36,7 +36,7 @@ double DiffDriveController::getCurrentYawOrientation() {
 }
 
 double DiffDriveController::getCurrentNormalizedYawOrientation() {
-  return angles::normalize_angle_positive(getCurrentYawOrientation());
+  return angles::normalize_angle(getCurrentYawOrientation());
 }
 
 void DiffDriveController::setLinearVelocity(double velocity) {
