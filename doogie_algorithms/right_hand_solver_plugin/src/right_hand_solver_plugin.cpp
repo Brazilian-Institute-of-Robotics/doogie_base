@@ -6,79 +6,81 @@ using namespace doogie_algorithms;
 namespace doogie_algorithms{
 
 // register RightHandSolver as a BaseSolver implementation
-PLUGINLIB_EXPORT_CLASS(right_hand_solver_plugin::RightHandSolverPlugin, doogie_core::BaseSolver)
+PLUGINLIB_EXPORT_CLASS(right_hand_solver_plugin::RightHandSolverPlugin, doogie_algorithms::BaseSolver)
 
-namespace right_hand_solver_plugin{
+namespace right_hand_solver_plugin {
 
-RightHandSolverPlugin::RightHandSolverPlugin(){}
+RightHandSolverPlugin::RightHandSolverPlugin() {}
 
-//to do: turn it void()
-bool RightHandSolverPlugin::makePlan(){
+bool RightHandSolverPlugin::makePlan() {
   int plan_attempts = 0;
-  while(!isPlanAttemptsReached(plan_attempts)){
-    if (!isWallRight()){
+  while (!isPlanAttemptsReached(plan_attempts)) {
+    if (!isWallRight()) {
       goal_.direction = doogie_msgs::DoogieMoveGoal::RIGHT;
-      ROS_DEBUG_STREAM("Goal is: right");
+      ROS_INFO_STREAM("Goal is: right");
 
       return true;
     }
 
-    else if (!isWallFront()){
+    if (!isWallFront()) {
       goal_.direction = doogie_msgs::DoogieMoveGoal::FRONT;
-      ROS_DEBUG_STREAM("Goal is: front");
+      ROS_INFO_STREAM("Goal is: front");
       return true;
     }
 
-    else if (!isWallLeft()){
+    if (!isWallLeft()) {
       goal_.direction = doogie_msgs::DoogieMoveGoal::LEFT;
-      ROS_DEBUG_STREAM("Goal is: left");
+      ROS_INFO_STREAM("Goal is: left");
       return true;
     }
 
-    else if(!isWallBack()){
+    if (!isWallBack()) {
       goal_.direction = doogie_msgs::DoogieMoveGoal::BACK;
-      ROS_DEBUG_STREAM("Goal is: back");
+      ROS_INFO_STREAM("Goal is: back");
       return true;
     }
 
-    else{
-      plan_attempts++;
-      ros::spinOnce();
-    }
+    plan_attempts++;
+    ros::spinOnce();
   }
 
     return false;
-  
 }
 
-bool RightHandSolverPlugin::isPlanAttemptsReached(int count){
-  if(count >= params_.plan_attempts){
+bool RightHandSolverPlugin::isPlanAttemptsReached(int count) {
+  if (count >= params_.plan_attempts) {
     ROS_FATAL("Could not make a plan. There is no path robot can move");
-    // throw std::runtime_error("Could not make a plan. There is no path robot can move");
+    throw std::runtime_error("");
   }
   return count >= params_.plan_attempts;
 }
 
-//to do: turn it void
-bool RightHandSolverPlugin::move(){
-  
-  goal_.cells=1; //temporary: move_base_node shall have number of cells as 1 by default.
+// to do: turn it void
+bool RightHandSolverPlugin::move() {
+  goal_.cells = 1;
   doogie_handle_.move(goal_);
 
   return true;
 }
 
-void RightHandSolverPlugin::doogiePositionCallback(const doogie_msgs::DoogiePosition& position_msg){
+void RightHandSolverPlugin::doogiePoseCallback(const doogie_msgs::DoogiePose& pose_msg) {
+  doogie_handle_.setPose(pose_msg);
   ROS_INFO("update doogie");
-  start_solver = true; //to do: avoid using flags
-  doogie_handle_.setPosition(position_msg);
+  ROS_INFO_STREAM("\nRightHandSolver: Receive Doogie Position:\n" << pose_msg.position);
 }
 
-void RightHandSolverPlugin::mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze){
-  ROS_INFO("update matrix");
+void RightHandSolverPlugin::mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze) {
   matrix_handle_.updateMatrix(matrix_maze);
-  current_cell_ = matrix_handle_.getLocalCell(doogie_handle_.getPosition());
+  ROS_INFO_STREAM("RhSolver \n" << matrix_maze.data[0]);
+  current_cell_ = matrix_handle_.getLocalCell(doogie_handle_.getPose());
+  ROS_INFO("update matrix");
+  ROS_INFO_STREAM("cell is " << doogie_handle_.getPose());
+  ROS_INFO_STREAM("is front_wall? " << std::boolalpha << current_cell_.front_wall);
+  ROS_INFO_STREAM("is back_wall? " << std::boolalpha << current_cell_.back_wall);
+  ROS_INFO_STREAM("is right_wall? " << std::boolalpha << std::boolalpha << current_cell_.right_wall);
+  ROS_INFO_STREAM("is left_wall? " << std::boolalpha << current_cell_.left_wall);
+  start_solver = true;  // to do: avoid using flags
 }
 
-} // namespace doogie_algorithms::right_hand_solver_plugin
-} // namespace doogie_algorithms
+}  // namespace right_hand_solver_plugin
+}  // namespace doogie_algorithms
