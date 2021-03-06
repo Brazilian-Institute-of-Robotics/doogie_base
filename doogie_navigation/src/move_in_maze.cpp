@@ -20,7 +20,7 @@ MoveInMaze::MoveInMaze(const ros::NodeHandle& robot_nh)
   move_base_action_server.registerGoalCallback(boost::bind(&MoveInMaze::receiveGoalCallback, this));
   move_base_action_server.start();
 
-  pose_pub_ = nh_.advertise<doogie_msgs::DoogiePose>("doogie_position", 5);
+  pose_pub_ = nh_.advertise<doogie_msgs::DoogiePose>("doogie_pose", 5);
   robot_pose_ = Pose{params_.row_init_position, params_.row_init_position, GlobalOrientation::NORTH};
   initializeCommandMap();
 }
