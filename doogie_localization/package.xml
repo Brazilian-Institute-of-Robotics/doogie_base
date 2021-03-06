@@ -12,17 +12,19 @@
   
   <buildtool_depend>catkin</buildtool_depend>
   
-  <build_depend>angle</build_depend>
+  <build_depend>angles</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>pluginlib</build_depend>    
   <build_depend>roscpp</build_depend>
-  <build_depend>tf2</build_depend>    
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>   
 
-  <exec_depend>angle</exec_depend>
+  <exec_depend>angles</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>pluginlib</exec_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>tf2</exec_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
 
   <export>
     <doogie_localization plugin="${prefix}/odom_controller_plugin_description.xml"/>

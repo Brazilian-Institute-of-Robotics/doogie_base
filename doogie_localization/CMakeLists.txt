@@ -8,7 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs 
   pluginlib
   roscpp 
-  tf2 
+  tf2
+  tf2_geometry_msgs
 )
 
 catkin_package(
