@@ -115,7 +115,7 @@ void MoveInMaze::updateOrientation(Direction goal_direction) {
 
 void MoveInMaze::start() {
   ROS_DEBUG_STREAM("Start");
-  static ros::Rate rate{params_.loop_frequency};
+  ros::Rate rate{params_.loop_frequency};
 
   ROS_INFO("Move base node has started");
   while (ros::ok()) {

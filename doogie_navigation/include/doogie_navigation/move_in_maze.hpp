@@ -64,11 +64,7 @@ class MoveInMaze : public MoveBase {
  private:
   void initializeCommandMap();
   void spin();
-  double computeDistanceToMove();
-  bool isHeadingXAxis();
   
-  void sendRotateCommand(const double& goal_direction);
-  void sendMoveStraightCommand(const int& number_of_cells);
   void sendMoveToNorthCommand(double distance_to_move);
   void sendMoveToSouthCommand(double distance_to_move);
   void sendMoveToEastCommand(double distance_to_move);
