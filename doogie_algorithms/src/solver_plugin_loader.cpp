@@ -36,4 +36,4 @@ boost::shared_ptr<doogie_algorithms::BaseSolver> SolverPluginLoader::getSolverIn
   }
 }
 
-} // namespace doogie_algorithms
+}  // namespace doogie_algorithms

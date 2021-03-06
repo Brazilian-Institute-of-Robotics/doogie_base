@@ -21,6 +21,6 @@ class SolverPluginLoader {
     boost::shared_ptr<doogie_algorithms::BaseSolver> solver_;
 };
 
-} //namespace doogie_algorithms
+}  //namespace doogie_algorithms
 
-#endif // DOOGIE_ALGORITHMS_SOLVER_PLUGIN_LOADER_HPP_
+#endif  // DOOGIE_ALGORITHMS_SOLVER_PLUGIN_LOADER_HPP_

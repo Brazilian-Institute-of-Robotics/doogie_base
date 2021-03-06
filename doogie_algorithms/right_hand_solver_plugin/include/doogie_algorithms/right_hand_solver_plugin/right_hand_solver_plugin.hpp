@@ -16,11 +16,13 @@ class RightHandSolverPlugin : public doogie_algorithms::BaseSolver {
   RightHandSolverPlugin();
   bool makePlan() override;
   bool move() override;
-  void doogiePoseCallback(const doogie_msgs::DoogiePose& pose_msg) override;
-  void mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze) override;
   bool isPlanAttemptsReached(int count);
+  struct ROSParams : doogie_algorithms::BaseSolver::ROSParams {
+    int plan_attempts{5};
+  };
 
  private:
+    ROSParams params_;
     int replan_count;
 };
 

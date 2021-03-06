@@ -12,11 +12,12 @@
 #include "doogie_core/maze_matrix_handle.hpp"
 namespace doogie_algorithms {
 
-class BaseSolver{
+class BaseSolver {
   public:
 
     BaseSolver();
     BaseSolver(const MazeMatrixPtr maze_matrix);
+    doogie_core::MouseHandle& getDoogieHandle();
     virtual void initialize();
     virtual void configureSolverFromParams();
     virtual void waitForStart();
@@ -32,9 +33,7 @@ class BaseSolver{
     virtual void doogiePoseCallback(const doogie_msgs::DoogiePose& position_msg);
     virtual void mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze);
     virtual ~BaseSolver() {}
-    struct ROSParams{
-      int& getPlanAttempts();
-      float& getRate();
+    struct ROSParams {
       int plan_attempts{5};
       float rate{0.5};
     };
@@ -56,6 +55,6 @@ class BaseSolver{
     doogie_msgs::DoogieMoveGoal goal_;
 };
 
-} //namespace doogie_algorithms
+}  // namespace doogie_algorithms
 
-#endif
+#endif  // DOOGIE_ALGORITHMS_BASE_SOLVER_HPP_
