@@ -29,9 +29,6 @@ void MoveBase::turnRobot(double rad_angle) {
   double current_orientation =
     angles::normalize_angle(localization_iface_->getCurrentNormalizedYawOrientation());
   double control_action_input = pid_[ANGULAR].computeControlAction(target_angle, current_orientation);
-  ROS_INFO_STREAM_THROTTLE(1, "Target Orientation: " << target_angle);
-  ROS_INFO_STREAM_THROTTLE(1, "Current Orientation: " << current_orientation);
-  ROS_INFO_STREAM_THROTTLE(1, "Angular Error: " << pid_[ANGULAR].getError());
   ROS_INFO_STREAM("turning");
   while (!isTurnRobotGoalReached()) {
     motion_iface_.setAngularVelocity(control_action_input);
@@ -40,10 +37,6 @@ void MoveBase::turnRobot(double rad_angle) {
       angles::normalize_angle(localization_iface_->getCurrentNormalizedYawOrientation());
     control_action_input = pid_[ANGULAR].computeControlAction(target_angle, current_orientation);
     ROS_INFO_STREAM_THROTTLE(1, "\nstill rotating");
-    ROS_INFO_STREAM_THROTTLE(1, "Target Orientation: " << target_angle);
-    ROS_INFO_STREAM_THROTTLE(1, "Current Orientation: " << current_orientation);
-    ROS_INFO_STREAM_THROTTLE(1, "Angular Error: " << pid_[ANGULAR].getError());
-    ROS_INFO_STREAM_THROTTLE(1, "Control Action: " << control_action_input);
 
     spin();
   }
