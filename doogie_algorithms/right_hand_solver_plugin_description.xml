@@ -1,6 +1,6 @@
 <library path="lib/libright_hand_solver_plugin">
 
-  <class name="doogie_algorithms/RightHandSolverPlugin" type="right_hand_solver_plugin::RightHandSolverPlugin" base_class_type="doogie_core::BaseSolver">
+  <class name="doogie_algorithms/RightHandSolverPlugin" type="right_hand_solver_plugin::RightHandSolverPlugin" base_class_type="doogie_algorithms::BaseSolver">
     <description>
       A right-hand solver for micromouse maze.
     </description>

@@ -6,7 +6,7 @@ add_library(${DOOGIE_SOLVER_LIB_NAME}
 
 set_target_properties(${DOOGIE_SOLVER_LIB_NAME} PROPERTIES VERSION "${${PROJECT_NAME}_VERSION}")
 
-target_link_libraries(${DOOGIE_SOLVER_LIB_NAME} ${catkin_LIBRARIES} )
+target_link_libraries(${DOOGIE_SOLVER_LIB_NAME} ${catkin_LIBRARIES} base_solver)
 
 install(TARGETS ${DOOGIE_SOLVER_LIB_NAME}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

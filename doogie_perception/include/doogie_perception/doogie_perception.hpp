@@ -3,7 +3,7 @@
 
 #include <ros/ros.h>
 #include "doogie_core/maze_matrix_handle.hpp"
-#include "doogie_msgs/DoogiePosition.h"
+#include "doogie_navigation/maze_pose.hpp"
 #include "doogie_msgs/WallDistances.h"
 
 namespace doogie_perception {
@@ -31,7 +31,7 @@ class DoogiePerception {
    * 
    * @param doogie_position Message holding robot position (row, column, orientation).
    */
-  void doogiePositionCallback(const doogie_msgs::DoogiePositionConstPtr& doogie_position);
+  void doogiePoseCallback(const doogie_msgs::DoogiePoseConstPtr& doogie_position);
   /**
    * @brief Callback method called when a @p wall_distances message arrives in the topic.
    * 
@@ -48,15 +48,15 @@ class DoogiePerception {
   ros::NodeHandle nh_;
   /** Publisher to publish maze obstacle matrix. */
   ros::Publisher maze_obstacle_matrix_pub_;
-  /** Subscriber to get the robot position. */
-  ros::Subscriber doogie_position_sub_;
+  /** Subscriber to get the robot pose. */
+  ros::Subscriber doogie_pose_sub_;
   /** Subscriber to get distances from the robot to cell walls. */
   ros::Subscriber wall_distances_sub_;
 
   /** Object to make operation in the maze obstacle matrix. */
   doogie_core::MazeMatrixHandle maze_obstacle_matrix_;
   /** Object to holding the last robot position published. */
-  doogie_msgs::DoogiePosition doogie_position_;
+  doogie_navigation::MazePose doogie_pose_;
 
   /** Flag to dictate when the maze obstacle matrix should be published. */
   bool is_to_pub_maze_obstacle_matrix_;

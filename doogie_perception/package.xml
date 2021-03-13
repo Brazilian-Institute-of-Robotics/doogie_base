@@ -13,5 +13,6 @@
   <depend>roscpp</depend>
   <depend>doogie_core</depend>
   <depend>doogie_msgs</depend>
+  <depend>doogie_navigation</depend>
 
 </package>

@@ -14,14 +14,14 @@
                 xyz="0.0033664 1.419E-05 -1.7243E-07" 
                 rpy="0.0 0.0 0.0"/>
             <mass 
-                value="0.0029447"/>
+                value="0.29447"/>
             <inertia
-                ixx="4.567E-07"
-                ixy="4.239E-11"
-                ixz="-5.3853E-13"
-                iyy="2.3874E-07"
-                iyz="-1.5273E-12"
-                izz="2.3862E-07" />
+                ixx="0.2"
+                ixy="0"
+                ixz="0"
+                iyy="0.2"
+                iyz="0"
+                izz="0.2" />
         </inertial>
 
         <visual>
@@ -38,7 +38,7 @@
                 xyz="-0.0025 0.0 0.0" 
                 rpy="0.0 1.5708 0.0"/>
             <geometry>
-                <cylinder radius="0.0177" length="0.005"/>
+                <cylinder radius="0.015" length="0.005"/>
              </geometry>
         </collision>
 
@@ -50,7 +50,8 @@
         <child 
             link="${namespace}/wheel/${wheel_name}"/>
         <dynamics 
-            friction="0.6"/>
+            friction="0.6"
+            damping="10.0"/>
         <xacro:insert_block name="origin"/>
         <xacro:insert_block name="axis"/>
     </joint>
@@ -58,7 +59,7 @@
     <transmission name="wheel/${wheel_name}_trans" type="SimpleTransmission">
         <type>transmission_interface/SimpleTransmission</type>
         <actuator name="wheel/${wheel_name}_motor">
-            <mechanicalReduction>1</mechanicalReduction>
+            <mechanicalReduction>2</mechanicalReduction>
             <!-- 
                 The hardwareInterface tag in below is optional when inside <actuator>, but it is used here to maintain compatibility 
                 with ROS releases prior to Indigo. 
@@ -72,11 +73,25 @@
 
     <gazebo reference="${namespace}/wheel/${wheel_name}">
         <kp>1000000.0</kp>
-        <kd>100.0</kd>
-        <mu1>1.0</mu1>
-        <mu2>1.0</mu2>
+        <kd>1000.0</kd>
+        <mu1>5.0</mu1>
+        <mu2>5.0</mu2>
         <maxVel>0.5</maxVel>
-        <minDepth>0.0005</minDepth>
+        <!-- <minDepth>0.0005</minDepth> -->
+        <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wheel/${wheel_name}_joint">
+        <provideFeedback>true</provideFeedback>
+        <!-- <implicitSpringDamper>true</implicitSpringDamper> -->
+    </gazebo>
+
+    <gazebo>
+      <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+        <updateRate>1</updateRate>
+        <topicName>wheel/${wheel_name}_joint/ft_sensor_topic</topicName>
+        <jointName>wheel/${wheel_name}_joint</jointName>
+      </plugin>
     </gazebo>
 
     </xacro:macro>

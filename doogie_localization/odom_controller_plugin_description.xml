@@ -1,0 +1,9 @@
+<library path="lib/libodom_controller">
+
+  <class name="doogie_localization/OdomController" type="doogie_localization::OdomController" base_class_type="doogie_localization::BaseLocalization">
+    <description>
+      A simple interface implementation for odometry reading.
+    </description>
+  </class>
+  
+</library>

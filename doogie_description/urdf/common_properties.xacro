@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 
 <robot name="xacro_properties" xmlns:xacro="http://ros.org/wiki/xacro">
+<!-- DEPRECATED -->  
 
-  <!-- Init colour -->  
   <material name="black">
       <color rgba="0.0 0.0 0.0 1.0"/>
   </material>

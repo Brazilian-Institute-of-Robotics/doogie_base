@@ -1,0 +1,19 @@
+# PID settings for class control_toobox::PID used in control loop of the Doogie Mouse wheels 
+pid:
+  linear:
+    p: 0.6
+    i: 0.0
+    d: 0.0
+    i_clamp_min: -0.1
+    i_clamp_max: 0.1
+    antiwindup: true
+    publish_state: true
+
+  angular:
+    p: 0.3
+    i: 0.0
+    d: 0.0
+    i_clamp_min: -0.0
+    i_clamp_max: 0.0
+    antiwindup: true
+    publish_state: true

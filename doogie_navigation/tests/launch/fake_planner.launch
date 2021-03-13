@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node name="fake_planner" pkg="doogie_navigation" type="fake_planner" output="log" ns="doogie"/>
+
+</launch>

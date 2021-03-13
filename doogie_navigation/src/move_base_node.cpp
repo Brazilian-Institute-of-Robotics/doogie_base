@@ -3,9 +3,9 @@
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "move_base_node");
+  ros::NodeHandle nh;
 
-  ros::NodeHandle robot_base_nh("move_base_controller");
-  doogie_navigation::MoveBase move_base(robot_base_nh);
+  doogie_navigation::MoveBase move_base(nh);
 
   move_base.start();
 

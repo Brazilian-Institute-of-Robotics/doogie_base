@@ -3,8 +3,9 @@
  
   <arg name="ns" default="/"/>
  
-  <node name="doogie_move_base" pkg="doogie_navigation" type="move_base_node">
-    <rosparam file="$(find doogie_navigation)/config/move_base.yaml" command="load"/>
+  <node name="doogie_move_base_controller" pkg="doogie_navigation" type="move_base_node" output="log">
+    <rosparam file="$(find doogie_control)/config/doogie_move_base_controller.yaml" command="load"/>
+    <!-- <remap from="/doogie_move_base" to="/move_base_controller"/> -->
   </node>
 
 </launch>

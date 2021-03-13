@@ -35,35 +35,65 @@
             xyz="-1.0 0.0 0.0"/>
     </xacro:wheels>
 
-    <!-- Add ros_control plugin -->
+    <!-- Model Plugins -->
     <gazebo>
+        <!-- ros_control plugin -->
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
 
-        <!-- robotnamespace tag is note used here because it
+        <!-- robotnamespace tag is not used here because it
              blocks changing robot namespace in extern launchfiles
          -->
 
             <robotParam>$(arg robotParam)</robotParam>
         </plugin>
+
+        <!-- ground truth plugin -->
+        <plugin name="gazebo_ros_p3d" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>100.0</updateRate>
+            <bodyName>$(arg namespace)/base_link</bodyName>
+            <topicName>/gazebo/ground_truth</topicName>
+            <!-- <frameName>world</frameName> -->
+            <!-- <gaussianNoise>0.0</gaussianNoise>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets> -->
+        </plugin> 
+    </gazebo>
+
+    <!--  Add colision sensor plugin -->
+    <gazebo reference="$(arg namespace)/base_link">
+        <sensor name="bumper_sensor" type="contact">
+            <always_on>true</always_on>
+            <update_rate>1</update_rate>
+            <contact>
+                <collision>/base_link_fixed_joint_lump__doogie_collision_collision</collision>
+            </contact>
+            <plugin name="gazebo_ros_bumper" filename="libgazebo_ros_bumper.so">
+                <bumperTopicName>bumper</bumperTopicName>
+                <frameName>base_link</frameName>
+                <always_on>true</always_on>
+                <update_rate>1</update_rate>
+            </plugin>
+        </sensor>
     </gazebo>
 
     <!-- Create ir_sensors -->  
     <xacro:sensors namespace="$(arg namespace)" sensor_name="left">
         <origin
-            xyz="0.0229854612389802 0.0415098295899679 -0.01074"
-            rpy="1.5707963267949 0 0.0415640560935549"/>
+            xyz="0.023438 0.041802 -0.01074"
+            rpy="1.5708 0 0.097308"/>
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="front_left">
         <origin
             xyz="0.0549597020112072 0.013499578883641 -0.01074"
-            rpy="1.5707963267949 0 1.08295252826201"/>
+            rpy="1.5707963267949 0 1.5708"/>
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="front_right">
         <origin
             xyz="0.0551208644089312 -0.0136426818026577 -0.01074"
-            rpy="1.5707963267949 0 -1.0215948588127" />
+            rpy="1.5707963267949 0 -1.5708" />
     </xacro:sensors>
 
     <xacro:sensors namespace="$(arg namespace)" sensor_name="right">

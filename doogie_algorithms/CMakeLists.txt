@@ -18,7 +18,10 @@ set(DOOGIE_ALGORITHMS_INCLUDE_DIRS
 
 catkin_package(
   INCLUDE_DIRS 
+    include
     ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}
+  LIBRARIES 
+    base_solver
   CATKIN_DEPENDS 
     pluginlib
     doogie_core
@@ -27,9 +30,15 @@ catkin_package(
   )
 
 include_directories(
+  include
   ${DOOGIE_ALGORITHMS_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+)
+
+add_library(base_solver
+  src/base_solver.cpp
+  src/solver_plugin_loader.cpp
 )
 
 add_subdirectory(right_hand_solver_plugin)
