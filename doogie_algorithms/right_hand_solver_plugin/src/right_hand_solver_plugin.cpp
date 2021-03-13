@@ -2,16 +2,23 @@
 
 #include "doogie_algorithms/right_hand_solver_plugin/right_hand_solver_plugin.hpp"
 
-using namespace doogie_algorithms;
-
-namespace doogie_algorithms{
+namespace doogie_algorithms {
 
 // register RightHandSolver as a BaseSolver implementation
 PLUGINLIB_EXPORT_CLASS(right_hand_solver_plugin::RightHandSolverPlugin, doogie_algorithms::BaseSolver)
 
 namespace right_hand_solver_plugin {
 
-RightHandSolverPlugin::RightHandSolverPlugin() {}
+void RightHandSolverPlugin::initialize() {
+  loadParams();
+}
+
+void RightHandSolverPlugin::loadParams() {
+  BaseSolver::loadParams(params_);
+  if(!getPrivateNodeHandle().getParam("plan_attempts", params_.plan_attempts)) {
+    ROS_INFO_STREAM("/plan_attempts param is not set. Using default: " << params_.plan_attempts);
+  }
+}
 
 bool RightHandSolverPlugin::makePlan() {
   int plan_attempts = 0;
@@ -56,7 +63,6 @@ bool RightHandSolverPlugin::isPlanAttemptsReached(int count) {
   return count >= params_.plan_attempts;
 }
 
-// to do: turn it void
 bool RightHandSolverPlugin::move() {
   goal_.cells = 1;
   getDoogieHandle().move(goal_);
