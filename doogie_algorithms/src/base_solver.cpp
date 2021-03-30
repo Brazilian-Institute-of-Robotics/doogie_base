@@ -13,21 +13,25 @@ BaseSolver::BaseSolver(){
   maze_matrix_sub_ = nh_.subscribe("maze_matrix",2, &BaseSolver::mazeMatrixCallback, this);
 }
 
+ros::NodeHandle& BaseSolver::getNodeHandle() {
+  return nh_;
+}
+
+ros::NodeHandle& BaseSolver::getPrivateNodeHandle() {
+  return ph_;
+}
+
 doogie_core::MouseHandle& BaseSolver::getDoogieHandle() {
   return doogie_handle_;
 }
 
 void BaseSolver::initialize(){
-  configureSolverFromParams();
+  loadParams(params_);
 }
 
-void BaseSolver::configureSolverFromParams() {
-  if(!ph_.getParam("plan_attempts", params_.plan_attempts)) {
-    ROS_INFO_STREAM("/plan_attempts param is not set. Using default: " << params_.plan_attempts);
-  }
-
-  if(!ph_.getParam("plan_attempts", params_.rate)) {
-    ROS_INFO_STREAM("/rate param is not set. Using default: " << params_.rate);
+void BaseSolver::loadParams(ROSParams& params) {
+  if(!getPrivateNodeHandle().getParam("rate", params.rate)) {
+    ROS_INFO_STREAM("/rate param is not set. Using default: " << params.rate);
   }
 }
 
@@ -81,9 +85,9 @@ void BaseSolver::doogiePoseCallback(const doogie_msgs::DoogiePose& pose_msg) {
 void BaseSolver::mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze) {
   matrix_handle_.updateMatrix(matrix_maze);
   ROS_INFO_STREAM("Solver \n" << matrix_maze.data[0]);
-  current_cell_ = matrix_handle_.getLocalCell(doogie_handle_.getPose());
   ROS_INFO("update matrix");
   ROS_INFO_STREAM("cell is " << doogie_handle_.getPose());
+  current_cell_ = matrix_handle_.getLocalCell(doogie_handle_.getPose());
   start_solver = true;  // to do: avoid using flags
 }
 

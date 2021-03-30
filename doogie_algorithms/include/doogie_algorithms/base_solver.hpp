@@ -14,12 +14,10 @@ namespace doogie_algorithms {
 
 class BaseSolver {
   public:
-
     BaseSolver();
     BaseSolver(const MazeMatrixPtr maze_matrix);
     doogie_core::MouseHandle& getDoogieHandle();
     virtual void initialize();
-    virtual void configureSolverFromParams();
     virtual void waitForStart();
     virtual bool isWallFront();
     virtual bool isWallBack();
@@ -32,27 +30,35 @@ class BaseSolver {
     virtual std::string getSolverName();
     virtual void doogiePoseCallback(const doogie_msgs::DoogiePose& position_msg);
     virtual void mazeMatrixCallback(const doogie_msgs::MazeCellMultiArray& matrix_maze);
-    virtual ~BaseSolver() {}
+    virtual ~BaseSolver() = default;
+
+  protected:
     struct ROSParams {
-      int plan_attempts{5};
       float rate{0.5};
     };
 
-  protected:
-    std::string solver_name_;
-    bool start_solver{false};
+    virtual void loadParams(ROSParams& params);
+    ros::NodeHandle& getNodeHandle();
+    ros::NodeHandle& getPrivateNodeHandle();
 
     ROSParams params_;
+  
     ros::Subscriber doogie_pose_sub_;
     ros::Subscriber maze_matrix_sub_;
+
+    doogie_msgs::DoogieMoveGoal goal_;
+
+  private:
+    bool start_solver{false};
+    std::string solver_name_;
 
     ros::NodeHandle nh_;
     ros::NodeHandle ph_{"~"};
 
-    doogie_core::MouseHandle doogie_handle_;
-    doogie_core::LocalCell current_cell_;
     doogie_core::MazeMatrixHandle matrix_handle_;
-    doogie_msgs::DoogieMoveGoal goal_;
+    doogie_core::MouseHandle doogie_handle_;
+    
+    doogie_core::LocalCell current_cell_;
 };
 
 }  // namespace doogie_algorithms

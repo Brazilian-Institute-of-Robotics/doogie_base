@@ -5,9 +5,9 @@
 #include "doogie_msgs/DoogiePose.h"
 #include "doogie_msgs/DoogieMoveAction.h"
 
-namespace doogie_core{
+namespace doogie_core {
 
-class MouseHandle{
+class MouseHandle {
 
 public:
 MouseHandle();
